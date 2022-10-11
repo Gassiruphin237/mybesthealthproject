@@ -1,0 +1,45 @@
+
+
+.paperStyle{
+    padding: 50;
+    height: 70vh;
+    width: 250;
+    margin: 20px auto
+}
+
+.TextFieldStyle{
+    margin: 10;
+    padding: "0 0 5px";
+    size: '50px'
+}
+
+.btnStyle{
+    margin: "8px 0";
+    background-color: '#04A3BD'
+}
+
+.typStyle{
+    align-self: 'center'; 
+    border-bottom: "solid black 2px"; 
+    padding-bottom: '50px' 
+}
+
+.linkStyle{
+    display: 'flex'; 
+    margin-top: 50; 
+    justify-content: 'space-around';
+    border-bottom:"solid black 2px";
+    padding-bottom: '50px'
+}
+
+.googleStyle{
+    background-color: '#04A3BD';
+    width: '50px';
+    height: '50px'
+}
+
+.facebookstyle{
+    background-color: '#D9D9D9';
+    width: '50px';
+    height: '50px'
+}
