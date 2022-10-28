@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import google from '../../../assets/google.png'
-
+import axios from 'axios'
 
 function Login() {
   const paperStyle = { padding: 20, height: '70vh', width: 300, margin: "0 auto" }
@@ -17,7 +17,7 @@ function Login() {
   const googleStyle = { width: '60px', height: '60px' }
 
   // const googleStyle = { backgroundColor: '#FF045D', width: '50px', height: '50px' }
-  
+
   const initialValues = {
     email: '',
     password: ''
@@ -27,16 +27,13 @@ function Login() {
     password: Yup.string().required("Required")
   })
 
-  const onSubmit = (values, props) => {
+  const onSubmit = async (values, props) => {
     console.log(values)
-    setTimeout(() => {
-      props.resetForm()
-      props.setSubmitting(false)
-    }, 2000)
 
-    console.log(props)
+    const result = await axios.post('http://172.17.4.105:8000/api/login', values)
+    console.log(result.data)
   }
- 
+
   return (
     <Grid>
       <Paper style={paperStyle}>
@@ -47,10 +44,10 @@ function Login() {
               <Field as={TextField} label="Email" name="email"
                 placeholder="Email" size='300' style={TextFieldStyle} fullWidth
                 helperText={<ErrorMessage name="email" />}
-                req
+                
               />
               <Field as={TextField} label="password" name="password" type="password"
-                placeholder ="Password" required style={TextFieldStyle} fullWidth
+                placeholder="Password" required style={TextFieldStyle} fullWidth
                 helperText={<ErrorMessage name="password" />}
               />
               <Typography fullwidth>
@@ -71,8 +68,8 @@ function Login() {
 
           <Typography>
             <Link href="#" >
-                <img src={google} alt='logo' style={googleStyle}/>
-                {/* <FacebookIcon /> */}
+              <img src={google} alt='logo' style={googleStyle} />
+              {/* <FacebookIcon /> */}
             </Link>
           </Typography>
 

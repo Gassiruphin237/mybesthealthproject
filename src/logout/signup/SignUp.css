@@ -2,10 +2,38 @@ h2{
     text-align: center;
 }
 
-.container{
-    margin: 30px;
-    
+/* le contenair de la grid*/
+.gridContainer {
+   height: 80vh;
+   margin: 40px;
+   
 }
- .body{
-    margin-bottom:10px !important;
- }
+
+/* sur le paper*/
+.container{
+   height: 80vh;
+   width: 400px;
+   margin: auto;
+   align-items: center;
+   
+}
+
+/* sur le form */
+.formStyle {
+   margin: 0px auto;
+   padding: 10px;
+   margin-top: 50px;
+}
+
+/* Appliqué sur les field */
+.fieldStyle {
+   padding-bottom: 5px !important;
+   border-radius: 50% !important;
+}
+
+
+/* Bouton */
+.buttonStyle {
+   background-color: #04A3BD !important;
+   margin-bottom: 10px !important;
+}
