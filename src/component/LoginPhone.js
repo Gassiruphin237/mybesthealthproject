@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Grid, Paper, Link, Typography, Button } from '@mui/material'
 import TextInput from './TextInput'
 import '../styles/LoginPhone.css'
@@ -6,7 +6,7 @@ import validator from 'validator'
 
 function LoginPhone() {
 
-    const [phone, setPhone] = React.useState({
+   const [phone, setPhone] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
@@ -22,7 +22,7 @@ function LoginPhone() {
             setPhone(state => {
                 return {
                     ...state,
-                    error: true,
+                    error: false,
                     value: val,
                     helperText: 'Please enter valid number'
                 }
@@ -64,11 +64,14 @@ function LoginPhone() {
         console.log(data)
     }, [phone, password])
 
+    
+
   return (
     <Grid >
         <Paper className='container'>
-            <Grid>
+            <Grid >
                 <div>
+                    
                     <TextInput
                         label = 'phone'
                         type  = 'number'
@@ -89,6 +92,7 @@ function LoginPhone() {
                         placeholder = 'Enter your password'
                         onValueChange = {onPasswordChange}
                     />
+                    
                 </div>
                 <Typography className='forgetPassword'  >
                     <Link href="#">Forgot password ?</Link>
@@ -104,7 +108,7 @@ function LoginPhone() {
                         Log in
                 </Button>
                 <Typography className='memberYet'> Not a member yet ?
-                    <Link href="#">Join</Link>
+                    <Link href="/Sign-up">Join</Link>
                 </Typography>
             </Grid>
 

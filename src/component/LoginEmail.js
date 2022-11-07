@@ -6,6 +6,9 @@ import validator from "validator"
 
 export default function LoginEmail() {
 
+
+   
+
     const [email, setEmail] = React.useState({
         value: '',
         error: false,
@@ -92,12 +95,12 @@ export default function LoginEmail() {
                </div>
 
                 <Typography className='forgetPassword'  >
-                    <Link href="#">Forgot password ?</Link>
+                    <Link href="forgot-password">Forgot password ?</Link>
                 </Typography>
 
                 <Button variant="contained" className='buttonStyle' onClick={onSubmit} fullWidth >Log in</Button>
                 <Typography className='memberYet'> Not a member yet ?
-                    <Link href="/SignUp">Join</Link>
+                    <Link href="/Sign-up">Join</Link>
                 </Typography>
 
             <div className='gridDive'>
