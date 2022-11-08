@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Grid, Typography, Link, Button, Radio, } from '@mui/material'
 import '../styles/SignUp.css'
 import TextInput from '../component/TextInput'
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+// import Checkbox from '@mui/material/Checkbox';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import RadioGroup from '@mui/material/RadioGroup';
+// import FormControl from '@mui/material/FormControl';
+// import FormLabel from '@mui/material/FormLabel';
 import validator from 'validator'
 
 function SignUp() {
