@@ -3,11 +3,9 @@ import {Grid, Link, Button, Typography } from '@mui/material'
 import '../styles/LoginEmail.css'
 import TextInput from './TextInput'
 import validator from "validator"
+import axios  from 'axios';
 
 export default function LoginEmail() {
-
-
-   
 
     const [email, setEmail] = React.useState({
         value: '',
@@ -65,6 +63,16 @@ export default function LoginEmail() {
             email: email.value,
             password: password.value
         }
+
+        axios.post('http://172.17.4.27:8000/api/login', data)
+        .then(function(res) {
+          console.log(res.data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        })
+    
+
         console.log(data)
     }, [email, password])
 
@@ -105,7 +113,7 @@ export default function LoginEmail() {
 
             <div className='gridDive'>
                 <div className='div1'></div>
-                <div className='div2'><p2 className='p2'>or log in with</p2></div>
+                <div className='div2'><p2 className='p2'>Or log in with</p2></div>
                 <div className='div1'></div>
             </div>
 

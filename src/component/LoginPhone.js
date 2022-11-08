@@ -3,6 +3,7 @@ import {Grid, Paper, Link, Typography, Button } from '@mui/material'
 import TextInput from './TextInput'
 import '../styles/LoginPhone.css'
 import validator from 'validator'
+import axios from 'axios'
 
 function LoginPhone() {
 
@@ -18,7 +19,7 @@ function LoginPhone() {
     })
 
     const onPhoneChange = React.useCallback((val) => {
-        if(!validator.isEmpty(val)){
+        if(!validator.isMobilePhone(val)){
             setPhone(state => {
                 return {
                     ...state,
@@ -58,9 +59,18 @@ function LoginPhone() {
 
     const onSubmit = React.useCallback(() => {
         const data = {
-            phone: phone.value,
+            numberUser: phone.value,
             password: password.value
         }
+
+        axios.post('http://172.17.4.27:8000/api/login', data)
+        .then(function(res) {
+          console.log(res.data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        })
+
         console.log(data)
     }, [phone, password])
 
@@ -68,12 +78,12 @@ function LoginPhone() {
 
   return (
     <Grid >
-        <Paper className='container'>
+        <div className='container'>
             <Grid >
                 <div>
                     
                     <TextInput
-                        label = 'phone'
+                        label = 'Phone'
                         type  = 'number'
                         value = {phone.value}
                         error = {phone.error}
@@ -84,7 +94,7 @@ function LoginPhone() {
                 </div>
                 <div>
                     <TextInput
-                        label = 'password'
+                        label = 'Password'
                         type  = 'password'
                         value = {password.value}
                         error = {password.error}
@@ -114,7 +124,7 @@ function LoginPhone() {
 
             <div className='gridDive'>
                 <div className='div1'></div>
-                <div className='div2'><p2 className='p2'>or log in with</p2></div>
+                <div className='div2'><p2 className='p2'>Or log in with</p2></div>
                 <div className='div1'></div>
             </div>
 
@@ -130,7 +140,7 @@ function LoginPhone() {
                     </Link>
                 </Typography>
             </div>
-        </Paper>
+        </div>
     </Grid>
   )
 }
