@@ -11,13 +11,6 @@ import validator from 'validator'
 
 function SignUp() {
 
-    // const [FisrtName, setFisrtName] = React.useState('')
-    // const [LastName, setLastName] = React.useState('')
-    // const [Email, setEmail] = React.useState('')
-    // const [phone, setPhone] = React.useState('')
-    // const [Password, setPassword] = React.useState('')
-    // const [ConfirmPassword, setConfirmPassword] = React.useState('')
-
     /*
         validatiion first name 
     */
@@ -28,13 +21,13 @@ function SignUp() {
     })
 
     const onFisrtName = React.useCallback((val) => {
-        if (!validator.isAlpha(val)) {
+        if (validator.isAlpha(val)) {
             setFisrtName(state => {
                 return {
                     ...state,
                     value: val,
-                    error: true,
-                    helperText: 'enter valid name'
+                    error: false,
+                    helperText: 'Require'
                 }
             })
         }
@@ -42,8 +35,7 @@ function SignUp() {
             setFisrtName(state => ({
                 ...state,
                 value: val,
-                error: false,
-                helperText: 'Required'
+                error: true,
             }))
 
         }
@@ -58,15 +50,14 @@ function SignUp() {
         helperText: 'Require'
     })
 
-
     const onLastName = React.useCallback((val) => {
-        if (!validator.isAlpha(val)) {
+        if (validator.isAlpha(val)) {
             setLastName(state => {
                 return {
                     ...state,
                     value: val,
-                    error: true,
-                    helperText: 'enter valid name'
+                    error: false,
+                    // helperText: 'Require'
                 }
             })
         }
@@ -74,7 +65,7 @@ function SignUp() {
             setLastName(state => ({
                 ...state,
                 value: val,
-                error: false,
+                error: true,
                 helperText: 'Required'
             }))
 
@@ -98,23 +89,25 @@ function SignUp() {
                     ...state,
                     value: val,
                     error: true,
-                    helperText: 'enter valid email'
+                    helperText: 'Enter valid email'
                 }
             })
         }
         else {
+            
             setEmail(state => ({
                 ...state,
                 value: val,
                 error: false,
-                helperText: 'Required'
+                helperText: 'Require'
+            
             }))
-
-        }
-    }, [setEmail])
+          }
+        
+    }, [setEmail, validator])
 
     /*
-    validatiion phone
+       validatiion phone
     */
     const [phone, setPhone] = React.useState({
         value: '',
@@ -129,7 +122,7 @@ function SignUp() {
                     ...state,
                     value: val,
                     error: true,
-                    helperText: 'enter valid number'
+                    helperText: 'Enter valid number'
                 }
             })
         }
@@ -138,7 +131,7 @@ function SignUp() {
                 ...state,
                 value: val,
                 error: false,
-                helperText: 'Required'
+                helperText: ''
             }))
 
         }
@@ -168,7 +161,8 @@ function SignUp() {
             setPassword(state=> ({
                 ...state, 
                 value: val,
-                error: false
+                error: false,
+                helperText:'Require'
             }))
         }
     }, [setPassword])
@@ -176,34 +170,81 @@ function SignUp() {
     /*
       validatiion confirm password
     */
-      const [ConfirmPassword, setConfirmPassword] = React.useState({
+      const [confirmPassword, setConfirmPassword] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
 
-    const [value, setValue] = React.useState('female', 'male');
+    const onConfirmPasswordChange = React.useCallback((val) => {
+        if(!validator.isStrongPassword(val)) {
+            setConfirmPassword(state => {
+                return {
+                    ...state,
+                    error : true,
+                    value : val,
+                    helperText : 'Your password must to contain 8 characters '
+                }
+            })
+        }else if(!password === confirmPassword) {
+            setConfirmPassword(state => {
+                return {
+                    ...state,
+                    error : true,
+                    value : val,
+                    helperText : "Your password don't match"
+                }
+            })
+        } else {
+            setConfirmPassword(state=> ({
+                ...state, 
+                value: val,
+                error: false,
+                helperText:'Require'
+            }))
+        }
+    }, [setConfirmPassword, password, confirmPassword])
+
+
+    /*
+      validatiion confirm password
+    */
+    const [gender, setGender] = React.useState({
+        value: '',
+        error: false,
+        helperText: 'Require'
+    })
+
+    
 
     /* Function submit */
 
     const onSubmit = React.useCallback(() => {
+
         const data = {
             fisrtName: fisrtName.value,
             lastName: lastName.value,
             email: email.value,
             phone: phone.value,
-            password: password.value
+            password: password.value,
+            confirmPassword: confirmPassword.value,
+            gender: gender.value
+            
         }
         console.log(data)
-    }, [fisrtName, lastName, email, phone, password])
+    }, [fisrtName, lastName, email, phone, password, confirmPassword, gender])
+
 
     return (
         <div className='container'>
+            {/* Entete, logo et message d'entete */}
             <Grid align='center'>
                 <img src='./assets/logo.png' alt='logo' className='logoStyle' />
                 <h1> Sign up </h1>
                 <p1>Welcome, create your account now and get free online assistance with best doctors of mybesthealth</p1>
             </Grid>
+
+            {/* Div first and laast name  */}
             <div className='flNameStyle'>
                 <div className='flNameStyle1'>
                     <TextInput
@@ -228,6 +269,8 @@ function SignUp() {
                     />
                 </div>
             </div>
+
+            {/* Input email */}
             <div>
                 <TextInput
                     label='Email'
@@ -240,6 +283,7 @@ function SignUp() {
                 />
             </div>
 
+            {/* Input phone number */}
             <div>
                 <TextInput
                     label='Phone'
@@ -252,6 +296,7 @@ function SignUp() {
                 />
             </div>
             
+            {/* Password and Confirm password */}
             <div className='flNameStyle'>
                 <div className='flNameStyle1'>
                     <TextInput
@@ -268,28 +313,32 @@ function SignUp() {
                     <TextInput
                         label='Confirm Password'
                         type='ConfirmPassword'
-                        value={ConfirmPassword}
+                        value={confirmPassword.value}
+                        error={confirmPassword.error}
+                        helperText={confirmPassword.helperText}
                         placeholder={'Confirm your password'}
-                        onValueChange={ConfirmPassword}
+                        onValueChange={onConfirmPasswordChange}
                     />
                 </div>
             </div>
-            {/*
+            
+            {/* Gender */}
             <div className='flNameStyle1'>
               <FormControl>
               <FormLabel id="gender">Gender</FormLabel>
                 <RadioGroup
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="controlled-radio-buttons-group"
-                    value={value}
-                    onChange={handleChange}
+                    value={gender.value}
+                    // onChange={onGenderChange}
                 >
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                    <FormControlLabel gender="female" control={<Radio />} label="Female" />
+                    <FormControlLabel gender="male" control={<Radio />} label="Male" />
                 </RadioGroup>
               </FormControl>          
             </div>
-
+            
+            {/* Terms and conditions  */}
             <FormControlLabel
                 className='fieldStyle'
                 control={
@@ -299,8 +348,9 @@ function SignUp() {
                 }
                 label="I have read and accept the terms and conditions."
 
-            /> */}
+            /> 
 
+            {/* Button */}
             <Button
                 variant="contained"
                 type='submit'
