@@ -1,11 +1,15 @@
 import React from 'react'
-import {Grid, Link, Button, Typography } from '@mui/material'
+import { Grid, Link, Button, Typography } from '@mui/material'
 import '../styles/LoginEmail.css'
 import TextInput from './TextInput'
 import validator from "validator"
-import axios  from 'axios';
+import axios from 'axios';
 
 export default function LoginEmail() {
+
+    /*
+       State initilisation 
+    */
 
     const [email, setEmail] = React.useState({
         value: '',
@@ -16,31 +20,60 @@ export default function LoginEmail() {
         value: '',
         error: false,
         helperText: 'Required'
-   })
+    })
 
-    
-    const onEmailChange = React.useCallback((val) => {
-        if(!validator.isEmail(val)){
+    /*
+       E-mail verification 
+    */
+    const onChangeEmail = React.useCallback((val) => {
+
+        if (val.trim() === '') {
+            setEmail(state => ({
+                ...state,
+                value: val,
+                error: true,
+                helperText: 'Require'
+            }))
+            return;
+        }
+
+        if (!validator.isEmail(val)) {
             setEmail(state => {
                 return {
                     ...state,
-                    error: true,
                     value: val,
-                    helperText: 'Please enter valid email!'
+                    error: true,
+                    helperText: 'Enter valid email'
                 }
             })
-        }else{
-            setEmail(state=> ({
-                ...state, 
+        }
+        else {
+            setEmail(state => ({
+                ...state,
                 value: val,
                 error: false,
-                helperText: 'Required'
+                helperText: 'Require'
+
             }))
         }
-    }, [setEmail])
 
+    }, [setEmail, validator])
+
+
+    /*
+       Passsword verification
+    */
     const onPasswordChange = React.useCallback((val) => {
-        if(!validator.isStrongPassword(val)){
+        if (val.trim() === '') {
+            setPassword(state => ({
+                ...state,
+                value: val,
+                error: true,
+                helperText: 'Require'
+            }))
+            return;
+        }
+        if (!validator.isStrongPassword(val)) {
             setPassword(state => {
                 return {
                     ...state,
@@ -49,88 +82,114 @@ export default function LoginEmail() {
                     helperText: 'Your password must contain minimum 8 characters and must contain only special chars (., _, # and @)'
                 }
             })
-        }else{
-            setPassword(state=> ({
-                ...state, 
-                value: val,
-                error: false
-            }))
+            return
         }
+        setPassword(state => ({
+            ...state,
+            value: val,
+            error: false
+        }))
+
     }, [setPassword])
 
+
+    /*
+       verifcation input before submitting
+    */
+    function validateAll() {
+        return (
+            email.value.trim() !== '' &&
+            password.value.trim() !== ''
+        )
+    }
+
+    /*
+       function submitting axios post 
+    */
     const onSubmit = React.useCallback(() => {
-        const data = {
-            email: email.value,
-            password: password.value
+        if (!validateAll()) {
+            return
         }
+        else {
+            const data = {
+                email: email.value,
+                password: password.value
+            }
 
-        axios.post('http://172.17.4.27:8000/api/login', data)
-        .then(function(res) {
-          console.log(res.data);
-        })
-        .catch(function(error) {
-          console.log(error);
-        })
-    
+            axios.post('http://172.17.4.27:8000/api/login', data)
+                .then(function (res) {
+                    console.log(res.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
 
-        console.log(data)
+            console.log(data)
+        }
     }, [email, password])
 
-  return (
-    <Grid>
-        <div className='paperStyle'>
-               <div>
-               <TextInput
-                    label='Email'
-                    type='email'
-                    value={email.value}
-                    error={email.error}
-                    helperText={email.helperText}
-                    placeholder={'Enter your email'}
-                    onValueChange = {onEmailChange}
-                />
-               </div>
-               <div>
-               <TextInput
-                    label='Password'
-                    type='password'
-                    value={password.value}
-                    error={password.error}
-                    helperText={password.helperText}
-                    placeholder={'Enter your password'}
-                    onValueChange = {onPasswordChange}
-                />
-               </div>
+    return (
+        <Grid>
+            <div className='paperStyle'>
+                <Grid>
+                    <div>
+                        <TextInput
+                            label='Email'
+                            type='email'
+                            value={email.value}
+                            error={email.error}
+                            helperText={email.helperText}
+                            placeholder={'Enter your email'}
+                            onValueChange={onChangeEmail}
+                        />
+                    </div>
+                    <div>
+                        <TextInput
+                            label='Password'
+                            type='password'
+                            value={password.value}
+                            error={password.error}
+                            helperText={password.helperText}
+                            placeholder={'Enter your password'}
+                            onValueChange={onPasswordChange}
+                        />
+                    </div>
 
-                <Typography className='forgetPassword'  >
-                    <Link href="forgot-password">Forgot password ?</Link>
-                </Typography>
+                    <Typography className='forgetPassword'  >
+                        <Link href="forgot-password">Forgot password ?</Link>
+                    </Typography>
 
-                <Button variant="contained" className='buttonStyle' onClick={onSubmit} fullWidth >Log in</Button>
-                <Typography className='memberYet'> Not a member yet ?
-                    <Link href="/Sign-up">Join</Link>
-                </Typography>
+                    <Button
+                        variant="contained"
+                        className='buttonStyle'
+                        onClick={onSubmit}
+                        fullWidth
+                    >
+                        Log in
+                    </Button>
+                    <Typography className='memberYet'> Not a member yet ?
+                        <Link href="/Sign-up">Join</Link>
+                    </Typography>
+                </Grid>
+                <div className='gridDive'>
+                    <div className='div1'></div>
+                    <div className='div2'><p2 className='p2'>Or log in with</p2></div>
+                    <div className='div1'></div>
+                </div>
 
-            <div className='gridDive'>
-                <div className='div1'></div>
-                <div className='div2'><p2 className='p2'>Or log in with</p2></div>
-                <div className='div1'></div>
+                <div className='logoReaux'>
+                    <Typography>
+                        <Link href="#" >
+                            <img src='./assets/google.png' alt='logoGoogle' className='googleStyle' />
+                        </Link>
+                    </Typography>
+                    <Typography>
+                        <Link href="#" >
+                            <img src='./assets/facebook.png' alt='logoFacebook' className='facebookStyle' />
+                        </Link>
+                    </Typography>
+                </div>
             </div>
-
-            <div className='logoReaux'>
-                <Typography>
-                    <Link href="#" >
-                      <img src='./assets/google.png' alt='logoGoogle' className='googleStyle' />
-                    </Link>
-                </Typography>
-                <Typography>
-                    <Link href="#" >
-                     <img src='./assets/facebook.png' alt='logoFacebook' className='facebookStyle' />
-                    </Link>
-                </Typography>
-            </div>
-        </div>
-        
-    </Grid>
-  )
+        </Grid>
+    )
 }

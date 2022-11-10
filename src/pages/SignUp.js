@@ -83,6 +83,17 @@ function SignUp() {
 
 
     const onChangeEmail = React.useCallback((val) => {
+
+        if (val.trim() === '') {
+            setEmail(state => ({
+                ...state,
+                value: val,
+                error: true,
+                helperText: 'Require'
+            }))
+            return;
+        }
+
         if (!validator.isEmail(val)) {
             setEmail(state => {
                 return {
@@ -94,16 +105,15 @@ function SignUp() {
             })
         }
         else {
-            
             setEmail(state => ({
                 ...state,
                 value: val,
                 error: false,
                 helperText: 'Require'
-            
+
             }))
-          }
-        
+        }
+
     }, [setEmail, validator])
 
     /*
@@ -116,6 +126,17 @@ function SignUp() {
     })
 
     const onChangePhone = React.useCallback((val) => {
+
+        if (val.trim() === '') {
+            setPhone(state => ({
+                ...state,
+                value: val,
+                error: true,
+                helperText: 'Require'
+            }))
+            return;
+        }
+
         if (!validator.isMobilePhone(val)) {
             setPhone(state => {
                 return {
@@ -142,84 +163,167 @@ function SignUp() {
       validatiion password
     */
 
-      const [password, setPassword] = React.useState({
+    const [password, setPassword] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
     const onPasswordChange = React.useCallback((val) => {
-        if(!validator.isStrongPassword(val)) {
+        if (val.trim() === '') {
+            setPassword(state => ({
+                ...state,
+                value: val,
+                error: true,
+                helperText: 'Require'
+            }))
+            return;
+        }
+
+        if (!validator.isStrongPassword(val)) {
             setPassword(state => {
                 return {
                     ...state,
-                    error : true,
-                    value : val,
-                    helperText : 'Your password must to contain 8 characters '
+                    error: true,
+                    value: val,
+                    helperText: 'Your password must to contain 8 characters '
                 }
             })
-        } else {
-            setPassword(state=> ({
-                ...state, 
-                value: val,
-                error: false,
-                helperText:'Require'
-            }))
+            return;
         }
+
+        setPassword(state => ({
+            ...state,
+            error: false,
+            value: val,
+            helperText: 'Required'
+        }))
     }, [setPassword])
 
     /*
       validatiion confirm password
     */
-      const [confirmPassword, setConfirmPassword] = React.useState({
+    const [confirmPassword, setConfirmPassword] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
 
     const onConfirmPasswordChange = React.useCallback((val) => {
-        if(!validator.isStrongPassword(val)) {
-            setConfirmPassword(state => {
-                return {
-                    ...state,
-                    error : true,
-                    value : val,
-                    helperText : 'Your password must to contain 8 characters '
-                }
-            })
-        }else if(!password === confirmPassword) {
-            setConfirmPassword(state => {
-                return {
-                    ...state,
-                    error : true,
-                    value : val,
-                    helperText : "Your password don't match"
-                }
-            })
-        } else {
-            setConfirmPassword(state=> ({
-                ...state, 
+        if (val.trim() === '') {
+            setConfirmPassword(state => ({
+                ...state,
                 value: val,
-                error: false,
-                helperText:'Require'
+                error: true,
+                helperText: 'Require'
             }))
+            return;
         }
-    }, [setConfirmPassword, password, confirmPassword])
 
+        if (!validator.isStrongPassword(val)) {
+            setConfirmPassword(state => {
+                return {
+                    ...state,
+                    error: true,
+                    value: val,
+                    helperText: 'Your password must to contain 8 characters '
+                }
+            })
+            return;
+        }
+
+        if (password.value !== val) {
+            setConfirmPassword(state => {
+                return {
+                    ...state,
+                    error: true,
+                    value: val,
+                    helperText: "Your password don't match"
+                }
+            })
+            return;
+        }
+
+        setConfirmPassword(state => {
+            return {
+                ...state,
+                error: false,
+                value: val,
+                helperText: 'Your password must to contain 8 characters '
+            }
+        })
+
+
+    }, [setConfirmPassword, password])
 
     /*
-      validatiion confirm password
+       Function validation state
     */
+
+    function validateAll() {
+        if (password.value !== confirmPassword.value) {
+            setConfirmPassword(state => {
+                return {
+                    ...state,
+                    error: true,
+                    helperText: "Your password don't match"
+                }
+            })
+            return false
+        }
+
+        return (
+            fisrtName.value.trim() !== '' &&
+            lastName.value.trim() !== '' &&
+            email.value.trim() !== '' &&
+            phone.value !== '' &&
+            password.value.trim() !== '' &&
+            termAccept.value !== ''
+        )
+    }
+
+    /*
+     Gender state and validation  
+   */
     const [gender, setGender] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
+    const onGenderChange = React.useCallback((val) => {
+        setGender(state => {
+            return {
+                ...state,
+                error: false,
+                value: val.target.value,
+                helperText: 'Require'
+            }
+        })
+    }, [setGender])
 
-    
+    /*
+      validatiion state terms and consitions
+    */
+    const [termAccept, setTermAccept] = React.useState({
+        error: false,
+        value: false,
+        helperText: 'Require'
+    })
+    const onTermAcceptChange = React.useCallback(() => {
+        setTermAccept(state => {
+            return {
+                ...state,
+                error: false,
+                value: !state.value,
+                helperText: 'Require'
+            }
+        })
+    }, [setTermAccept])
 
-    /* Function submit */
-
+    /* 
+      Function submit 
+    */
     const onSubmit = React.useCallback(() => {
+        if (!validateAll()) return;
 
         const data = {
             fisrtName: fisrtName.value,
@@ -228,11 +332,13 @@ function SignUp() {
             phone: phone.value,
             password: password.value,
             confirmPassword: confirmPassword.value,
-            gender: gender.value
-            
+            gender: gender.value,
+            termAccept: termAccept.value
+
         }
         console.log(data)
-    }, [fisrtName, lastName, email, phone, password, confirmPassword, gender])
+    }, [fisrtName, lastName, email, phone, password, confirmPassword, gender, termAccept])
+
 
 
     return (
@@ -295,7 +401,7 @@ function SignUp() {
                     onValueChange={onChangePhone}
                 />
             </div>
-            
+
             {/* Password and Confirm password */}
             <div className='flNameStyle'>
                 <div className='flNameStyle1'>
@@ -321,34 +427,36 @@ function SignUp() {
                     />
                 </div>
             </div>
-            
+
             {/* Gender */}
             <div className='flNameStyle1'>
-              <FormControl>
-              <FormLabel id="gender">Gender</FormLabel>
-                <RadioGroup
-                    aria-labelledby="demo-controlled-radio-buttons-group"
-                    name="controlled-radio-buttons-group"
-                    value={gender.value}
-                    // onChange={onGenderChange}
-                >
-                    <FormControlLabel gender="female" control={<Radio />} label="Female" />
-                    <FormControlLabel gender="male" control={<Radio />} label="Male" />
-                </RadioGroup>
-              </FormControl>          
+                <FormControl>
+                    <FormLabel id="gender">Gender</FormLabel>
+                    <RadioGroup
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={gender.value}
+                        onChange={onGenderChange}
+                    >
+                        <FormControlLabel value={'F'} control={<Radio />} label="Female" />
+                        <FormControlLabel value={'M'} control={<Radio />} label="Male" />
+                    </RadioGroup>
+                </FormControl>
             </div>
-            
+
             {/* Terms and conditions  */}
             <FormControlLabel
                 className='fieldStyle'
                 control={
                     <Checkbox
+                        checked={termAccept.value}
+                        onChange={onTermAcceptChange}
                         name="TermCondition"
                     />
                 }
                 label="I have read and accept the terms and conditions."
 
-            /> 
+            />
 
             {/* Button */}
             <Button
@@ -358,7 +466,7 @@ function SignUp() {
                 onClick={onSubmit}
                 fullWidth
             >
-                Sign up
+                NEXT
             </Button>
 
             <div className='gridDive'>
