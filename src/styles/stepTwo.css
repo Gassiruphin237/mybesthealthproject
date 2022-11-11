@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* header */
+.header {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+/* Catégorie*/
+.categorie {
+    padding: 20px;
+}

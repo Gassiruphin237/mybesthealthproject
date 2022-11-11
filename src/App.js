@@ -5,6 +5,7 @@ import SignUp from './pages/SignUp';
 import Footer from './component/nav/Footer'
 import ForgotPaswordEmail from './pages/ForgotPaswordEmail'
 import ResetPassword from './pages/ResetPassword'
+import StepTwoSignUp from './pages/StepTwoSignUp';
 // import './App.css';
 
 
@@ -18,6 +19,7 @@ import ResetPassword from './pages/ResetPassword'
           <Route path="/Sign-up" element={<SignUp/> } />
           <Route path="/forgot-password" element={<ForgotPaswordEmail/> } />
           <Route path="/reset-password" element={<ResetPassword/> } />
+          <Route path="/step-two" element={<StepTwoSignUp/> } />
         </Routes>
         <Footer/> 
       </div>
