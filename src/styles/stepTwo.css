@@ -11,5 +11,34 @@
 
 /* Catégorie*/
 .categorie {
-    padding: 20px;
+    padding: auto;
+    border-radius: 25px;
+}
+
+.containers {
+    background-color: #ffffff;
+}
+
+.Age-taille-poids {
+    display: flex;
+    margin: auto;
+    margin-top: 10px;
+    width: 500px;
+}
+
+.Age-taille-poids input {
+    width: 90%;
+    justify-content: space-around;
+} 
+
+.residence {
+    height: 30px;
+}
+
+.button {
+    display: flex;
+    margin: auto;
+    margin-top: 10px;
+    width: 500px;
+    justify-content: space-around;
 }

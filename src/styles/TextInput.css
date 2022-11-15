@@ -12,7 +12,7 @@
     
 }
 
-.text-input input {
+.text-input input, select, textarea {
     padding: 10px 15px;
     background-color: #eee;
     outline: none;
