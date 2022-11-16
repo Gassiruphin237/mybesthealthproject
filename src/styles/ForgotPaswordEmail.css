@@ -1,3 +1,5 @@
 .containers {
-    background-color: red;
+    margin: auto;
+    width: 600px;
+    padding: 60px;
 }

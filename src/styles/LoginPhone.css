@@ -51,6 +51,7 @@ h1 {
     margin-bottom: 30px !important;
     text-align: center;
     width: 100%;
+    color: #04A3BD;
 }
 
 
@@ -105,4 +106,5 @@ h1 {
 .div2 {
     flex: none;
     padding: 0 20px;
+    color: #04A3BD;
 }
