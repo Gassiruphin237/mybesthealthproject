@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/TextInput.css'
 
-function SelectInput({name,label, type, value,placeholder, onValueChange, error=false, helperText, options}) {
+function SelectInput({name,label, type, value, placeholder, onValueChange, error=false, helperText, options}) {
   return (
     <div className='text-input' >
         <label>{label}</label>

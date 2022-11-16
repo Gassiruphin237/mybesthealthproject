@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Field } from 'formik'
 import { Grid, TextareaAutosize } from '@mui/material'
 import TextInput from '../component/TextInput'
@@ -8,15 +8,10 @@ import SelectInput from '../component/SelectInput'
 import axios from 'axios'
 import TextArea from '../component/TextArea'
 
-    /*
-        Categories initialisation 
-     */
-const CATEGORIES = [
-    { label: 'Maladie chronique', value: 'maladie-chronique' },
-    { label: 'Femme enceinte', value: 'femme-enceinte' },
-    { label: 'Autres', value: 'autres' },
-]
+
+// initialisation des sanguins
 const GroupeSanguin = [
+    { label: '' , value: ''},
     { label: 'AB+' , value: 'abPlus'},
     { label: 'AB-' , value: 'abMoins'},
     { label: 'A+' , value: 'aPlus'},
@@ -29,62 +24,89 @@ const GroupeSanguin = [
 
 function StepTwoSignUp() {
 
-    /* categories state */
+                // ALL STATE
+
+    // Element de recuperation des types de maladies dans la base de donnée
+    const [description, setDescription] = useState([])
+    useEffect(() => {
+        try {
+            axios.get('http://172.17.4.31:8000/api/category/')
+            .then(function (res) {
+                console.log(res.data.data)
+                setDescription([
+                    { label: "" , value: ''},
+                    ...res.data.data.map((item) => ({
+                        label: item.Description,
+                        value: item.id,
+                    }))
+                ]);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+
+    }
+        catch (error) {
+            
+        }
+    },[])
+
+    // categories state 
     const [category, setCategory] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
 
-    /* Age state*/
-    const [age, setAge] = React.useState({
+    // Birthday state
+    const [dateNaissance, setDateNaissance] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
 
-    /* Taille state*/
+    // Taille state
     const [taille, setTaille] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
 
-    /* Poids state*/
+    // Poids state
     const [poids, setPoids] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
 
-    /* Groupe sanguin state */
+    // Groupe sanguin state 
     const [groupeSanguin, setGroupeSanguin] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
-    /* Nombre de grossesse state */
-    const [nbreGross, setnbreGross] = React.useState({
+    // Nombre de grossesse state 
+    const [nbreGross, setNbreGross] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
 
-    /* Nombre d'enfant'state */
+    // Nombre d'enfant'state 
     const [nbreEnfant, setnbreEnfant] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
 
-    /* Nombre d'enfant'state */
-    const [lieuReside, setLieuReside] = React.useState({
+    /* Adresse state */
+    const [adress, setsetAdress] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
 
-    /* Nombre de fausse couches state */
+    // Nombre de fausse couches state 
     const [nbreFausseCouche, setNbreFausseCouche] = React.useState({
         value: '',
         error: false,
@@ -92,10 +114,12 @@ function StepTwoSignUp() {
     })
 
 
-     /* age validattion */
+                                          // ALL VALLIDATION START HERE
+
+     // Birthday validattion 
      const onAgeChange = React.useCallback((val) => {
         if (validator.isDate(val)) {
-            setAge(state => {
+            setDateNaissance(state => {
                 return {
                     ...state,
                     value: val,
@@ -106,22 +130,22 @@ function StepTwoSignUp() {
             return
         }
 
-            setAge(state => ({
+        setDateNaissance(state => ({
                 ...state,
                 value: val,
                 error: true,
             }))
 
-    }, [setAge, validator])
+    }, [setDateNaissance, validator])
 
-     /* Taille validattion */
+     // Taille validattion 
      const onTailleChange = React.useCallback((val) => {
-        if (validator.isFloat(val)) {
+        if ((val === '')) {
             setTaille(state => {
                 return {
                     ...state,
                     value: val,
-                    error: false,
+                    error: true,
                     helperText: 'Require'
                 }
             })
@@ -131,7 +155,7 @@ function StepTwoSignUp() {
             setTaille(state => ({
                 ...state,
                 value: val,
-                error: true,
+                error: false,
             }))
 
     }, [setTaille, validator])
@@ -147,22 +171,42 @@ function StepTwoSignUp() {
                     helperText: 'Require'
                 }
             })
+            return
         }
-        else {
             setPoids(state => ({
                 ...state,
                 value: val,
                 error: true,
             }))
 
-        }
     }, [setPoids, validator])
 
-    
+    // Groupe sanguin validattion 
+     const onGroupeSanguinChange = React.useCallback((val) => {
+        if (val === '') {
+            setGroupeSanguin(state => {
+                return {
+                    ...state,
+                    value: val,
+                    error: true,
+                    helperText: 'Require'
+                }
+            })
+            return;
+        }
+
+        setGroupeSanguin(state => ({
+            ...state,
+            value: val,
+            error: false,
+        }))
+
+    }, [groupeSanguin, validator])
+
      /* Nombre de grossese validattion */
      const onNbreGrossChange = React.useCallback((val) => {
-        if (validator.isDecimal(val)) {
-            setnbreGross(state => {
+        if (validator.isInt(val)) {
+            setNbreGross(state => {
                 return {
                     ...state,
                     value: val,
@@ -173,18 +217,18 @@ function StepTwoSignUp() {
             return
         }
 
-            setPoids(state => ({
+        setNbreGross(state => ({
                 ...state,
                 value: val,
                 error: true,
             }))
 
 
-    }, [setnbreGross, validator])
+    }, [setNbreGross, validator])
 
-     /* Nombre d'enfant validattion */
+     // Nombre d'enfant validattion 
      const onNbreEnfantChange = React.useCallback((val) => {
-        if (validator.isDecimal(val)) {
+        if (validator.isInt(val)) {
             setnbreEnfant(state => {
                 return {
                     ...state,
@@ -205,7 +249,7 @@ function StepTwoSignUp() {
 
     }, [setnbreEnfant, validator])
 
-     /* Nombre de fausse couche validattion */
+     // Nombre de fausse couche validattion 
      const onNbreFausseCoucheChange = React.useCallback((val) => {
         if (validator.isDecimal(val)) {
             setNbreFausseCouche(state => {
@@ -228,61 +272,7 @@ function StepTwoSignUp() {
 
     }, [setNbreFausseCouche, validator])
 
-     /* Groupe sanguin validattion */
-     const onGroupeSanguinChange = React.useCallback((val) => {
-        if (val === '') {
-            setGroupeSanguin(state => {
-                return {
-                    ...state,
-                    value: val,
-                    error: true,
-                    helperText: 'Require'
-                }
-            })
-            return;
-        }
-
-        setGroupeSanguin(state => ({
-            ...state,
-            value: val,
-            error: false,
-        }))
-
-    }, [groupeSanguin, validator])
-
-    /*
-        medoc state
-     */
-    const [medoc, setMedoc] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-
-    /* Medoc validattion */
-    const onMedocChange = React.useCallback((val) => {
-        if (val === '') {
-            setMedoc(state => {
-                return {
-                    ...state,
-                    value: val,
-                    error: true,
-                    helperText: 'Require'
-                }
-            })
-            return;
-        }
-
-        setMedoc(state => ({
-            ...state,
-            value: val,
-            error: false,
-        }))
-
-    }, [setMedoc, validator])
-
-   
-
+    // Recupreation de l'input type de maladie
     const onCategoryChange = React.useCallback((val) => {
         if (val === '') {
             setCategory(state => {
@@ -304,65 +294,75 @@ function StepTwoSignUp() {
 
     }, [setCategory, validator])
 
-    /* Nombre de fausse couche validattion */
-    const onlieuResideChange = React.useCallback((val) => {
-        if (validator.isAlphanumeric(val)) {
-            setLieuReside(state => {
+    // Nombre de fausse couche validattion 
+    const onAdressChange = React.useCallback((val) => {
+        if (validator.isEmpty(val)) {
+            setsetAdress(state => {
                 return {
                     ...state,
                     value: val,
-                    error: false,
+                    error: true,
                     helperText: 'Require'
                 }
             })
             
         }else {
 
-        setLieuReside(state => ({
+            setsetAdress(state => ({
                 ...state,
                 value: val,
-                error: true,
+                error: false,
             }))
 
         }
-    }, [setLieuReside, validator])
+    }, [setsetAdress, validator])
+
+
+                     // BEFORE VALIDATE ALL THOSE INPUT MUST BE CHECKED HERE
+
 
     function validateAll() {
         return (
-            category.value.trim() !== ''
+            category.value.trim() !== '',
+            dateNaissance.value.trim() !== '',
+            taille.value.trim() !== '',
+            poids.value.trim() !== '',
+            groupeSanguin.value.trim() !== '',
+            nbreGross.value.trim() !== '',
+            nbreEnfant.value.trim() !== '',
+            nbreFausseCouche.value.trim() !== '',
+            nbreFausseCouche.value.trim() !== '',
+            adress.value.trim() !== ''
         )
     }
 
 
+                          // BUTTON SUBMISSION HERE
+
     /* submit validation */
     const onSubmit = React.useCallback(() => {
-        if(!validateAll){
+        if(!validateAll()){
             return
         } else {
-            const data = {
+             const data = {
                 category: category.value,
-                // age: age.value,
-                // taille: taille.value,
-                // poids: poids.value,
-                // groupeSanguin: groupeSanguin.value,
-                // nbreGross: nbreGross.value,
-                // nbreEnfant: nbreEnfant.value,
-                // nbreFausseCouche: nbreFausseCouche.value,
-                // onlieuResideChange: lieuReside.value,
-                // medoc: medoc.value,
+                dateNaissance: dateNaissance.value,
+                taille: taille.value,
+                poids: poids.value,
+                groupeSanguin: groupeSanguin.value,
+                nbreGross: nbreGross.value,
+                nbreEnfant: nbreEnfant.value,
+                nbreFausseCouche: nbreFausseCouche.value,
+                adress: adress.value,
                 
-            }
-            axios.get('http://172.17.4.31:8000/api/category/', data)
-                .then(function (res) {
-                    console.log(res.data);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
+             }
+             console.log(data)
+            //  alert(JSON.stringify(data))
+         }
+    }, [dateNaissance, taille, poids, groupeSanguin, nbreGross, nbreEnfant, nbreFausseCouche, adress, category])
 
-            console.log(data)
-        }
-    }, [/*age, taille, poids, groupeSanguin, nbreGross, nbreEnfant, nbreFausseCouche, lieuReside,*/ category])
+
+                       // RETURN MAIN
 
     return (
         <div className='container'>
@@ -376,13 +376,15 @@ function StepTwoSignUp() {
             {/* Select input */}
             <div className='Age-taille-poids'>
                 <SelectInput
-                    label='Catégories'
+                    label="Motif d'assistance"
                     value={category.value}
                     error={category.error}
                     helperText={category.helperText}
+                    placeholder={"Choisissez votre motif d'assistance "}
                     onValueChange={onCategoryChange}
-                    options={CATEGORIES}
+                    options={description}
                 />
+                
             </div>
 
             {/* age , taille, poids inputs */}
@@ -391,10 +393,9 @@ function StepTwoSignUp() {
                     <TextInput
                         label='Date de naissance'
                         type='date'
-                        value={age.value}
-                        error={age.error}
-                        helperText={age.helperText}
-                        placeholder={'age'}
+                        value={dateNaissance.value}
+                        error={dateNaissance.error}
+                        helperText={dateNaissance.helperText}
                         onValueChange={onAgeChange}
                     />
                 </div>
@@ -405,8 +406,12 @@ function StepTwoSignUp() {
                         value={taille.value}
                         error={taille.error}
                         helperText={taille.helperText}
-                        placeholder={'Taille'}
-                        onValueChange={onTailleChange}
+                        placeholder={'en cm..'}
+                        onValueChange={(e) => {
+                            if(/^[0-9]*$/.test(e)){
+                                onTailleChange(e)
+                            }
+                        }}
                     />
                 </div>
                 <div>
@@ -416,7 +421,7 @@ function StepTwoSignUp() {
                         value={poids.value}
                         error={poids.error}
                         helperText={poids.helperText}
-                        placeholder={'poids'}
+                        placeholder={'en Kg..'}
                         onValueChange={onPoidsChange}
                     />
                 </div>
@@ -429,6 +434,7 @@ function StepTwoSignUp() {
                     value={groupeSanguin.value}
                     error={groupeSanguin.error}
                     helperText={groupeSanguin.helperText}
+                    placeholder={'choisissez votre groupe sanguin'}
                     onValueChange={onGroupeSanguinChange}
                     options={GroupeSanguin}
                 />
@@ -443,8 +449,12 @@ function StepTwoSignUp() {
                         value={nbreGross.value}
                         error={nbreGross.error}
                         helperText={nbreGross.helperText}
-                        placeholder={'nbreGross'}
-                        onValueChange={onNbreGrossChange}
+                        placeholder={'Exemple 3'}
+                        onValueChange={(e) => {
+                            if(/^[0-9]*$/.test(e)){
+                                onNbreGrossChange(e)
+                            }
+                        }}
                     />
                 </div>
                 <div>
@@ -454,8 +464,12 @@ function StepTwoSignUp() {
                         value={nbreEnfant.value}
                         error={nbreEnfant.error}
                         helperText={nbreEnfant.helperText}
-                        placeholder={'nbreEnfant'}
-                        onValueChange={onNbreEnfantChange}
+                        placeholder={'Exemple 2'}
+                        onValueChange={(e) => {
+                            if(/^[0-9]*$/.test(e)){
+                                onNbreEnfantChange(e)
+                            }
+                        }}
                     />
                 </div>
                 <div>
@@ -465,8 +479,12 @@ function StepTwoSignUp() {
                         value={nbreFausseCouche.value}
                         error={nbreFausseCouche.error}
                         helperText={nbreFausseCouche.helperText}
-                        placeholder={'nbreFausseCouche'}
-                        onValueChange={onNbreFausseCoucheChange}
+                        placeholder={'Exemple 1'}
+                        onValueChange={(e) => {
+                            if(/^[0-9]*$/.test(e)){
+                                onNbreFausseCoucheChange(e)
+                            }
+                        }}
                     />
                 </div>
             </div>
@@ -474,13 +492,13 @@ function StepTwoSignUp() {
             
             <div className='Age-taille-poids' >
             <TextInput
-                        label='Lieu de residence'
+                        label='Adresse'
                         type='text'
-                        value={lieuReside.value}
-                        error={lieuReside.error}
-                        helperText={lieuReside.helperText}
+                        value={adress.value}
+                        error={adress.error}
+                        helperText={adress.helperText}
                         placeholder={'Lieu de résidence'}
-                        onValueChange={onlieuResideChange}
+                        onValueChange={onAdressChange}
                     />
                 
             </div>

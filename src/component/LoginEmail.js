@@ -168,7 +168,7 @@ export default function LoginEmail() {
                         Log in
                     </Button>
                     <Typography className='memberYet'> Not a member yet ?
-                        <Link href="/Sign-up">Join</Link>
+                        <Link href="/step-tree">Join</Link>
                     </Typography>
                 </Grid>
                 <div className='gridDive'>

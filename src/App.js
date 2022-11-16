@@ -17,10 +17,10 @@ import SignUpPage from './pages/registration/SignUpPage'
       <div>
         <Routes>
           <Route path="/login" element={<Login/> } />
-          <Route path="/Sign-up" element={<SignUp/> } />
+          {/* <Route path="/Sign-up" element={<SignUp/> } /> */}
           <Route path="/forgot-password" element={<ForgotPaswordEmail/> } />
           <Route path="/reset-password" element={<ResetPassword/> } />
-          <Route path="/step-two" element={<StepTwoSignUp/> } />
+          {/* <Route path="/step-two" element={<StepTwoSignUp/> } /> */}
           <Route path="/step-tree" element={<SignUpPage/> } />
         </Routes>
         <Footer/> 
