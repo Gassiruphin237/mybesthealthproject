@@ -357,7 +357,7 @@ function StepTwoSignUp() {
                 
              }
              console.log(data)
-              alert(JSON.stringify(data))
+              //alert(JSON.stringify(data))
          }
     }, [dateNaissance, taille, poids, groupeSanguin, nbreGross, nbreEnfant, nbreFausseCouche, adress, category])
 
