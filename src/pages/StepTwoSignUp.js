@@ -6,7 +6,6 @@ import validator from 'validator'
 import '../styles/stepTwo.css'
 import SelectInput from '../component/SelectInput'
 import axios from 'axios'
-import TextArea from '../component/TextArea'
 
 
 // initialisation des sanguins
@@ -335,8 +334,6 @@ function StepTwoSignUp() {
             adress.value.trim() !== ''
         )
     }
-
-
                           // BUTTON SUBMISSION HERE
 
     /* submit validation */

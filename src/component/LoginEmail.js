@@ -7,10 +7,7 @@ import axios from 'axios';
 
 export default function LoginEmail() {
 
-    /*
-       State initilisation 
-    */
-
+    // State initilisation 
     const [email, setEmail] = React.useState({
         value: '',
         error: false,
@@ -22,11 +19,8 @@ export default function LoginEmail() {
         helperText: 'Required'
     })
 
-    /*
-       E-mail verification 
-    */
+    // E-mail verification 
     const onChangeEmail = React.useCallback((val) => {
-
         if (val.trim() === '') {
             setEmail(state => ({
                 ...state,
@@ -46,23 +40,17 @@ export default function LoginEmail() {
                     helperText: 'Enter valid email'
                 }
             })
+            return
         }
-        else {
-            setEmail(state => ({
-                ...state,
-                value: val,
-                error: false,
-                helperText: 'Require'
+        setEmail(state => ({
+            ...state,
+            value: val,
+            error: false,
 
-            }))
-        }
-
+        }))
     }, [setEmail, validator])
 
-
-    /*
-       Passsword verification
-    */
+    // Passsword verification
     const onPasswordChange = React.useCallback((val) => {
         if (val.trim() === '') {
             setPassword(state => ({
@@ -73,17 +61,6 @@ export default function LoginEmail() {
             }))
             return;
         }
-        if (!validator.isStrongPassword(val)) {
-            setPassword(state => {
-                return {
-                    ...state,
-                    error: true,
-                    value: val,
-                    helperText: 'Your password must contain minimum 8 characters and must contain only special chars (., _, # and @)'
-                }
-            })
-            return
-        }
         setPassword(state => ({
             ...state,
             value: val,
@@ -92,10 +69,7 @@ export default function LoginEmail() {
 
     }, [setPassword])
 
-
-    /*
-       verifcation input before submitting
-    */
+    //verifcation input before submitting
     function validateAll() {
         return (
             email.value.trim() !== '' &&
@@ -103,9 +77,7 @@ export default function LoginEmail() {
         )
     }
 
-    /*
-       function submitting axios post 
-    */
+    //function submitting axios post 
     const onSubmit = React.useCallback(() => {
         if (!validateAll()) {
             return
@@ -116,8 +88,11 @@ export default function LoginEmail() {
                 password: password.value
             }
 
-            axios.post('http://172.17.4.27:8000/api/login', data)
+            axios.post('http://172.17.4.31:8000/api/login', data)
                 .then(function (res) {
+                    if(res.data){
+                        window.location='/'
+                    }
                     console.log(res.data);
                 })
                 .catch(function (error) {
@@ -130,7 +105,7 @@ export default function LoginEmail() {
 
     return (
         <Grid>
-            <div className='paperStyle'>
+            <div className='container'>
                 <Grid>
                     <div>
                         <TextInput
@@ -168,7 +143,7 @@ export default function LoginEmail() {
                         Log in
                     </Button>
                     <Typography className='memberYet'> Not a member yet ?
-                        <Link href="/step-tree">Join</Link>
+                        <Link href="/step-tree"> Join </Link>
                     </Typography>
                 </Grid>
                 <div className='gridDive'>

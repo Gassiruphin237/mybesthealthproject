@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Grid, Typography, Link, Button, Radio, } from '@mui/material'
 import '../styles/SignUp.css'
 import TextInput from '../component/TextInput'
-import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
@@ -11,15 +10,56 @@ import validator from 'validator'
 
 function SignUp() {
 
-    /*
-        validatiion first name 
-    */
+               // SART INITIALISATION  
+
+    //First name initilisation
     const [fisrtName, setFisrtName] = React.useState({
         value: '',
         error: false,
         helperText: 'Require'
     })
 
+    //Last name initialisarion
+    const [lastName, setLastName] = React.useState({
+        value: '',
+        error: false,
+        helperText: 'Require'
+    })
+    //email's initialisation
+    const [email, setEmail] = React.useState({
+        value: '',
+        error: false,
+        helperText: 'Require'
+    })
+    // Phone's initialisation
+    const [phone, setPhone] = React.useState({
+        value: '',
+        error: false,
+        helperText: 'Require'
+    })
+    // Password initialisation
+    const [password, setPassword] = React.useState({
+        value: '',
+        error: false,
+        helperText: 'Require'
+    })
+    // Confirm password initialisation
+    const [confirmPassword, setConfirmPassword] = React.useState({
+        value: '',
+        error: false,
+        helperText: 'Require'
+    })
+    //Gender initialisation
+    const [gender, setGender] = React.useState({
+        value: '',
+        error: false,
+        helperText: 'Require'
+    })
+    
+
+            // START VALIDATION
+
+    // First name validatiion
     const onFisrtName = React.useCallback((val) => {
         if (validator.isAlpha(val)) {
             setFisrtName(state => {
@@ -41,15 +81,7 @@ function SignUp() {
         }
     }, [setFisrtName, validator])
 
-    /*
-        validatiion last name 
-    */
-    const [lastName, setLastName] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-
+    // Last name validatiion
     const onLastName = React.useCallback((val) => {
         if (validator.isAlpha(val)) {
             setLastName(state => {
@@ -72,16 +104,7 @@ function SignUp() {
         }
     }, [setLastName, validator])
 
-    /*
-      validatiion email 
-    */
-    const [email, setEmail] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-
-
+    // Email's validatiion
     const onChangeEmail = React.useCallback((val) => {
 
         if (val.trim() === '') {
@@ -116,15 +139,7 @@ function SignUp() {
 
     }, [setEmail, validator])
 
-    /*
-       validatiion phone
-    */
-    const [phone, setPhone] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-
+    // Phone validatiion
     const onChangePhone = React.useCallback((val) => {
 
         if (val.trim() === '') {
@@ -158,16 +173,7 @@ function SignUp() {
         }
     }, [setPhone])
 
-
-    /*
-      validatiion password
-    */
-
-    const [password, setPassword] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
+    // Password validation
     const onPasswordChange = React.useCallback((val) => {
         if (val.trim() === '') {
             setPassword(state => ({
@@ -199,15 +205,7 @@ function SignUp() {
         }))
     }, [setPassword])
 
-    /*
-      validatiion confirm password
-    */
-    const [confirmPassword, setConfirmPassword] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-
+    // Confirm password validation
     const onConfirmPasswordChange = React.useCallback((val) => {
         if (val.trim() === '') {
             setConfirmPassword(state => ({
@@ -255,10 +253,7 @@ function SignUp() {
 
     }, [setConfirmPassword, password])
 
-    /*
-       Function validation state
-    */
-
+    //Function state and validation 
     function validateAll() {
         if (password.value !== confirmPassword.value) {
             setConfirmPassword(state => {
@@ -276,19 +271,11 @@ function SignUp() {
             lastName.value.trim() !== '' &&
             email.value.trim() !== '' &&
             phone.value !== '' &&
-            password.value.trim() !== '' &&
-            termAccept.value !== ''
+            password.value.trim() !== ''
         )
     }
 
-    /*
-     Gender state and validation  
-   */
-    const [gender, setGender] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
+    //Gender validation
     const onGenderChange = React.useCallback((val) => {
         setGender(state => {
             return {
@@ -300,28 +287,10 @@ function SignUp() {
         })
     }, [setGender])
 
-    /*
-      validatiion state terms and consitions
-    */
-    const [termAccept, setTermAccept] = React.useState({
-        error: false,
-        value: false,
-        helperText: 'Require'
-    })
-    const onTermAcceptChange = React.useCallback(() => {
-        setTermAccept(state => {
-            return {
-                ...state,
-                error: false,
-                value: !state.value,
-                helperText: 'Require'
-            }
-        })
-    }, [setTermAccept])
+    
 
-    /* 
-      Function submit 
-    */
+                      // FUNCTION SUBMIT 
+    //Function submit
     const onSubmit = React.useCallback(() => {
         if (!validateAll()) return;
 
@@ -332,12 +301,11 @@ function SignUp() {
             phone: phone.value,
             password: password.value,
             confirmPassword: confirmPassword.value,
-            gender: gender.value,
-            termAccept: termAccept.value
+            gender: gender.value
 
         }
         console.log(data)
-    }, [fisrtName, lastName, email, phone, password, confirmPassword, gender, termAccept])
+    }, [fisrtName, lastName, email, phone, password, confirmPassword, gender])
 
 
 
@@ -437,26 +405,13 @@ function SignUp() {
                         name="controlled-radio-buttons-group"
                         value={gender.value}
                         onChange={onGenderChange}
+                        
                     >
                         <FormControlLabel value={'F'} control={<Radio />} label="Female" />
                         <FormControlLabel value={'M'} control={<Radio />} label="Male" />
                     </RadioGroup>
                 </FormControl>
             </div>
-
-            {/* Terms and conditions  */}
-            <FormControlLabel
-                className='fieldStyle'
-                control={
-                    <Checkbox
-                        checked={termAccept.value}
-                        onChange={onTermAcceptChange}
-                        name="TermCondition"
-                    />
-                }
-                label="I have read and accept the terms and conditions."
-
-            />
 
             {/* Button */}
             <Button

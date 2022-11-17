@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Grid, Paper, Link, Typography, Button } from '@mui/material'
+import React from 'react'
+import { Grid, Link, Typography, Button } from '@mui/material'
 import TextInput from './TextInput'
 import '../styles/LoginPhone.css'
 import validator from 'validator'
@@ -7,9 +7,7 @@ import axios from 'axios'
 
 function LoginPhone() {
 
-    /*
-      State initialisation
-    */
+    //State initialisation
     const [phone, setPhone] = React.useState({
         value: '',
         error: false,
@@ -21,9 +19,7 @@ function LoginPhone() {
         helperText: 'Require'
     })
 
-    /*
-      Phone state verification 
-    */
+    //Phone state verification 
     const onPhoneChange = React.useCallback((val) => {
         if (val.trim() === '') {
             setPhone(state => ({
@@ -57,9 +53,7 @@ function LoginPhone() {
 
     }, [setPhone])
 
-    /*
-      Password state verification
-    */
+    //Password state verification
     const onPasswordChange = React.useCallback((val) => {
 
         if (val.trim() === '') {
@@ -72,18 +66,6 @@ function LoginPhone() {
             return;
         }
 
-        if (!validator.isStrongPassword(val)) {
-            setPassword(state => {
-                return {
-                    ...state,
-                    error: true,
-                    value: val,
-                    helperText: 'Your password must to contain 8 characters '
-                }
-            })
-            return
-        }
-
         setPassword(state => {
             return {
                 ...state,
@@ -94,9 +76,7 @@ function LoginPhone() {
 
     }, [setPassword])
 
-    /*
-      Function check validation
-    */
+    //Function check validation
     function validateAll() {
         return (
             phone.value.trim() !== '' &&
@@ -104,9 +84,7 @@ function LoginPhone() {
         )
     }
 
-    /*
-      Fucntion submit 
-    */
+    //Fucntion submit
     const onSubmit = React.useCallback(() => {
 
         if (!validateAll()) {
@@ -118,8 +96,11 @@ function LoginPhone() {
                 password: password.value
             }
 
-            axios.post('http://172.17.4.27:8000/api/login', data)
+            axios.post('http://172.17.4.31:8000/api/login', data)
                 .then(function (res) {
+                    if(res.date){
+                        window.location = '/'
+                    }
                     console.log(res.data);
                 })
                 .catch(function (error) {
@@ -145,7 +126,11 @@ function LoginPhone() {
                             error={phone.error}
                             helperText={phone.helperText}
                             placeholder='Enter your Phone number'
-                            onValueChange={onPhoneChange}
+                            onValueChange={(e) => {
+                                if(/^[0-9]*$/.test(e)){
+                                    onPhoneChange(e)
+                                }
+                            }}
                         />
                     </div>
                     <div>
@@ -174,7 +159,7 @@ function LoginPhone() {
                         Log in
                     </Button>
                     <Typography className='memberYet'> Not a member yet ?
-                        <Link href="/step-tree">Join</Link>
+                        <Link href="/step-tree"> Join</Link>
                     </Typography>
                 </Grid>
 
