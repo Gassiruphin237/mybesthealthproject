@@ -1,11 +1,12 @@
 import React from 'react'
 import '../styles/TextInput.css'
 
-function TextInput({label, type, value,placeholder, onValueChange, error=false, helperText}) {
+function TextInput({label,name, type, value,placeholder, onValueChange, error=false, helperText}) {
   return (
     <div className='text-input' >
         <label>{label}</label>
         <input 
+          name={name}
           type={type}
           value={value} 
           placeholder={placeholder} 

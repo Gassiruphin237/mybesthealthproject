@@ -91,6 +91,13 @@ export default function LoginEmail() {
             axios.post('http://172.17.4.31:8000/api/login', data)
                 .then(function (res) {
                     if(res.data){
+                        setPassword(state => ({
+                            ...state,
+                            error: true,
+                            helperText: 'Password isn\'t correct'
+                        }))
+                        
+                    } else {
                         window.location='/'
                     }
                     console.log(res.data);
