@@ -42,3 +42,17 @@
     width: 500px;
     justify-content: space-around;
 }
+
+.buttonStyle1 {
+    width: 30% !important;
+    margin-left: 10px ;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-size: 14px;
+    height: 30px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    margin-left: 10px !important;
+}

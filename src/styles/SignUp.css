@@ -20,8 +20,7 @@ h1 {
 .container{
     width: 50vh;
     padding: 10px;
-    margin: 100px auto;
-    height: 80vh;
+    height: 600px;
 }
 
 
@@ -45,9 +44,8 @@ img{
 
 
 /* Button */
-.buttonStyle {
-    width: 105%;
-    background-color: white;
+.buttonStyle1 {
+    width: 30% !important;
     margin-left: 10px ;
     outline: none;
     border: none;
@@ -58,6 +56,13 @@ img{
     margin-top: 15px;
     margin-bottom: 30px;
     margin-left: 10px !important;
+
+}
+
+.buttonDivStyle {
+    display: flex;
+    justify-content: space-around;
+
 }
 
 /* Formcontrol */
@@ -76,44 +81,50 @@ img{
     color: #1D1D1D !important;
 }
 
-.memberYet{
+/* Gender style */
+.genderStyle {
+    display: flex;
+    margin-left: 20px;
+}
+
+/* .memberYet{
     margin-bottom: 30px !important;
     text-align: center;
     width: 100%;
-}
+} */
 
 /* googleStyle */
-.googleStyle{
+/* .googleStyle{
     height: 80px;
     width: 80px;
-}
+} */
 
 /* facebookStyle */
-.facebookStyle{
+/* .facebookStyle{
     height: 60px;
     width: 60px;
-}
+} */
 
 
 /* gridDiv */
-.gridDive {
+/* .gridDive {
     display: flex;
     align-items: center;
     width: 90%;
     margin-left: 20px ;
     margin-top: 30px;
-}
+} */
 
 /* logoReaux */
-.logoReaux {
+/* .logoReaux {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 100px;
     width: 100%;
     padding-top: 20px;
-}
-.div1 {
+} */
+/* .div1 {
     width: 100%;
     background-color: black;
     height: 1px;
@@ -122,4 +133,4 @@ img{
 .div2 {
     flex: none;
     padding: 0 20px;
-}
+} */

@@ -1,313 +1,282 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { Grid, Typography, Link, Button, Radio, } from '@mui/material'
 import '../styles/SignUp.css'
 import TextInput from '../component/TextInput'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
-import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import validator from 'validator'
+import { multiStepContext } from '../StepContext';
 
 function SignUp() {
 
-               // SART INITIALISATION  
 
-    //First name initilisation
-    const [fisrtName, setFisrtName] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
+    const { usersData, setUsersData, setStep } = useContext(multiStepContext)
 
-    //Last name initialisarion
-    const [lastName, setLastName] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-    //email's initialisation
-    const [email, setEmail] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-    // Phone's initialisation
-    const [phone, setPhone] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-    // Password initialisation
-    const [password, setPassword] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-    // Confirm password initialisation
-    const [confirmPassword, setConfirmPassword] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-    //Gender initialisation
-    const [gender, setGender] = React.useState({
-        value: '',
-        error: false,
-        helperText: 'Require'
-    })
-    
+    // START VALIDATION
 
-            // START VALIDATION
-
-    // First name validatiion
+    //First name validatiion
     const onFisrtName = React.useCallback((val) => {
         if (validator.isAlpha(val)) {
-            setFisrtName(state => {
-                return {
-                    ...state,
+            setUsersData(state => ({
+                ...state,
+                fisrtName: {
                     value: val,
                     error: false,
                     helperText: 'Require'
                 }
-            })
+            }))
         }
         else {
-            setFisrtName(state => ({
+            setUsersData(state => ({
                 ...state,
-                value: val,
-                error: true,
+                fisrtName: {
+                    value: val,
+                    error: true,
+                    helperText: 'Require'
+                }
             }))
 
         }
-    }, [setFisrtName, validator])
+
+    }, [setUsersData])
 
     // Last name validatiion
     const onLastName = React.useCallback((val) => {
         if (validator.isAlpha(val)) {
-            setLastName(state => {
-                return {
-                    ...state,
+            setUsersData(state => ({
+                ...state,
+                lastName: {
                     value: val,
                     error: false,
-                    // helperText: 'Require'
+                    helperText: 'Require'
                 }
-            })
+            }))
         }
         else {
-            setLastName(state => ({
+            setUsersData(state => ({
                 ...state,
-                value: val,
-                error: true,
-                helperText: 'Required'
+                lastName: {
+                    value: val,
+                    error: true,
+                    helperText: 'Require'
+                }
             }))
 
         }
-    }, [setLastName, validator])
+    }, [setUsersData, validator])
 
     // Email's validatiion
     const onChangeEmail = React.useCallback((val) => {
 
         if (val.trim() === '') {
-            setEmail(state => ({
+            setUsersData(state => ({
                 ...state,
-                value: val,
-                error: true,
-                helperText: 'Require'
+                email: {
+                    value: val,
+                    error: false,
+                    helperText: 'Require'
+                }
             }))
             return;
         }
 
         if (!validator.isEmail(val)) {
-            setEmail(state => {
-                return {
-                    ...state,
+            setUsersData(state => ({
+                ...state,
+                email: {
                     value: val,
                     error: true,
-                    helperText: 'Enter valid email'
+                    helperText: 'Require'
                 }
-            })
+            }))
         }
         else {
-            setEmail(state => ({
+            setUsersData(state => ({
                 ...state,
-                value: val,
-                error: false,
-                helperText: 'Require'
-
+                email: {
+                    value: val,
+                    error: false,
+                    helperText: 'Require'
+                }
             }))
         }
 
-    }, [setEmail, validator])
+    }, [setUsersData])
 
     // Phone validatiion
     const onChangePhone = React.useCallback((val) => {
 
         if (val.trim() === '') {
-            setPhone(state => ({
+            setUsersData(state => ({
                 ...state,
-                value: val,
-                error: true,
-                helperText: 'Require'
+                phone: {
+                    value: val,
+                    error: true,
+                    helperText: 'Require'
+                }
             }))
             return;
         }
 
         if (!validator.isMobilePhone(val)) {
-            setPhone(state => {
-                return {
-                    ...state,
+            setUsersData(state => ({
+                ...state,
+                phone: {
                     value: val,
                     error: true,
                     helperText: 'Enter valid number'
                 }
-            })
-        }
-        else {
-            setPhone(state => ({
-                ...state,
-                value: val,
-                error: false,
-                helperText: ''
             }))
 
         }
-    }, [setPhone])
+        else {
+            setUsersData(state => ({
+                ...state,
+                phone: {
+                    value: val,
+                    error: false,
+                    helperText: 'Enter valid number'
+                }
+            }))
+
+        }
+    }, [setUsersData])
 
     // Password validation
     const onPasswordChange = React.useCallback((val) => {
         if (val.trim() === '') {
-            setPassword(state => ({
+            setUsersData(state => ({
                 ...state,
-                value: val,
-                error: true,
-                helperText: 'Require'
+                password: {
+                    value: val,
+                    error: true,
+                    helperText: 'Require'
+                }
             }))
+
             return;
         }
 
         if (!validator.isStrongPassword(val)) {
-            setPassword(state => {
-                return {
-                    ...state,
-                    error: true,
+            setUsersData(state => ({
+                ...state,
+                password: {
                     value: val,
-                    helperText: 'Your password must to contain 8 characters '
+                    error: true,
+                    elperText: 'Your password must to contain 8 characters '
                 }
-            })
+            }))
+
             return;
         }
 
-        setPassword(state => ({
+        setUsersData(state => ({
             ...state,
-            error: false,
-            value: val,
-            helperText: 'Required'
+            password: {
+                value: val,
+                error: false,
+                elperText: 'Your password must to contain 8 characters '
+            }
         }))
-    }, [setPassword])
+    }, [setUsersData])
 
     // Confirm password validation
     const onConfirmPasswordChange = React.useCallback((val) => {
         if (val.trim() === '') {
-            setConfirmPassword(state => ({
+            setUsersData(state => ({
                 ...state,
-                value: val,
-                error: true,
-                helperText: 'Require'
+                ConfirmPassword: {
+                    value: val,
+                    error: true,
+                    helperText: 'Require'
+                }
             }))
             return;
         }
 
         if (!validator.isStrongPassword(val)) {
-            setConfirmPassword(state => {
-                return {
-                    ...state,
-                    error: true,
+            setUsersData(state => ({
+                ...state,
+                ConfirmPassword: {
                     value: val,
+                    error: true,
                     helperText: 'Your password must to contain 8 characters '
                 }
-            })
+            }))
+
             return;
         }
 
-        if (password.value !== val) {
-            setConfirmPassword(state => {
-                return {
-                    ...state,
-                    error: true,
+        if (usersData.password.value !== val) {
+            setUsersData(state => ({
+                ...state,
+                ConfirmPassword: {
                     value: val,
+                    error: true,
                     helperText: "Your password don't match"
                 }
-            })
+            }))
+
             return;
         }
 
-        setConfirmPassword(state => {
-            return {
-                ...state,
-                error: false,
+        setUsersData(state => ({
+            ...state,
+            ConfirmPassword: {
                 value: val,
+                error: false,
                 helperText: 'Your password must to contain 8 characters '
             }
-        })
+        }))
 
 
-    }, [setConfirmPassword, password])
+    }, [setUsersData, usersData])
 
     //Function state and validation 
     function validateAll() {
-        if (password.value !== confirmPassword.value) {
-            setConfirmPassword(state => {
-                return {
-                    ...state,
+        if (usersData.password.value !== usersData.ConfirmPassword.value) {
+            setUsersData(state => ({
+                ...state,
+                ConfirmPassword: {
+                    ...state.ConfirmPassword,
                     error: true,
                     helperText: "Your password don't match"
                 }
-            })
+            }))
             return false
         }
 
         return (
-            fisrtName.value.trim() !== '' &&
-            lastName.value.trim() !== '' &&
-            email.value.trim() !== '' &&
-            phone.value !== '' &&
-            password.value.trim() !== ''
+            usersData.fisrtName.value.trim() !== '' &&
+            usersData.lastName.value.trim() !== '' &&
+            usersData.email.value.trim() !== '' &&
+            usersData.phone.value !== '' &&
+            usersData.password.value.trim() !== ''
         )
     }
 
     //Gender validation
     const onGenderChange = React.useCallback((val) => {
-        setGender(state => {
-            return {
-                ...state,
-                error: false,
+        setUsersData(state => ({
+            ...state,
+            gender: {
                 value: val.target.value,
-                helperText: 'Require'
+                error: false,
+                helperText: 'Require '
             }
-        })
-    }, [setGender])
+        }))
 
-    
+    }, [setUsersData])
 
-                      // FUNCTION SUBMIT 
-    //Function submit
+
+
+    // FUNCTION SUBMIT 
+    //function submit 
     const onSubmit = React.useCallback(() => {
-        if (!validateAll()) return;
-
-        const data = {
-            fisrtName: fisrtName.value,
-            lastName: lastName.value,
-            email: email.value,
-            phone: phone.value,
-            password: password.value,
-            confirmPassword: confirmPassword.value,
-            gender: gender.value
-
-        }
-        console.log(data)
-    }, [fisrtName, lastName, email, phone, password, confirmPassword, gender])
-
-
+        // if (!validateAll()) return;
+        setStep(2)
+    }, [setStep, validateAll])
 
     return (
         <div className='container'>
@@ -315,7 +284,7 @@ function SignUp() {
             <Grid align='center'>
                 <img src='./assets/logo.png' alt='logo' className='logoStyle' />
                 <h1> Sign up </h1>
-                <p1>Welcome, create your account now and get free online assistance with best doctors of mybesthealth</p1>
+                <p>Welcome, create your account now and get free online assistance with best doctors of mybesthealth</p>
             </Grid>
 
             {/* Div first and laast name  */}
@@ -324,21 +293,22 @@ function SignUp() {
                     <TextInput
                         label='Fisrt Name'
                         type='text'
-                        value={fisrtName.value}
-                        error={fisrtName.error}
+                        value={usersData.fisrtName.value}
+                        error={usersData.fisrtName.error}
                         placeholder={'Enter your first name'}
-                        helperText={fisrtName.helperText}
+                        helperText={usersData.fisrtName.helperText}
                         onValueChange={onFisrtName}
+
                     />
                 </div>
                 <div className='flNameStyle1'>
                     <TextInput
                         label='Last Name'
                         type='text'
-                        value={lastName.value}
-                        error={lastName.error}
+                        value={usersData.lastName.value}
+                        error={usersData.lastName.error}
                         placeholder={'Enter your last name'}
-                        helperText={lastName.helperText}
+                        helperText={usersData.lastName.helperText}
                         onValueChange={onLastName}
                     />
                 </div>
@@ -349,10 +319,11 @@ function SignUp() {
                 <TextInput
                     label='Email'
                     type='email'
-                    value={email.value}
-                    error={email.error}
+                    // value={email.value}
+                    value={usersData.email.value}
+                    error={usersData.email.error}
                     placeholder={'Enter your email'}
-                    helperText={email.helperText}
+                    helperText={usersData.email.helperText}
                     onValueChange={onChangeEmail}
                 />
             </div>
@@ -362,10 +333,11 @@ function SignUp() {
                 <TextInput
                     label='Phone'
                     type='number'
-                    value={phone.value}
-                    error={phone.error}
+                    // value={phone.value}
+                    value={usersData.phone.value}
+                    error={usersData.phone.error}
                     placeholder={'Enter your phone number'}
-                    helperText={phone.helperText}
+                    helperText={usersData.phone.helperText}
                     onValueChange={onChangePhone}
                 />
             </div>
@@ -376,9 +348,9 @@ function SignUp() {
                     <TextInput
                         label='Password'
                         type='Password'
-                        value={password.value}
-                        error={password.error}
-                        helperText={password.helperText}
+                        value={usersData.password.value}
+                        error={usersData.password.error}
+                        helperText={usersData.password.helperText}
                         placeholder={'Enter your password'}
                         onValueChange={onPasswordChange}
                     />
@@ -387,9 +359,9 @@ function SignUp() {
                     <TextInput
                         label='Confirm Password'
                         type='ConfirmPassword'
-                        value={confirmPassword.value}
-                        error={confirmPassword.error}
-                        helperText={confirmPassword.helperText}
+                        value={usersData.ConfirmPassword.value}
+                        error={usersData.ConfirmPassword.error}
+                        helperText={usersData.ConfirmPassword.helperText}
                         placeholder={'Confirm your password'}
                         onValueChange={onConfirmPasswordChange}
                     />
@@ -397,40 +369,38 @@ function SignUp() {
             </div>
 
             {/* Gender */}
-            <div className='flNameStyle1'>
-                <FormControl>
-                    <FormLabel id="gender">Gender</FormLabel>
-                    <RadioGroup
-                        aria-labelledby="demo-controlled-radio-buttons-group"
-                        name="controlled-radio-buttons-group"
-                        value={gender.value}
-                        onChange={onGenderChange}
-                        
-                    >
+            <div>
+                <FormLabel>Gender</FormLabel>
+                <RadioGroup
+                    value={usersData.gender.value}
+                    onChange={onGenderChange}
+                >
+                    <div className='genderStyle'>
                         <FormControlLabel value={'F'} control={<Radio />} label="Female" />
                         <FormControlLabel value={'M'} control={<Radio />} label="Male" />
-                    </RadioGroup>
-                </FormControl>
+                    </div>
+                </RadioGroup>
             </div>
 
             {/* Button */}
-            <Button
-                variant="contained"
-                type='submit'
-                className='buttonStyle'
-                onClick={onSubmit}
-                fullWidth
-            >
-                NEXT
-            </Button>
+            <div className='buttonDivStyle'>
+                <Button
+                    variant="contained"
+                    type='submit'
+                    className='buttonStyle1'
+                    onClick={onSubmit}
+                >
+                    NEXT
+                </Button>
+            </div>
 
-            <div className='gridDive'>
+            {/* <div className='gridDive'>
                 <div className='div1'></div>
                 <div className='div2'><p2 className='p2'>Or sign up with</p2></div>
                 <div className='div1'></div>
-            </div>
+            </div> */}
 
-            <div className='logoReaux'>
+            {/* <div className='logoReaux'>
                 <Typography>
                     <Link href="#" >
                         <img src='./assets/google.png' alt='logoGoogle' className='googleStyle' />
@@ -441,7 +411,7 @@ function SignUp() {
                         <img src='./assets/facebook.png' alt='logoFacebook' className='facebookStyle' />
                     </Link>
                 </Typography>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/TextInput.css'
 
-function TextInput({label,name, type, value,placeholder, onValueChange, error=false, helperText}) {
+function TextInput({label, name, type, value, placeholder, onValueChange, error=false, helperText}) {
   return (
     <div className='text-input' >
         <label>{label}</label>
@@ -11,7 +11,7 @@ function TextInput({label,name, type, value,placeholder, onValueChange, error=fa
           value={value} 
           placeholder={placeholder} 
           onChange={(e) => {
-            onValueChange(e.target.value)
+          onValueChange(e.target.value)
         }}/>
         {error ? (
           <span className='error-message'>

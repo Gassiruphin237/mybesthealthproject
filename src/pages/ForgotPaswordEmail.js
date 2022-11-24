@@ -51,7 +51,7 @@ function ForgotPaswordEmail() {
             email: Email.value
         }
         console.log(data)
-        axios.post('http://172.17.4.31:8000/api/check', data, {
+        axios.post('http://172.17.4.22:8000/api/check', data, {
             headers: {
                 "Content-Type" : "application/json"
             }
@@ -66,12 +66,13 @@ function ForgotPaswordEmail() {
             
                     }))
                 } else {
-                    emailjs.sendForm('service_r08s7yy', 'template_t5t1ls8', form.current, 'OZ6-ZPfwBFrSlQ6p5')
-                        .then((result) => {
-                            console.log(result.text);
-                        }, (error) => {
-                            console.log(error.text);
-                        });
+                    // emailjs.sendForm('service_r08s7yy', 'template_t5t1ls8', form.current, 'OZ6-ZPfwBFrSlQ6p5')
+                    //     .then((result) => {
+                    //         console.log(result.text);
+                    //     }, (error) => {
+                    //         console.log(error.text);
+                    //     });
+                    console.log('Email envoyé')
                 }
                 console.log(res.data);
             })

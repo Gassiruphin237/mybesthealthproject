@@ -14,4 +14,8 @@
     font-size: 24px;
     line-height: 33px;
     letter-spacing: 0.03em;
+    margin-top: auto;  
+   /* position: absolute;
+   bottom: 0; */
+    
 }
