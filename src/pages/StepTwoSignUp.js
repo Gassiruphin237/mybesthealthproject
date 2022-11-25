@@ -14,25 +14,27 @@ import { multiStepContext } from '../StepContext'
 // initialisation des sanguins
 const GroupeSanguin = [
     { label: '', value: '' },
-    { label: 'AB+', value: 'abPlus' },
-    { label: 'AB-', value: 'abMoins' },
-    { label: 'A+', value: 'aPlus' },
-    { label: 'A-', value: 'aMoins' },
-    { label: 'B+', value: 'bPlus' },
-    { label: 'B-', value: 'bMooins' },
-    { label: 'O+', value: 'oPlus' },
-    { label: 'O-', value: 'oMoins' }
+    { label: 'AB+', value: 'AB+' },
+    { label: 'AB-', value: 'AB-' },
+    { label: 'A+', value: 'A+' },
+    { label: 'A-', value: 'A-' },
+    { label: 'B+', value: 'B+' },
+    { label: 'B-', value: 'B-' },
+    { label: 'O+', value: 'O+' },
+    { label: 'O-', value: 'O-' }
 ]
 
 function StepTwoSignUp() {
 
     const { usersData, setUsersData, setStep } = useContext(multiStepContext)
-
-    console.log(usersData);
     // ALL STATE
 
-    // Element de recuperation des types de maladies dans la base de donnée
-    const [description, setDescription] = useState([])
+    //Element de recuperation des types de maladies dans la base de donnée
+    const [description, setDescription] = useState([
+        {label: 'hello1', value:'world1'},
+        {label: 'hello2', value:'world2'},
+        {label: 'hello3', value:'world3'},
+    ])
     useEffect(() => {
         try {
             axios.get('http://172.17.4.31:8000/api/category/')
@@ -131,7 +133,7 @@ function StepTwoSignUp() {
         if (val === '') {
             setUsersData(state => ({
                 ...state,
-                groupeSanguin: {
+                GroupeSanguin: {
                     value: val,
                     error: true,
                     helperText: 'Require'
@@ -141,7 +143,7 @@ function StepTwoSignUp() {
 
         setUsersData(state => ({
             ...state,
-            groupeSanguin: {
+            GroupeSanguin: {
                 value: val,
                 error: false,
             }
@@ -311,7 +313,7 @@ function StepTwoSignUp() {
             </Grid>
 
 
-            {/* Select input */}
+            {/* Select input motif d'assistance*/}
             <div className='Age-taille-poids'>
                 <SelectInput
                     label="Motif d'assistance"
@@ -345,7 +347,11 @@ function StepTwoSignUp() {
                         error={usersData.taille.error}
                         helperText={usersData.taille.helperText}
                         placeholder={'en cm..'}
-                        onValueChange={onTailleChange}
+                        onValueChange={(e) => {
+                            if(/^[0-9]*$/.test(e)){
+                                onTailleChange(e)
+                            }
+                        }}
                     />
                 </div>
                 <div>
@@ -356,7 +362,11 @@ function StepTwoSignUp() {
                         error={usersData.poids.error}
                         helperText={usersData.poids.helperText}
                         placeholder={'en Kg..'}
-                        onValueChange={onPoidsChange}
+                        onValueChange={(e) => {
+                            if(/^[0-9]*$/.test(e)){
+                                onPoidsChange(e)
+                            }
+                        }}
                     />
                 </div>
             </div>
@@ -384,7 +394,11 @@ function StepTwoSignUp() {
                         error={usersData.nbreGross.error}
                         helperText={usersData.nbreGross.helperText}
                         placeholder={'Exemple 3'}
-                        onValueChange={onNbreGrossChange}
+                        onValueChange={(e) => {
+                            if(/^[0-9]*$/.test(e)){
+                                onNbreGrossChange(e)
+                            }
+                        }}
                     />
                 </div>
                 <div>
@@ -395,7 +409,11 @@ function StepTwoSignUp() {
                         error={usersData.nbreEnfant.error}
                         helperText={usersData.nbreEnfant.helperText}
                         placeholder={'Exemple 2'}
-                        onValueChange={onNbreEnfantChange}
+                        onValueChange={(e) => {
+                            if(/^[0-9]*$/.test(e)){
+                                onNbreEnfantChange(e)
+                            }
+                        }}
                     />
                 </div>
                 <div>
@@ -406,7 +424,11 @@ function StepTwoSignUp() {
                         error={usersData.nbreFausseCouche.error}
                         helperText={usersData.nbreFausseCouche.helperText}
                         placeholder={'Exemple 1'}
-                        onValueChange={onNbreFausseCoucheChange}
+                        onValueChange={(e) => {
+                            if(/^[0-9]*$/.test(e)){
+                                onNbreFausseCoucheChange(e)
+                            }
+                        }}
                     />
                 </div>
             </div>
@@ -440,6 +462,7 @@ function StepTwoSignUp() {
                     type='submit'
                     className='buttonStyle1'
                     onClick={onSubmit}
+                    // onClick={submitData}
                 >
                     NEXT
                 </Button>

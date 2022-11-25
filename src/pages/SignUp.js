@@ -11,7 +11,7 @@ import { multiStepContext } from '../StepContext';
 function SignUp() {
 
 
-    const { usersData, setUsersData, setStep } = useContext(multiStepContext)
+    const { usersData, setUsersData, setStep} = useContext(multiStepContext)
 
     // START VALIDATION
 
@@ -74,7 +74,7 @@ function SignUp() {
                 ...state,
                 email: {
                     value: val,
-                    error: false,
+                    error: true,
                     helperText: 'Require'
                 }
             }))
@@ -87,7 +87,7 @@ function SignUp() {
                 email: {
                     value: val,
                     error: true,
-                    helperText: 'Require'
+                    helperText: 'Enter valid email'
                 }
             }))
         }
@@ -97,7 +97,6 @@ function SignUp() {
                 email: {
                     value: val,
                     error: false,
-                    helperText: 'Require'
                 }
             }))
         }
@@ -274,7 +273,7 @@ function SignUp() {
     // FUNCTION SUBMIT 
     //function submit 
     const onSubmit = React.useCallback(() => {
-        // if (!validateAll()) return;
+        if (!validateAll()) return;
         setStep(2)
     }, [setStep, validateAll])
 
@@ -319,7 +318,6 @@ function SignUp() {
                 <TextInput
                     label='Email'
                     type='email'
-                    // value={email.value}
                     value={usersData.email.value}
                     error={usersData.email.error}
                     placeholder={'Enter your email'}
@@ -358,7 +356,7 @@ function SignUp() {
                 <div className='flNameStyle1'>
                     <TextInput
                         label='Confirm Password'
-                        type='ConfirmPassword'
+                        type='password'
                         value={usersData.ConfirmPassword.value}
                         error={usersData.ConfirmPassword.error}
                         helperText={usersData.ConfirmPassword.helperText}

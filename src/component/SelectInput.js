@@ -13,8 +13,8 @@ function SelectInput({name,label, type, value, placeholder, onValueChange, error
           onChange={(e) => {
             onValueChange(e.target.value)
         }}>
-          {options.map((item) => {
-            return <option value={item.value}>
+          {options.map((item, e) => {
+            return <option key={e} value={item.value}>
               {item.label}
             </option>
           })}
