@@ -31,22 +31,25 @@ function StepTwoSignUp() {
 
     //Element de recuperation des types de maladies dans la base de donnée
     const [description, setDescription] = useState([
-        {label: 'hello1', value:'world1'},
-        {label: 'hello2', value:'world2'},
-        {label: 'hello3', value:'world3'},
+        // {label: 'hello1', value:'world1'},
+        // {label: 'hello2', value:'world2'},
+        // {label: 'hello3', value:'world3'},
     ])
     useEffect(() => {
         try {
-            axios.get('http://172.17.4.31:8000/api/category/')
+            axios.get('http://172.17.4.96:8000/api/category/')
                 .then(function (res) {
                     console.log(res.data.data)
                     setDescription([
-                        { label: "", value: '' },
+                        // { label: "", value: '' },
                         ...res.data.data.map((item) => ({
                             label: item.Description,
                             value: item.id,
+                            
                         }))
+                        
                     ]);
+                    
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -230,7 +233,7 @@ function StepTwoSignUp() {
         if (val === '') {
             setUsersData(state => ({
                 ...state,
-                category: {
+                id_PatienType: {
                     value: val,
                     error: true,
                     helperText: 'Require'
@@ -241,7 +244,7 @@ function StepTwoSignUp() {
 
         setUsersData(state => ({
             ...state,
-            category: {
+            id_PatienType: {
                 value: val,
                 error: false
             }
@@ -280,7 +283,7 @@ function StepTwoSignUp() {
 
     function validateAll() {
         return (
-            usersData.category.value.trim() !== '',
+            usersData.id_PatienType.value.trim() !== '',
             usersData.dateNaissance.value.trim() !== '',
             usersData.taille.value.trim() !== '',
             usersData.poids.value.trim() !== '',
@@ -317,9 +320,9 @@ function StepTwoSignUp() {
             <div className='Age-taille-poids'>
                 <SelectInput
                     label="Motif d'assistance"
-                    value={usersData.category.value}
-                    error={usersData.category.error}
-                    helperText={usersData.category.helperText}
+                    value={usersData.id_PatienType.value}
+                    error={usersData.id_PatienType.error}
+                    helperText={usersData.id_PatienType.helperText}
                     placeholder={"Choisissez votre motif d'assistance "}
                     onValueChange={onCategoryChange}
                     options={description}

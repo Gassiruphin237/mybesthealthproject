@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Button, FormControlLabel, Checkbox } from '@mui/material'
 import { multiStepContext } from '../../StepContext'
+import axios from 'axios';
 
 
 
@@ -22,6 +23,11 @@ function Succes() {
       LastName: usersData.lastName.value,
       FirstName: usersData.fisrtName.value,
       Address: usersData.adress.value,
+      email: usersData.email.value,
+      numberUser: usersData.phone.value,
+      password: usersData.password.value,
+      password_confirmation: usersData.ConfirmPassword.value,
+      id_PatienType: usersData.id_PatienType.value,
       dateNaissance: usersData.dateNaissance.value,
       Gender: usersData.gender.value,
       taille: usersData.taille.value,
@@ -31,9 +37,21 @@ function Succes() {
       nbreEnfant: usersData.nbreEnfant.value,
       nbreFausseCouche: usersData.nbreFausseCouche.value,
     }
+
+          axios.post('http://172.17.4.96:8000/api/register/', data)
+              .then(function (res) {
+                  console.log(res)
+                
+              })
+              .catch(function (error) {
+                  console.log(error);
+              })
+
+
+
     console.log(data);
     alert('Form submitted')
-    resetContent()
+    // resetContent()
 
 
   }, [setStep, usersData, setUserData])

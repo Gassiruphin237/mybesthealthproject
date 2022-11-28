@@ -271,9 +271,8 @@ function SignUp() {
 
 
     // FUNCTION SUBMIT 
-    //function submit 
     const onSubmit = React.useCallback(() => {
-        if (!validateAll()) return;
+        // if (!validateAll()) return;
         setStep(2)
     }, [setStep, validateAll])
 

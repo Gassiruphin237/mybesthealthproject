@@ -29,7 +29,7 @@ import StepContext from './StepContext';
           <Route path="/account" element={<Account/> } />
           <Route path="/profile" element={<Profile/> } />
           <Route path="/forgot-password" element={<ForgotPaswordEmail/> } />
-          <Route path="/reset-password" element={<ResetPassword/> } />
+          <Route path="/reset-password/:token" element={<ResetPassword/> } />
         </Routes>
         <Footer/> 
       </div>

@@ -1,65 +1,161 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import TextInput from '../component/TextInput'
-import {Grid, Button, Link, Typography} from '@mui/material'
+import { Grid, Button } from '@mui/material'
 import '../styles/ForgotPaswordEmail.css'
+import { useParams } from 'react-router-dom'
+import validator from 'validator'
+import { multiStepContext } from '../StepContext'
 
 function ResetPassword() {
 
-    const [password, setPassword] = React.useState()
-    const [ConfirmPassword, setConfirmPassword] = React.useState()
+    const { usersData, setUsersData, setStep} = useContext(multiStepContext)
 
-  return (
-    <div className='containers'>
-        <Grid align='center'>
-            <img src='./assets/logo.png' alt='logo' className='logoStyle' />
-            <h1>Reset password</h1>
-        </Grid>
-        <div >
+    // useParam for the reset password 
+    let { token } = useParams()
+
+    // verification password
+    const onPasswordChange = React.useCallback((val) => {
+        if (val.trim() === '') {
+            setUsersData(state => ({
+                ...state,
+                password: {
+                    value: val,
+                    error: true,
+                    helperText: 'Require'
+                }
+            }))
+
+            return;
+        }
+
+        if (!validator.isStrongPassword(val)) {
+            setUsersData(state => ({
+                ...state,
+                password: {
+                    value: val,
+                    error: true,
+                    elperText: 'Your password must to contain 8 characters '
+                }
+            }))
+
+            return;
+        }
+
+        setUsersData(state => ({
+            ...state,
+            password: {
+                value: val,
+                error: false,
+                elperText: 'Your password must to contain 8 characters '
+            }
+        }))
+    }, [setUsersData])
+
+
+    // Confirm password verifaication 
+    const onConfirmPasswordChange = React.useCallback((val) => {
+        if (val.trim() === '') {
+            setUsersData(state => ({
+                ...state,
+                ConfirmPassword: {
+                    value: val,
+                    error: true,
+                    helperText: 'Require'
+                }
+            }))
+            return;
+        }
+
+        if (!validator.isStrongPassword(val)) {
+            setUsersData(state => ({
+                ...state,
+                ConfirmPassword: {
+                    value: val,
+                    error: true,
+                    helperText: 'Your password must to contain 8 characters '
+                }
+            }))
+
+            return;
+        }
+
+        if (usersData.password.value !== val) {
+            setUsersData(state => ({
+                ...state,
+                ConfirmPassword: {
+                    value: val,
+                    error: true,
+                    helperText: "Your password don't match"
+                }
+            }))
+
+            return;
+        }
+
+        setUsersData(state => ({
+            ...state,
+            ConfirmPassword: {
+                value: val,
+                error: false,
+                helperText: 'Your password must to contain 8 characters '
+            }
+        }))
+
+
+    }, [setUsersData, usersData])
+
+    //Function state and validation 
+    
+
+
+    // function validation 
+   
+    return (
+        <div className='containers'>
+            <Grid align='center'>
+                <img src='../assets/logo.png' alt='logo' className='logoStyle' />
+                <h1>Reset password</h1>
+            </Grid>
+            <div >
                 <TextInput
-                    label='Password'
+                    label='New password'
                     type='password'
-                    value={password}
+                    value={usersData.phone.value}
+                    error={usersData.phone.error}
+                    helperText={usersData.phone.helperText}
                     placeholder={'Enter new password'}
-                    onValueChange={password}
+                    onValueChange={onPasswordChange}
                 />
-        </div>
-        <div >
+            </div>
+            <div >
                 <TextInput
-                    label='Confirm password'
+                    label='Confirm new password'
                     type='password'
-                    value={ConfirmPassword}
+                    value={usersData.ConfirmPassword.value}
+                    error={usersData.ConfirmPassword.error}
+                    helperText={usersData.ConfirmPassword.helperText}
                     placeholder={'confirm new password'}
-                    onValueChange={ConfirmPassword}
+                    onValueChange={onConfirmPasswordChange}
                 />
-        </div>
-        <Button
+            </div>
+            <Button
                 variant="contained"
                 type='submit'
                 className='buttonStyle'
                 fullWidth
+                onClick={onSubmit}
             >
                 Submit
-        </Button>
-        <div className='gridDive'>
+            </Button>
+            <div className='gridDive'>
                 <div className='div1'></div>
-                <div className='div2'><p2 className='p2'>or sign up with</p2></div>
+                <div className='div2'><p className='p2'>  .  </p></div>
                 <div className='div1'></div>
             </div>
 
-            <div className='logoReaux'>
-                <Typography>
-                    <Link href="#" >
-                        <img src='./assets/google.png' alt='logoGoogle' className='googleStyle' />
-                    </Link>
-                </Typography>
-                <Typography>
-                    <Link href="#" >
-                        <img src='./assets/facebook.png' alt='logoFacebook' className='facebookStyle' />
-                    </Link>
-                </Typography>
+
         </div>
-    </div>
-  )
+    )
 }
 
 export default ResetPassword

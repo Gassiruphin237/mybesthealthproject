@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Register from './pages/registration/Register'
+import ResetPassword from './pages/ResetPassword';
 
 const DEFAULT_VALUE = {
   value: '',
@@ -15,7 +16,7 @@ const DEFAULT_CONTENT_DATA = {
   password: DEFAULT_VALUE,
   ConfirmPassword: DEFAULT_VALUE,
   gender: DEFAULT_VALUE,
-  category: DEFAULT_VALUE,
+  id_PatienType: DEFAULT_VALUE,
   dateNaissance: DEFAULT_VALUE,
   taille: DEFAULT_VALUE,
   poids: DEFAULT_VALUE,
@@ -23,8 +24,9 @@ const DEFAULT_CONTENT_DATA = {
   nbreGross: DEFAULT_VALUE,
   nbreEnfant: DEFAULT_VALUE,
   nbreFausseCouche: DEFAULT_VALUE,
-  adress: DEFAULT_VALUE
-
+  adress: DEFAULT_VALUE,
+  ResetPassword: DEFAULT_VALUE,
+  ConfirmPasswordResetPassword: DEFAULT_VALUE
 }
 
 export const multiStepContext = React.createContext();

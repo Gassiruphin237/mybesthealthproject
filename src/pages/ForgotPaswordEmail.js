@@ -51,7 +51,7 @@ function ForgotPaswordEmail() {
             email: Email.value
         }
         console.log(data)
-        axios.post('http://172.17.4.22:8000/api/check', data, {
+        axios.post('http://172.17.4.96:8000/api/forgot', data, {
             headers: {
                 "Content-Type" : "application/json"
             }

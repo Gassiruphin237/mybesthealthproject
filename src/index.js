@@ -8,11 +8,11 @@ import StepContext from './StepContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <StepContext>
+    // <StepContext>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    </StepContext>
+    // </StepContext>
 );
 
 // If you want to start measuring performance in your app, pass a function
