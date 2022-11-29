@@ -1,63 +1,83 @@
-import React, { useContext } from 'react'
+import React, { useState } from 'react'
 import TextInput from '../component/TextInput'
 import { Grid, Button } from '@mui/material'
 import '../styles/ForgotPaswordEmail.css'
-import { useParams } from 'react-router-dom'
+import { Navigate, Redirect, useNavigate, useParams } from 'react-router-dom'
 import validator from 'validator'
-import { multiStepContext } from '../StepContext'
+import axios from 'axios'
+import { Login } from '@mui/icons-material'
 
 function ResetPassword() {
 
-    const { usersData, setUsersData, setStep} = useContext(multiStepContext)
 
     // useParam for the reset password 
     let { token } = useParams()
 
+    // password state 
+
+    const DEFAULT_VALUES = {
+        value: '',
+        error: false,
+        helperText: 'Require'
+    }
+
+    const DEFAULT_CONTENT_DATAS = {
+        password: DEFAULT_VALUES,
+        confirmPassword: DEFAULT_VALUES
+    }
+
+    const [ResetPassword, setResetPassword] = useState(
+        DEFAULT_CONTENT_DATAS
+    )
+
+
     // verification password
     const onPasswordChange = React.useCallback((val) => {
         if (val.trim() === '') {
-            setUsersData(state => ({
+            setResetPassword(state => ({
                 ...state,
                 password: {
                     value: val,
                     error: true,
                     helperText: 'Require'
                 }
-            }))
 
+            }))
             return;
         }
 
         if (!validator.isStrongPassword(val)) {
-            setUsersData(state => ({
+            setResetPassword(state => ({
                 ...state,
                 password: {
-                    value: val,
                     error: true,
-                    elperText: 'Your password must to contain 8 characters '
+                    value: val,
+                    helperText: 'Your password must to contain 8 characters '
                 }
             }))
-
-            return;
+            return
         }
 
-        setUsersData(state => ({
+        setResetPassword(state => ({
             ...state,
             password: {
                 value: val,
-                error: false,
-                elperText: 'Your password must to contain 8 characters '
+                error: false
             }
+
+
         }))
-    }, [setUsersData])
+
+    }, [setResetPassword])
+
 
 
     // Confirm password verifaication 
     const onConfirmPasswordChange = React.useCallback((val) => {
         if (val.trim() === '') {
-            setUsersData(state => ({
+            setResetPassword(state => ({
                 ...state,
-                ConfirmPassword: {
+                confirmPassword: {
                     value: val,
                     error: true,
                     helperText: 'Require'
@@ -67,49 +87,91 @@ function ResetPassword() {
         }
 
         if (!validator.isStrongPassword(val)) {
-            setUsersData(state => ({
+            setResetPassword(state => ({
                 ...state,
-                ConfirmPassword: {
-                    value: val,
+                confirmPassword: {
                     error: true,
+                    value: val,
                     helperText: 'Your password must to contain 8 characters '
                 }
             }))
+            return
+        }
 
+        if (ResetPassword.password.value !== val) {
+            setResetPassword(state => ({
+                ...state,
+                confirmPassword: {
+                    error: true,
+                    value: val,
+                    helperText: "Your password don't match"
+                }
+
+            }))
             return;
         }
 
-        if (usersData.password.value !== val) {
-            setUsersData(state => ({
+        setResetPassword(state => ({
+            ...state,
+            confirmPassword: {
+                error: false,
+                value: val,
+                helperText: 'Your password must to contain 8 characters '
+            }
+
+        }))
+
+    }, [setResetPassword, ResetPassword])
+
+    //validate All
+    function validateAll() {
+        if (ResetPassword.password.value !== ResetPassword.confirmPassword.value) {
+            setResetPassword(state => ({
                 ...state,
-                ConfirmPassword: {
-                    value: val,
+                confirmPassword: {
+                    ...state.confirmPassword,
                     error: true,
                     helperText: "Your password don't match"
                 }
-            }))
 
-            return;
+            }))
+            return false
         }
 
-        setUsersData(state => ({
-            ...state,
-            ConfirmPassword: {
-                value: val,
-                error: false,
-                helperText: 'Your password must to contain 8 characters '
-            }
-        }))
+        return (
+            ResetPassword.password.value.trim() !== ''
+            // confirmPassword.value.trim() !== ''
+        )
+    }
 
-
-    }, [setUsersData, usersData])
-
-    //Function state and validation 
-    
-
+    const navigate = useNavigate();
 
     // function validation 
-   
+    const onSubmit = React.useCallback(() => {
+        if (!validateAll()) return
+
+        const data = {
+            password: ResetPassword.password.value,
+            password_confirmation: ResetPassword.confirmPassword.value,
+            token: token
+        }
+
+        axios.post('http://172.17.4.96:8000/api/reset', data)
+            .then(function (res) {
+                console.log(res.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+
+        console.log(data)
+        alert('Your password is reseted successfuly');
+        // <Redirect to='/login'/>
+        
+        navigate('/login')
+
+    }, [ResetPassword, setResetPassword])
+
     return (
         <div className='containers'>
             <Grid align='center'>
@@ -120,9 +182,9 @@ function ResetPassword() {
                 <TextInput
                     label='New password'
                     type='password'
-                    value={usersData.phone.value}
-                    error={usersData.phone.error}
-                    helperText={usersData.phone.helperText}
+                    value={ResetPassword.password.value}
+                    error={ResetPassword.password.error}
+                    helperText={ResetPassword.password.helperText}
                     placeholder={'Enter new password'}
                     onValueChange={onPasswordChange}
                 />
@@ -131,9 +193,9 @@ function ResetPassword() {
                 <TextInput
                     label='Confirm new password'
                     type='password'
-                    value={usersData.ConfirmPassword.value}
-                    error={usersData.ConfirmPassword.error}
-                    helperText={usersData.ConfirmPassword.helperText}
+                    value={ResetPassword.confirmPassword.value}
+                    error={ResetPassword.confirmPassword.error}
+                    helperText={ResetPassword.confirmPassword.helperText}
                     placeholder={'confirm new password'}
                     onValueChange={onConfirmPasswordChange}
                 />

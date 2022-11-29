@@ -146,7 +146,7 @@ function LoginPhone() {
 
                     </div>
                     <Typography className='forgetPassword'  >
-                        <Link href="#">Forgot password ?</Link>
+                        <Link href="forgot-password">Forgot password ?</Link>
                     </Typography>
 
                     <Button
@@ -159,7 +159,7 @@ function LoginPhone() {
                         Log in
                     </Button>
                     <Typography className='memberYet'> Not a member yet ?
-                        <Link href="/step-tree"> Join</Link>
+                        <Link href="/register"> Join</Link>
                     </Typography>
                 </Grid>
 

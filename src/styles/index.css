@@ -3,10 +3,20 @@
     margin: 0;
     /* overflow: hidden; */
 }
-.indexStyle{
+
+body, html {
+height: 100%;
+
+}
+
+/* .indexStyle{
     margin: 50px auto;
     color: #04A3BD;
-}
+    background-color: red;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+} */
 
 .css-heg063-MuiTabs-flexContainer {
     width: 180px;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Register from './pages/registration/Register'
-import ResetPassword from './pages/ResetPassword';
+import ResetPassword from './pages/ResetPassword'
 
 const DEFAULT_VALUE = {
   value: '',
@@ -42,6 +42,7 @@ const StepContext = () => {
     <div>
       <multiStepContext.Provider value={{ DEFAULT_CONTENT_DATA, resetContent, usersData, setUsersData, currentStep, setStep}}>
         <Register />
+        <ResetPassword/>
       </multiStepContext.Provider>
     </div>
   )

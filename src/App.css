@@ -36,17 +36,20 @@
     transform: rotate(360deg);
   }
 } */
- /* body, html{
-    
-    height: 100%;
-   
- }
- .appStyle{
-  display: flex;
-    flex-direction: column;
-    height: 100vh;
- } */
+ body,
+ html {
 
+   height: 100%;
+   overflow: hidden;
+
+ }
+
+ .appStyle {
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+   padding-top: 200px;
+ }
 
  .App {
   /* text-align: center; */
@@ -62,3 +65,5 @@
   display: flex;
   justify-content: center;
  }
+ /* */
+ 
