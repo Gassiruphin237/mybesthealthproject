@@ -25,8 +25,6 @@ const DEFAULT_CONTENT_DATA = {
   nbreEnfant: DEFAULT_VALUE,
   nbreFausseCouche: DEFAULT_VALUE,
   adress: DEFAULT_VALUE,
-  ResetPassword: DEFAULT_VALUE,
-  ConfirmPasswordResetPassword: DEFAULT_VALUE
 }
 
 export const multiStepContext = React.createContext();

@@ -5,9 +5,13 @@ import LoginEmail from '../component/LoginEmail';
 import LoginPhone from '../component/LoginPhone';
 
 function Login() {
+
+  //Here we have the container login. on this we have loginEmail and loginPhone
   
+  //state initialisation
   const [value, setValue] = React.useState(0);
 
+  //handle change help to switching login with email or phone
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -35,11 +39,13 @@ function Login() {
 
   return (
     <div className='indexStyle'>
+
       <Grid align='center'>
         <img src='./assets/logo.png' alt='logo' className='logoStyle' />
         <h1>Welcome back</h1>
-        <p1>Enter your login credential</p1>
+        <p>Enter your login credential</p>
       </Grid>
+
       <Tabs
         value={value}
         onChange={handleChange}
@@ -55,9 +61,13 @@ function Login() {
           className='TabStyle'
         />
       </Tabs>
+
+      {/*login email component */}
       <TabPanel value={value} index={0} >
         <LoginEmail />
       </TabPanel>
+
+      {/*login phone component */}
       <TabPanel value={value} index={1}>
         <LoginPhone />
       </TabPanel>

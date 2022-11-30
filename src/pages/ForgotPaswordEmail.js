@@ -1,14 +1,21 @@
 import React, { useRef, useState } from 'react'
 import TextInput from '../component/TextInput'
-import { Grid, Button, Typography, Link } from '@mui/material'
+import { Grid, Button, Alert, IconButton } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close';
 import '../styles/ForgotPaswordEmail.css'
 import validator from 'validator'
 import axios from 'axios'
-import emailjs from '@emailjs/browser'
 
 function ForgotPaswordEmail() {
 
+    // state initialisation
     const [Email, setEmail] = useState([""])
+    const [alert, setAlert] = useState(false)
+
+    // feedback initialisation 
+    const [errorMessage, setErrorMessage] = useState("")
+    const [errore, setErrore] = useState("error")
+
 
     // E-mail verification 
     const onChangeEmail = React.useCallback((val) => {
@@ -17,7 +24,7 @@ function ForgotPaswordEmail() {
                 ...state,
                 value: val,
                 error: true,
-                helperText: 'Require'
+                helperText: 'Required'
             }))
             return;
         }
@@ -39,56 +46,91 @@ function ForgotPaswordEmail() {
             error: false,
 
         }))
-    }, [setEmail, validator])
+    }, [setEmail])
 
     const form = useRef()
 
-   // gassiruphin@gmail.com
+    // Verification if the input no empty is 
+    function validateAll() {
+        return (
+            Email.value.trim() !== ''
+        )
+    }
+
+    // Submitting button 
     const onSubmit = React.useCallback((e) => {
-        e.preventDefault();
 
-        const data = {
-            email: Email.value
-        }
-        console.log(data)
-        axios.post('http://172.17.4.96:8000/api/forgot', data, {
-            headers: {
-                "Content-Type" : "application/json"
+        if (!validateAll()) {
+            return;
+        } else 
+        {
+            e.preventDefault();
+            const data = {
+                email: Email.value
             }
-        })
-            .then(function (res) {
-                if (res.data.message) {
-                    console.log(res.data.message)
-                    setEmail(state => ({
-                        ...state,
-                        error: true,
-                        helperText: res.data.message
-            
-                    }))
-                } else {
-                    // emailjs.sendForm('service_r08s7yy', 'template_t5t1ls8', form.current, 'OZ6-ZPfwBFrSlQ6p5')
-                    //     .then((result) => {
-                    //         console.log(result.text);
-                    //     }, (error) => {
-                    //         console.log(error.text);
-                    //     });
-                    console.log('Email envoyé')
-                }
-                console.log(res.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+            console.log(data)
 
-        console.log(data)
+            // Use Api to talk with database
+            axios.post('http://172.17.4.96:8000/api/forgot', data)
+                .then(function (res) {
+                    if (res.data.message) {
+                        console.log(res.data.message)
+                        setEmail(state => ({
+                            ...state,
+                            error: true,
+                            helperText: res.data.message
 
-    })
+                        }))
+
+                        setErrore("success")
+                        setAlert(true)
+                        setErrorMessage(res.data.message)
+                    }
+                    console.log(res.data.message);
+                })
+                .catch(function (error) {
+
+                    setErrore("error")
+                    setAlert(true)
+                    setErrorMessage(error.response.data.message)
+                })
+            console.log(data)
+        }
+    }, [Email])
+
+
+
 
     return (
         <div className='containers'>
             <Grid align='center'>
                 <img src='./assets/logo.png' alt='logo' className='logoStyle' />
                 <h1>Forgot password ?</h1>
+
+
+                {
+                    !alert ? null
+                        : (
+                            <Alert
+                                severity={errore}
+                                onChange={(e) => setErrorMessage(e.target.value)}
+                                action={
+                                    <IconButton
+                                        aria-label="close"
+                                        color="inherit"
+                                        size="small"
+                                        onClick={() => {
+                                            setAlert(false);
+                                        }}
+                                    >
+                                        <CloseIcon fontSize="inherit" />
+                                    </IconButton>
+                                }
+                            >
+                                {errorMessage}</Alert>
+                        )
+                }
+
             </Grid>
             <form onSubmit={onSubmit} ref={form}>
                 <div >
@@ -110,30 +152,8 @@ function ForgotPaswordEmail() {
                     fullWidth
                 >
                     Submit
-
-                    {/* <Typography>
-                    <Link href="/">Submit</Link>
-                </Typography> */}
                 </Button>
             </form>
-            {/* <div className='gridDive'>
-                <div className='div1'></div>
-                <div className='div2'><p2 className='p2'>or sign up with</p2></div>
-                <div className='div1'></div>
-            </div> */}
-
-            {/* <div className='logoReaux'>
-                <Typography>
-                    <Link href="#" >
-                        <img src='./assets/google.png' alt='logoGoogle' className='googleStyle' />
-                    </Link>
-                </Typography>
-                <Typography>
-                    <Link href="#" >
-                        <img src='./assets/facebook.png' alt='logoFacebook' className='facebookStyle' />
-                    </Link>
-                </Typography>
-            </div> */}
         </div>
     )
 }

@@ -1,20 +1,25 @@
 import React, { useState } from 'react'
 import TextInput from '../component/TextInput'
-import { Grid, Button } from '@mui/material'
+import { Grid, Button, Alert, IconButton } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close';
 import '../styles/ForgotPaswordEmail.css'
-import { Navigate, Redirect, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import validator from 'validator'
 import axios from 'axios'
-import { Login } from '@mui/icons-material'
 
 function ResetPassword() {
 
 
-    // useParam for the reset password 
+    // UseParam for the reset password 
     let { token } = useParams()
 
-    // password state 
+    // State feedback initialisation
+    const [alert, setAlert] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [errore, setErrore] = useState("error")
 
+
+    // Password state initialation
     const DEFAULT_VALUES = {
         value: '',
         error: false,
@@ -29,7 +34,6 @@ function ResetPassword() {
     const [ResetPassword, setResetPassword] = useState(
         DEFAULT_CONTENT_DATAS
     )
-
 
     // verification password
     const onPasswordChange = React.useCallback((val) => {
@@ -64,10 +68,7 @@ function ResetPassword() {
                 value: val,
                 error: false
             }
-
-
         }))
-
     }, [setResetPassword])
 
 
@@ -102,7 +103,7 @@ function ResetPassword() {
             setResetPassword(state => ({
                 ...state,
                 confirmPassword: {
-                    error: true,
+                    error: '',
                     value: val,
                     helperText: "Your password don't match"
                 }
@@ -123,7 +124,15 @@ function ResetPassword() {
 
     }, [setResetPassword, ResetPassword])
 
-    //validate All
+    const wait = (duration = 1000) => {
+        setTimeout(() => {
+            ResetPassword.password.value = ""
+            ResetPassword.confirmPassword.value = ""
+            navigate('/login')
+        }, duration)
+    }
+
+    //validate All tcheck if password and reset password matched
     function validateAll() {
         if (ResetPassword.password.value !== ResetPassword.confirmPassword.value) {
             setResetPassword(state => ({
@@ -140,14 +149,15 @@ function ResetPassword() {
 
         return (
             ResetPassword.password.value.trim() !== ''
-            // confirmPassword.value.trim() !== ''
         )
     }
 
+    // go to login page after password updated
     const navigate = useNavigate();
 
+
     // function validation 
-    const onSubmit = React.useCallback(() => {
+    const onSubmit = React.useCallback(async () => {
         if (!validateAll()) return
 
         const data = {
@@ -156,19 +166,22 @@ function ResetPassword() {
             token: token
         }
 
-        axios.post('http://172.17.4.96:8000/api/reset', data)
+        // Use Api to talk with database
+        await axios.post('http://172.17.4.96:8000/api/reset', data)
             .then(function (res) {
+                setErrore("success")
+                setAlert(true)
+                setErrorMessage(res.data.message)
+                wait(2000)
                 console.log(res.data);
             })
             .catch(function (error) {
+                setErrore("error")
+                setAlert(true)
+                setErrorMessage(error.response.data.message)
                 console.log(error);
             })
 
-        console.log(data)
-        alert('Your password is reseted successfuly');
-        // <Redirect to='/login'/>
-        
-        navigate('/login')
 
     }, [ResetPassword, setResetPassword])
 
@@ -177,6 +190,33 @@ function ResetPassword() {
             <Grid align='center'>
                 <img src='../assets/logo.png' alt='logo' className='logoStyle' />
                 <h1>Reset password</h1>
+
+                {
+                    !alert ? null
+                        : (
+                            <Alert
+                                severity={errore}
+                                onChange={(e) => setErrorMessage(e.target.value)}
+                                action={
+                                    <IconButton
+                                        aria-label="close"
+                                        color="inherit"
+                                        size="small"
+                                        onClick={() => {
+                                            setAlert(false);
+                                            wait()
+                                            // ResetPassword.password.value = ""
+                                            // ResetPassword.confirmPassword.value = ""
+                                            // navigate('/login')
+                                        }}
+                                    >
+                                        <CloseIcon fontSize="inherit" />
+                                    </IconButton>
+                                }
+                            >
+                                {errorMessage}</Alert>
+                        )
+                }
             </Grid>
             <div >
                 <TextInput

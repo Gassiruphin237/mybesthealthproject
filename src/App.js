@@ -4,14 +4,12 @@ import Login from './pages/Login';
 import Footer from './component/nav/Footer'
 import ForgotPaswordEmail from './pages/ForgotPaswordEmail'
 import ResetPassword from './pages/ResetPassword'
-import SignUpPage from './pages/registration/SignUpPage'
 import Account from './pages/Account';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
 import AuthenticatedRoutes from './component/AuthenticatedRoutes';
 import hasAuthenticated from './component/services/AuthApi'
 import Auth from './utiles/Auth'
-import Navbar from './component/nav/Navbar'
 import './App.css'
 import Succes from './pages/registration/Succes';
 import StepContext from './StepContext';
