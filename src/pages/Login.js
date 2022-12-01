@@ -43,7 +43,7 @@ function Login() {
       <Grid align='center'>
         <img src='./assets/logo.png' alt='logo' className='logoStyle' />
         <h1>Welcome back</h1>
-        <p>Enter your login credential</p>
+        <span>Enter your login credential</span>
       </Grid>
 
       <Tabs

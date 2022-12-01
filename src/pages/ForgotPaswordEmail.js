@@ -16,6 +16,9 @@ function ForgotPaswordEmail() {
     const [errorMessage, setErrorMessage] = useState("")
     const [errore, setErrore] = useState("error")
 
+    // disabled button after submitting
+    const [disable, setDisable] = React.useState(false)
+   
 
     // E-mail verification 
     const onChangeEmail = React.useCallback((val) => {
@@ -78,13 +81,14 @@ function ForgotPaswordEmail() {
                         setEmail(state => ({
                             ...state,
                             error: true,
-                            helperText: res.data.message
 
                         }))
 
                         setErrore("success")
                         setAlert(true)
                         setErrorMessage(res.data.message)
+                        setDisable(true)
+                        Email.value = ""
                     }
                     console.log(res.data.message);
                 })
@@ -95,8 +99,9 @@ function ForgotPaswordEmail() {
                     setErrorMessage(error.response.data.message)
                 })
             console.log(data)
+            
         }
-    }, [Email])
+    }, [Email, validateAll])
 
 
 
@@ -149,6 +154,7 @@ function ForgotPaswordEmail() {
                     variant="contained"
                     type='submit'
                     className='buttonStyle'
+                    disabled={disable}
                     fullWidth
                 >
                     Submit

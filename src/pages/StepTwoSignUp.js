@@ -4,7 +4,7 @@ import { Grid } from '@mui/material'
 import TextInput from '../component/TextInput'
 import validator from 'validator'
 import '../styles/stepTwo.css'
-import '../styles/SignUp.css'
+// import '../styles/SignUp.css'
 import SelectInput from '../component/SelectInput'
 import axios from 'axios'
 import { Button } from '@mui/material'
@@ -45,11 +45,11 @@ function StepTwoSignUp() {
                         ...res.data.data.map((item) => ({
                             label: item.Description,
                             value: item.id,
-                            
+
                         }))
-                        
+
                     ]);
-                    
+
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -309,166 +309,168 @@ function StepTwoSignUp() {
 
     return (
         <div className='container'>
-            <Grid align='center'>
-                <img src='./assets/logo.png' alt='logo' className='logoStyle' />
-                <h1> Sign up </h1>
-                <p>Welcome, create your account now and get free online assistance with best doctors of mybesthealth</p>
-            </Grid>
+            <div className='blockContent'>
+                <Grid align='center'>
+                    <img src='./assets/logo.png' alt='logo' className='logoStyle' />
+                    <h1> Sign up </h1>
+                    <span>Welcome, create your account now and get free online assistance with best doctors of mybesthealth</span>
+                </Grid>
 
 
-            {/* Select input motif d'assistance*/}
-            <div className='Age-taille-poids'>
-                <SelectInput
-                    label="Motif d'assistance"
-                    value={usersData.id_PatienType.value}
-                    error={usersData.id_PatienType.error}
-                    helperText={usersData.id_PatienType.helperText}
-                    placeholder={"Choisissez votre motif d'assistance "}
-                    onValueChange={onCategoryChange}
-                    options={description}
-                />
-
-            </div>
-
-            {/* age , taille, poids inputs */}
-            <div className='Age-taille-poids'>
+                {/* Select input motif d'assistance*/}
                 <div>
-                    <TextInput
-                        label='Date de naissance'
-                        type='date'
-                        value={usersData.dateNaissance.value}
-                        error={usersData.dateNaissance.error}
-                        helperText={usersData.dateNaissance.helperText}
-                        onValueChange={onAgeChange}
+                    <SelectInput
+                        label="Motif d'assistance"
+                        value={usersData.id_PatienType.value}
+                        error={usersData.id_PatienType.error}
+                        helperText={usersData.id_PatienType.helperText}
+                        placeholder={"Choisissez votre motif d'assistance "}
+                        onValueChange={onCategoryChange}
+                        options={description}
+                    />
+
+                </div>
+
+                {/* age , taille, poids inputs */}
+                <div className='Age-taille-poids'>
+                    <div>
+                        <TextInput
+                            label='Date de naissance'
+                            type='date'
+                            value={usersData.dateNaissance.value}
+                            error={usersData.dateNaissance.error}
+                            helperText={usersData.dateNaissance.helperText}
+                            onValueChange={onAgeChange}
+                        />
+                    </div>
+                    <div>
+                        <TextInput
+                            label='Taille'
+                            type='number'
+                            value={usersData.taille.value}
+                            error={usersData.taille.error}
+                            helperText={usersData.taille.helperText}
+                            placeholder={'en cm..'}
+                            onValueChange={(e) => {
+                                if (/^[0-9]*$/.test(e)) {
+                                    onTailleChange(e)
+                                }
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <TextInput
+                            label='Poids'
+                            type='number'
+                            value={usersData.poids.value}
+                            error={usersData.poids.error}
+                            helperText={usersData.poids.helperText}
+                            placeholder={'en Kg..'}
+                            onValueChange={(e) => {
+                                if (/^[0-9]*$/.test(e)) {
+                                    onPoidsChange(e)
+                                }
+                            }}
+                        />
+                    </div>
+                </div>
+
+                {/* Groupe sanguin */}
+                <div>
+                    <SelectInput
+                        label='Groupe sanguin'
+                        value={usersData.GroupeSanguin.value}
+                        error={usersData.GroupeSanguin.error}
+                        helperText={usersData.GroupeSanguin.helperText}
+                        placeholder={'choisissez votre groupe sanguin'}
+                        onValueChange={onGroupeSanguinChange}
+                        options={GroupeSanguin}
                     />
                 </div>
-                <div>
-                    <TextInput
-                        label='Taille'
-                        type='number'
-                        value={usersData.taille.value}
-                        error={usersData.taille.error}
-                        helperText={usersData.taille.helperText}
-                        placeholder={'en cm..'}
-                        onValueChange={(e) => {
-                            if(/^[0-9]*$/.test(e)){
-                                onTailleChange(e)
-                            }
-                        }}
-                    />
-                </div>
-                <div>
-                    <TextInput
-                        label='Poids'
-                        type='number'
-                        value={usersData.poids.value}
-                        error={usersData.poids.error}
-                        helperText={usersData.poids.helperText}
-                        placeholder={'en Kg..'}
-                        onValueChange={(e) => {
-                            if(/^[0-9]*$/.test(e)){
-                                onPoidsChange(e)
-                            }
-                        }}
-                    />
-                </div>
-            </div>
 
-            {/* Groupe sanguin */}
-            <div className='Age-taille-poids'>
-                <SelectInput
-                    label='Groupe sanguin'
-                    value={usersData.GroupeSanguin.value}
-                    error={usersData.GroupeSanguin.error}
-                    helperText={usersData.GroupeSanguin.helperText}
-                    placeholder={'choisissez votre groupe sanguin'}
-                    onValueChange={onGroupeSanguinChange}
-                    options={GroupeSanguin}
-                />
-            </div>
-
-            {/* Nombre de grossesse, nombre d'enfant, nombre de fausse couche */}
-            <div className='Age-taille-poids' >
-                <div>
-                    <TextInput
-                        label='Nbre de grossesse'
-                        type='number'
-                        value={usersData.nbreGross.value}
-                        error={usersData.nbreGross.error}
-                        helperText={usersData.nbreGross.helperText}
-                        placeholder={'Exemple 3'}
-                        onValueChange={(e) => {
-                            if(/^[0-9]*$/.test(e)){
-                                onNbreGrossChange(e)
-                            }
-                        }}
-                    />
+                {/* Nombre de grossesse, nombre d'enfant, nombre de fausse couche */}
+                <div className='Age-taille-poids' >
+                    <div>
+                        <TextInput
+                            label='Nbre de grossesse'
+                            type='number'
+                            value={usersData.nbreGross.value}
+                            error={usersData.nbreGross.error}
+                            helperText={usersData.nbreGross.helperText}
+                            placeholder={'Exemple 3'}
+                            onValueChange={(e) => {
+                                if (/^[0-9]*$/.test(e)) {
+                                    onNbreGrossChange(e)
+                                }
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <TextInput
+                            label="Nbre d'enfant"
+                            type='number'
+                            value={usersData.nbreEnfant.value}
+                            error={usersData.nbreEnfant.error}
+                            helperText={usersData.nbreEnfant.helperText}
+                            placeholder={'Exemple 2'}
+                            onValueChange={(e) => {
+                                if (/^[0-9]*$/.test(e)) {
+                                    onNbreEnfantChange(e)
+                                }
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <TextInput
+                            label='Nbre de fausse couche'
+                            type='number'
+                            value={usersData.nbreFausseCouche.value}
+                            error={usersData.nbreFausseCouche.error}
+                            helperText={usersData.nbreFausseCouche.helperText}
+                            placeholder={'Exemple 1'}
+                            onValueChange={(e) => {
+                                if (/^[0-9]*$/.test(e)) {
+                                    onNbreFausseCoucheChange(e)
+                                }
+                            }}
+                        />
+                    </div>
                 </div>
-                <div>
-                    <TextInput
-                        label="Nbre d'enfant"
-                        type='number'
-                        value={usersData.nbreEnfant.value}
-                        error={usersData.nbreEnfant.error}
-                        helperText={usersData.nbreEnfant.helperText}
-                        placeholder={'Exemple 2'}
-                        onValueChange={(e) => {
-                            if(/^[0-9]*$/.test(e)){
-                                onNbreEnfantChange(e)
-                            }
-                        }}
-                    />
-                </div>
-                <div>
-                    <TextInput
-                        label='Nbre de fausse couche'
-                        type='number'
-                        value={usersData.nbreFausseCouche.value}
-                        error={usersData.nbreFausseCouche.error}
-                        helperText={usersData.nbreFausseCouche.helperText}
-                        placeholder={'Exemple 1'}
-                        onValueChange={(e) => {
-                            if(/^[0-9]*$/.test(e)){
-                                onNbreFausseCoucheChange(e)
-                            }
-                        }}
-                    />
-                </div>
-            </div>
 
 
-            <div className='Age-taille-poids' >
-                <TextInput
-                    label='Adresse'
-                    type='text'
-                    value={usersData.adress.value}
-                    error={usersData.adress.error}
-                    helperText={usersData.adress.helperText}
-                    placeholder={'Lieu de résidence'}
-                    onValueChange={onAdressChange}
-                />
+                <div>
+                    <TextInput
+                        label='Adresse'
+                        type='text'
+                        value={usersData.adress.value}
+                        error={usersData.adress.error}
+                        helperText={usersData.adress.helperText}
+                        placeholder={'Lieu de résidence'}
+                        onValueChange={onAdressChange}
+                    />
 
-            </div>
-            <div className='button' >
-                
-                <Button
-                    variant="contained"
-                    type='submit'
-                    className='buttonStyle1'
-                    color='secondary'
-                    onClick={() => setStep(1)}
-                >
-                    BACK
-                </Button>
-                <Button
-                    variant="contained"
-                    type='submit'
-                    className='buttonStyle1'
-                    onClick={onSubmit}
+                </div>
+                <div className='button' >
+
+                    <Button
+                        variant="contained"
+                        type='submit'
+                        className='buttonStyle1'
+                        // color='secondary'
+                        onClick={() => setStep(1)}
+                    >
+                        BACK
+                    </Button>
+                    <Button
+                        variant="contained"
+                        type='submit'
+                        className='buttonStyle1'
+                        onClick={onSubmit}
                     // onClick={submitData}
-                >
-                    NEXT
-                </Button>
+                    >
+                        NEXT
+                    </Button>
+                </div>
             </div>
         </div>
     )

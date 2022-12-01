@@ -11,7 +11,7 @@ import { multiStepContext } from '../StepContext';
 function SignUp() {
 
 
-    const { usersData, setUsersData, setStep} = useContext(multiStepContext)
+    const { usersData, setUsersData, setStep } = useContext(multiStepContext)
 
     // START VALIDATION
 
@@ -278,137 +278,120 @@ function SignUp() {
 
     return (
         <div className='container'>
-            {/* Entete, logo et message d'entete */}
-            <Grid align='center'>
-                <img src='./assets/logo.png' alt='logo' className='logoStyle' />
-                <h1> Sign up </h1>
-                <p>Welcome, create your account now and get free online assistance with best doctors of mybesthealth</p>
-            </Grid>
+            <div className='blockContent'>
+                {/* Entete, logo et message d'entete */}
+                <Grid align='center'>
+                    <img src='./assets/logo.png' alt='logo' className='logoStyle' />
+                    <h1> Sign up </h1>
+                    <span>Welcome, create your account now and get free online assistance with best doctors of mybesthealth</span>
+                </Grid>
 
-            {/* Div first and laast name  */}
-            <div className='flNameStyle'>
-                <div className='flNameStyle1'>
-                    <TextInput
-                        label='Fisrt Name'
-                        type='text'
-                        value={usersData.fisrtName.value}
-                        error={usersData.fisrtName.error}
-                        placeholder={'Enter your first name'}
-                        helperText={usersData.fisrtName.helperText}
-                        onValueChange={onFisrtName}
+                {/* Div first and laast name  */}
+                <div className='flNameStyle'>
+                    <div /*className='flNameStyle1'*/>
+                        <TextInput
+                            label='Fisrt Name'
+                            type='text'
+                            value={usersData.fisrtName.value}
+                            error={usersData.fisrtName.error}
+                            placeholder={'Enter your first name'}
+                            helperText={usersData.fisrtName.helperText}
+                            onValueChange={onFisrtName}
 
-                    />
-                </div>
-                <div className='flNameStyle1'>
-                    <TextInput
-                        label='Last Name'
-                        type='text'
-                        value={usersData.lastName.value}
-                        error={usersData.lastName.error}
-                        placeholder={'Enter your last name'}
-                        helperText={usersData.lastName.helperText}
-                        onValueChange={onLastName}
-                    />
-                </div>
-            </div>
-
-            {/* Input email */}
-            <div>
-                <TextInput
-                    label='Email'
-                    type='email'
-                    value={usersData.email.value}
-                    error={usersData.email.error}
-                    placeholder={'Enter your email'}
-                    helperText={usersData.email.helperText}
-                    onValueChange={onChangeEmail}
-                />
-            </div>
-
-            {/* Input phone number */}
-            <div>
-                <TextInput
-                    label='Phone'
-                    type='number'
-                    // value={phone.value}
-                    value={usersData.phone.value}
-                    error={usersData.phone.error}
-                    placeholder={'Enter your phone number'}
-                    helperText={usersData.phone.helperText}
-                    onValueChange={onChangePhone}
-                />
-            </div>
-
-            {/* Password and Confirm password */}
-            <div className='flNameStyle'>
-                <div className='flNameStyle1'>
-                    <TextInput
-                        label='Password'
-                        type='Password'
-                        value={usersData.password.value}
-                        error={usersData.password.error}
-                        helperText={usersData.password.helperText}
-                        placeholder={'Enter your password'}
-                        onValueChange={onPasswordChange}
-                    />
-                </div>
-                <div className='flNameStyle1'>
-                    <TextInput
-                        label='Confirm Password'
-                        type='password'
-                        value={usersData.ConfirmPassword.value}
-                        error={usersData.ConfirmPassword.error}
-                        helperText={usersData.ConfirmPassword.helperText}
-                        placeholder={'Confirm your password'}
-                        onValueChange={onConfirmPasswordChange}
-                    />
-                </div>
-            </div>
-
-            {/* Gender */}
-            <div>
-                <FormLabel>Gender</FormLabel>
-                <RadioGroup
-                    value={usersData.gender.value}
-                    onChange={onGenderChange}
-                >
-                    <div className='genderStyle'>
-                        <FormControlLabel value={'F'} control={<Radio />} label="Female" />
-                        <FormControlLabel value={'M'} control={<Radio />} label="Male" />
+                        />
                     </div>
-                </RadioGroup>
+                    <div /*className='flNameStyle1'*/>
+                        <TextInput
+                            label='Last Name'
+                            type='text'
+                            value={usersData.lastName.value}
+                            error={usersData.lastName.error}
+                            placeholder={'Enter your last name'}
+                            helperText={usersData.lastName.helperText}
+                            onValueChange={onLastName}
+                        />
+                    </div>
+                </div>
+
+                {/* Input email */}
+                <div>
+                    <TextInput
+                        label='Email'
+                        type='email'
+                        value={usersData.email.value}
+                        error={usersData.email.error}
+                        placeholder={'Enter your email'}
+                        helperText={usersData.email.helperText}
+                        onValueChange={onChangeEmail}
+                    />
+                </div>
+
+                {/* Input phone number */}
+                <div>
+                    <TextInput
+                        label='Phone'
+                        type='number'
+                        // value={phone.value}
+                        value={usersData.phone.value}
+                        error={usersData.phone.error}
+                        placeholder={'Enter your phone number'}
+                        helperText={usersData.phone.helperText}
+                        onValueChange={onChangePhone}
+                    />
+                </div>
+
+                {/* Password and Confirm password */}
+                <div className='flNameStyle'>
+                    <div /*className='flNameStyle1'*/>
+                        <TextInput
+                            label='Password'
+                            type='Password'
+                            value={usersData.password.value}
+                            error={usersData.password.error}
+                            helperText={usersData.password.helperText}
+                            placeholder={'Enter your password'}
+                            onValueChange={onPasswordChange}
+                        />
+                    </div>
+                    <div /*className='flNameStyle1'*/>
+                        <TextInput
+                            label='Confirm Password'
+                            type='password'
+                            value={usersData.ConfirmPassword.value}
+                            error={usersData.ConfirmPassword.error}
+                            helperText={usersData.ConfirmPassword.helperText}
+                            placeholder={'Confirm your password'}
+                            onValueChange={onConfirmPasswordChange}
+                        />
+                    </div>
+                </div>
+
+                {/* Gender */}
+                <div>
+                    <FormLabel>Gender</FormLabel>
+                    <RadioGroup
+                        value={usersData.gender.value}
+                        onChange={onGenderChange}
+                    >
+                        <div /*className='genderStyle'*/>
+                            <FormControlLabel value={'F'} control={<Radio />} label="Female" />
+                            <FormControlLabel value={'M'} control={<Radio />} label="Male" />
+                        </div>
+                    </RadioGroup>
+                </div>
+
+                {/* Button */}
+                <div className='buttonDivStyle'>
+                    <Button
+                        variant="contained"
+                        type='submit'
+                        className='buttonStyle1'
+                        onClick={onSubmit}
+                    >
+                        NEXT
+                    </Button>
+                </div>
             </div>
-
-            {/* Button */}
-            <div className='buttonDivStyle'>
-                <Button
-                    variant="contained"
-                    type='submit'
-                    className='buttonStyle1'
-                    onClick={onSubmit}
-                >
-                    NEXT
-                </Button>
-            </div>
-
-            {/* <div className='gridDive'>
-                <div className='div1'></div>
-                <div className='div2'><p2 className='p2'>Or sign up with</p2></div>
-                <div className='div1'></div>
-            </div> */}
-
-            {/* <div className='logoReaux'>
-                <Typography>
-                    <Link href="#" >
-                        <img src='./assets/google.png' alt='logoGoogle' className='googleStyle' />
-                    </Link>
-                </Typography>
-                <Typography>
-                    <Link href="#" >
-                        <img src='./assets/facebook.png' alt='logoFacebook' className='facebookStyle' />
-                    </Link>
-                </Typography>
-            </div> */}
         </div>
     )
 }

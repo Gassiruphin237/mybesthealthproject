@@ -1,9 +1,9 @@
 import React from 'react'
-import { Grid, Link, Button, Typography } from '@mui/material'
-import '../styles/LoginEmail.css'
+import { Grid, Link, Button, Typography} from '@mui/material'
 import TextInput from './TextInput'
 import validator from "validator"
 import axios from 'axios';
+import { ResetTv, Tune } from '@mui/icons-material';
 
 export default function LoginEmail() {
 
@@ -19,6 +19,10 @@ export default function LoginEmail() {
         helperText: 'Required'
     })
 
+    // disabled button after submitting
+    const [disable, setDisable] = React.useState(false)
+   
+
     // E-mail verification 
     const onChangeEmail = React.useCallback((val) => {
         if (val.trim() === '') {
@@ -28,7 +32,6 @@ export default function LoginEmail() {
                 error: true,
                 helperText: 'Require'
             }))
-            return;
         }
 
         if (!validator.isEmail(val)) {
@@ -71,18 +74,23 @@ export default function LoginEmail() {
 
     //verifcation input before submitting
     function validateAll() {
+        
         return (
             email.value.trim() !== '' &&
-            password.value.trim() !== ''
+            password.value.trim() !== '' 
         )
     }
 
     //function submitting axios post 
     const onSubmit = React.useCallback(() => {
         if (!validateAll()) {
-            return
+            return (
+                email.error,
+                password.error
+            )
         }
         else {
+            
             const data = {
                 email: email.value,
                 password: password.value
@@ -90,15 +98,15 @@ export default function LoginEmail() {
 
             axios.post('http://172.17.4.31:8000/api/login', data)
                 .then(function (res) {
-                    if(res.data){
+                    if (res.data) {
                         setPassword(state => ({
                             ...state,
                             error: true,
                             helperText: 'Password isn\'t correct'
                         }))
-                        
+
                     } else {
-                        window.location='/'
+                        window.location = '/'
                     }
                     console.log(res.data);
                 })
@@ -107,7 +115,8 @@ export default function LoginEmail() {
                 })
 
             console.log(data)
-            
+            setDisable(true)
+
         }
     }, [email, password])
 
@@ -146,6 +155,7 @@ export default function LoginEmail() {
                         variant="contained"
                         className='buttonStyle'
                         onClick={onSubmit}
+                        disabled={disable}
                         fullWidth
                     >
                         Log in
@@ -156,7 +166,7 @@ export default function LoginEmail() {
                 </Grid>
                 <div className='gridDive'>
                     <div className='div1'></div>
-                    <div className='div2'><p2 className='p2'>Or log in with</p2></div>
+                    <div className='div2'><span className='p2'>Or log in with</span></div>
                     <div className='div1'></div>
                 </div>
 

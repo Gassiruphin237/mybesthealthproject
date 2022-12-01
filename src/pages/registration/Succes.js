@@ -90,7 +90,7 @@ function Succes() {
           variant="contained"
           type='submit'
           className='buttonStyle1'
-          color='secondary'
+          // color='secondary'
           onClick={() => setStep(2)}
         >
           BACK

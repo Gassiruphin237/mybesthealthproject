@@ -12,13 +12,13 @@ function StepTwoo() {
       <Grid align='center'>
         <img src='./assets/logo.png' alt='logo' className='logoStyle' />
         <h1> Sign up </h1>
-        <p1>Welcome, create your account now and get free online assistance with best doctors of mybesthealth</p1>
+        <span>Welcome, create your account now and get free online assistance with best doctors of mybesthealth</span>
       </Grid>
 
 
       <div className='Age-taille-poids'>
         <div>
-          <label htmlFor='age'  >Date de naissance :</label>
+          <label htmlFor='age' >Date de naissance :</label>
           <Field name='age' type='text' />
         </div>
         <div>

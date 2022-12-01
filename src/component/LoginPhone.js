@@ -19,6 +19,9 @@ function LoginPhone() {
         helperText: 'Require'
     })
 
+    // disabled button after submitting
+    const [disable, setDisable] = React.useState(false)
+
     //Phone state verification 
     const onPhoneChange = React.useCallback((val) => {
         if (val.trim() === '') {
@@ -108,6 +111,7 @@ function LoginPhone() {
                 })
 
             console.log(data)
+            setDisable(true)
         }
     }, [phone, password])
 
@@ -154,6 +158,7 @@ function LoginPhone() {
                         type='submit'
                         className='buttonStyle'
                         onClick={onSubmit}
+                        disabled={disable}
                         fullWidth
                     >
                         Log in
@@ -165,7 +170,7 @@ function LoginPhone() {
 
                 <div className='gridDive'>
                     <div className='div1'></div>
-                    <div className='div2'><p2 className='p2'>Or log in with</p2></div>
+                    <div className='div2'><span className='p2'>Or log in with</span></div>
                     <div className='div1'></div>
                 </div>
 

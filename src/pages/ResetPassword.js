@@ -19,6 +19,10 @@ function ResetPassword() {
     const [errore, setErrore] = useState("error")
 
 
+    // disabled button after submitting
+    const [disable, setDisable] = React.useState(false)
+
+
     // Password state initialation
     const DEFAULT_VALUES = {
         value: '',
@@ -131,6 +135,7 @@ function ResetPassword() {
             navigate('/login')
         }, duration)
     }
+    
 
     //validate All tcheck if password and reset password matched
     function validateAll() {
@@ -172,7 +177,8 @@ function ResetPassword() {
                 setErrore("success")
                 setAlert(true)
                 setErrorMessage(res.data.message)
-                wait(2000)
+                wait(2500)
+                setDisable(true)
                 console.log(res.data);
             })
             .catch(function (error) {
@@ -205,9 +211,6 @@ function ResetPassword() {
                                         onClick={() => {
                                             setAlert(false);
                                             wait()
-                                            // ResetPassword.password.value = ""
-                                            // ResetPassword.confirmPassword.value = ""
-                                            // navigate('/login')
                                         }}
                                     >
                                         <CloseIcon fontSize="inherit" />
@@ -244,6 +247,7 @@ function ResetPassword() {
                 variant="contained"
                 type='submit'
                 className='buttonStyle'
+                disabled={disable}
                 fullWidth
                 onClick={onSubmit}
             >
@@ -251,7 +255,7 @@ function ResetPassword() {
             </Button>
             <div className='gridDive'>
                 <div className='div1'></div>
-                <div className='div2'><p className='p2'>  .  </p></div>
+                <div className='div2'><span className='p2'>  .  </span></div>
                 <div className='div1'></div>
             </div>
 
