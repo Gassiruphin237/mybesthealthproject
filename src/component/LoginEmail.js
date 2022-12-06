@@ -1,11 +1,15 @@
 import React from 'react'
-import { Grid, Link, Button, Typography} from '@mui/material'
+import { Grid, Link, Button, Typography } from '@mui/material'
 import TextInput from './TextInput'
 import validator from "validator"
+import { accountService } from './services/account.service'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import { ResetTv, Tune } from '@mui/icons-material';
+import '../styles/Login.css'
 
 export default function LoginEmail() {
+
+    const Navigate = useNavigate()
 
     // State initilisation 
     const [email, setEmail] = React.useState({
@@ -21,7 +25,7 @@ export default function LoginEmail() {
 
     // disabled button after submitting
     const [disable, setDisable] = React.useState(false)
-   
+
 
     // E-mail verification 
     const onChangeEmail = React.useCallback((val) => {
@@ -74,10 +78,10 @@ export default function LoginEmail() {
 
     //verifcation input before submitting
     function validateAll() {
-        
+
         return (
             email.value.trim() !== '' &&
-            password.value.trim() !== '' 
+            password.value.trim() !== ''
         )
     }
 
@@ -90,21 +94,23 @@ export default function LoginEmail() {
             )
         }
         else {
-            
+
             const data = {
                 email: email.value,
                 password: password.value
             }
 
-            axios.post('http://172.17.4.31:8000/api/login', data)
+            axios.post('http://172.17.4.96:8000/api/login', data)
                 .then(function (res) {
                     if (res.data) {
                         setPassword(state => ({
                             ...state,
-                            error: true,
+                            error: false,
                             helperText: 'Password isn\'t correct'
                         }))
 
+                        accountService.saveToken(res.data.access_token)
+                        Navigate("/account")
                     } else {
                         window.location = '/'
                     }
@@ -120,10 +126,11 @@ export default function LoginEmail() {
         }
     }, [email, password])
 
+
     return (
-        <Grid>
-            <div className='container'>
-                <Grid>
+        <div className='indexStyle'>
+            <div>
+                <div>
                     <div>
                         <TextInput
                             label='Email'
@@ -147,23 +154,26 @@ export default function LoginEmail() {
                         />
                     </div>
 
-                    <Typography className='forgetPassword'  >
+                    <div className='forgetPassword'  >
                         <Link href="forgot-password">Forgot password ?</Link>
-                    </Typography>
+                    </div>
 
                     <Button
                         variant="contained"
-                        className='buttonStyle'
+                        className='buttonStyle2'
                         onClick={onSubmit}
                         disabled={disable}
                         fullWidth
                     >
                         Log in
                     </Button>
+
                     <Typography className='memberYet'> Not a member yet ?
                         <Link href="/register"> Join </Link>
                     </Typography>
-                </Grid>
+
+                </div>
+                
                 <div className='gridDive'>
                     <div className='div1'></div>
                     <div className='div2'><span className='p2'>Or log in with</span></div>
@@ -183,6 +193,6 @@ export default function LoginEmail() {
                     </Typography>
                 </div>
             </div>
-        </Grid>
+        </div>
     )
 }

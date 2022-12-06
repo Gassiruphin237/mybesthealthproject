@@ -7,6 +7,8 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
 import validator from 'validator'
 import { multiStepContext } from '../StepContext';
+import SendIcon from '@mui/icons-material/Send';
+
 
 function SignUp() {
 
@@ -314,35 +316,36 @@ function SignUp() {
                 </div>
 
                 {/* Input email */}
-                <div>
-                    <TextInput
-                        label='Email'
-                        type='email'
-                        value={usersData.email.value}
-                        error={usersData.email.error}
-                        placeholder={'Enter your email'}
-                        helperText={usersData.email.helperText}
-                        onValueChange={onChangeEmail}
-                    />
-                </div>
+                <div className='flNameStyle'>
+                    <div>
+                        <TextInput
+                            label='Email'
+                            type='email'
+                            value={usersData.email.value}
+                            error={usersData.email.error}
+                            placeholder={'Enter your email'}
+                            helperText={usersData.email.helperText}
+                            onValueChange={onChangeEmail}
+                        />
+                    </div>
 
-                {/* Input phone number */}
-                <div>
-                    <TextInput
-                        label='Phone'
-                        type='number'
-                        // value={phone.value}
-                        value={usersData.phone.value}
-                        error={usersData.phone.error}
-                        placeholder={'Enter your phone number'}
-                        helperText={usersData.phone.helperText}
-                        onValueChange={onChangePhone}
-                    />
+                    {/* Input phone number */}
+                    <div>
+                        <TextInput
+                            label='Phone'
+                            type='number'
+                            value={usersData.phone.value}
+                            error={usersData.phone.error}
+                            placeholder={'Enter your phone number'}
+                            helperText={usersData.phone.helperText}
+                            onValueChange={onChangePhone}
+                        />
+                    </div>
                 </div>
 
                 {/* Password and Confirm password */}
                 <div className='flNameStyle'>
-                    <div /*className='flNameStyle1'*/>
+                    <div>
                         <TextInput
                             label='Password'
                             type='Password'
@@ -353,7 +356,7 @@ function SignUp() {
                             onValueChange={onPasswordChange}
                         />
                     </div>
-                    <div /*className='flNameStyle1'*/>
+                    <div>
                         <TextInput
                             label='Confirm Password'
                             type='password'
@@ -381,11 +384,12 @@ function SignUp() {
                 </div>
 
                 {/* Button */}
-                <div className='buttonDivStyle'>
+                <div className='buttonDivStyle1'>
                     <Button
                         variant="contained"
                         type='submit'
                         className='buttonStyle1'
+                        endIcon={<SendIcon/>}
                         onClick={onSubmit}
                     >
                         NEXT

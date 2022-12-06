@@ -1,11 +1,13 @@
 import React from 'react'
+import Navbar from '../component/nav/Navbar'
 import Home from './Home'
 
 function Account() {
     return (
         <div>
             <div>
-                <Home />
+                {/* <Home /> */}
+                <Navbar/>
                 <h1>My account</h1>
             </div>
         </div>

@@ -5,37 +5,18 @@
     overflow: hidden;
 }
 
-/* logo d'entete */
-/* img{
-    height: 60px;
-    width: 60px;
-} */
-
-/* h1 {
-    margin-bottom: 10px !important;
-} */
-/* .p2{
-    font-size: 14px;
-    font-weight: 300px;
-    font-style: normal;
-    width: 87px;
-    height: 19px;
-    text-align: center;
-    margin-left: 5px;
-
-} */
 
 /* container */
 .container{
-    width: 100%;
+    width: 50%;
     padding: 25px;
     height: fit-content;
     margin: 10px auto;
 }
 
 /* second div block contain */
-.container {
-    width: 100%;
+.blockContent {
+    width:100%;
     padding: 25px; /**/
     height: fit-content;
     margin: 10px auto;
@@ -49,11 +30,6 @@
     margin-top: 10px;
 }
  
-/* .flNameStyle1 {
-    width: 290px;
-    margin: 5px 0;
-} */
-
 
 /* Button */
 .buttonStyle1 {
@@ -67,7 +43,13 @@
     margin-top: 15px;
     margin-bottom: 30px;
     margin-left: 10px !important;
-    width: 400px;
+    width: 100px;
+}
+
+.buttonDivStyle2 {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 20px ;
 }
 
 .buttonDivStyle {
@@ -76,82 +58,23 @@
     margin: auto;
     margin-top: 10px;
     width: 100%;
-    justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 
-/* Formcontrol */
-/* .fieldStyle{
-    margin-left: 30px ;
-    width: 108%;
-    padding-left: 10px;
-} */
 
-/* forgetPassword */
-/* .forgetPassword{
-    margin-top: 10px !important;
-    width: 50%;
-    justify-content: start !important;
-    padding-left: 10px;
-    color: #1D1D1D !important;
-} */
-
-/* Gender style */
-/* .genderStyle {
+.buttonDivStyle1 {
     display: flex;
-    margin-left: 20px;
-} */
-
-/* .memberYet{
-    margin-bottom: 30px !important;
-    text-align: center;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 10px;
     width: 100%;
-} */
-
-/* googleStyle */
-/* .googleStyle{
-    height: 80px;
-    width: 80px;
-} */
-
-/* facebookStyle */
-/* .facebookStyle{
-    height: 60px;
-    width: 60px;
-} */
-
-
-/* gridDiv */
-/* .gridDive {
-    display: flex;
-    align-items: center;
-    width: 90%;
-    margin-left: 20px ;
-    margin-top: 30px;
-} */
-
-/* logoReaux */
-/* .logoReaux {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 100px;
-    width: 100%;
-    padding-top: 20px;
-} */
-/* .div1 {
-    width: 100%;
-    background-color: black;
-    height: 1px;
+    align-items: flex-end;
+    gap: 10px;
 }
-
-.div2 {
-    flex: none;
-    padding: 0 20px;
-} */
 
 @media only screen and (min-width: 650px) {
-    .flNameStyle{
+    .flNameStyle, buttonDivStyle{
         flex-direction: row;
     }
   }

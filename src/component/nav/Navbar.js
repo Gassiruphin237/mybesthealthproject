@@ -1,23 +1,28 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { AppBar, Toolbar, Typography, Button, Avatar, Stack } from '@mui/material';
-import Auth from '../../utiles/Auth';
 import logo from '../../assets/logo.png'
+import { accountService } from '../services/account.service';
 
 function Navbar() {
 
-    const isAuthenticated = useContext(Auth)
-    console.log(isAuthenticated);
+ 
+
+
     const goTo = React.useCallback((path) => {
         window.location = path
     }, [])
+
+    const handleLogOut = () => {
+        accountService.logOut();
+        console.log('we are deconected !!!')
+    }
 
     return (
         <div>
             <AppBar position="static">
                 <div className='homeButton'>
                     <Toolbar>
-
-                        {!isAuthenticated ?
+                        
                             <>
                                 <Typography>
                                     <Button onClick={() => {
@@ -29,31 +34,33 @@ function Navbar() {
                                         goTo('/register')
                                     }}>Sign up</Button>
                                 </Typography>
+
                             </>
 
-                            :
 
                             <>
+
                                 <Typography>
                                     <Button color="inherit" onClick={() => {
                                         goTo('/account')
                                     }}>Account</Button>
                                 </Typography>
-                                <Typography>
-                                    <Button variant="outlined" color="error">Log out</Button>
-                                </Typography>
-                                <Typography>
+
+                                <div>
+                                    <Button variant="outlined" color="error" onClick={handleLogOut} >Log out</Button>
+                                </div>
+
+                                <div>
                                     <Stack direction="row" spacing={2}>
                                         <Avatar
                                             alt="A"
-                                            src = {logo}
+                                            src={logo}
                                             sx={{ width: 40, height: 40 }}
                                         />
                                     </Stack>
-                                </Typography>
+                                </div>
 
                             </>
-                        }
 
                     </Toolbar>
                 </div>

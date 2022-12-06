@@ -1,4 +1,12 @@
- function hasAuthenticated() {
-    return false;
+import React from 'react'
+import { Navigate } from 'react-router-dom'
+import { accountService } from './account.service'
+
+function AuthApi({view}) {
+if (!accountService.isAuthenticated()) {
+    return <Navigate to="/login"/>
 }
-export default hasAuthenticated;
+  return view()
+}
+
+export default AuthApi

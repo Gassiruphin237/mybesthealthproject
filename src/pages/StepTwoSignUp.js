@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Field } from 'formik'
 import { Grid } from '@mui/material'
 import TextInput from '../component/TextInput'
 import validator from 'validator'
-import '../styles/stepTwo.css'
-// import '../styles/SignUp.css'
+import '../styles/SignUp.css'
 import SelectInput from '../component/SelectInput'
 import axios from 'axios'
 import { Button } from '@mui/material'
 import { multiStepContext } from '../StepContext'
+import SendIcon from '@mui/icons-material/Send';
 
 
 // initialisation des sanguins
@@ -31,9 +30,6 @@ function StepTwoSignUp() {
 
     //Element de recuperation des types de maladies dans la base de donnée
     const [description, setDescription] = useState([
-        // {label: 'hello1', value:'world1'},
-        // {label: 'hello2', value:'world2'},
-        // {label: 'hello3', value:'world3'},
     ])
     useEffect(() => {
         try {
@@ -318,21 +314,21 @@ function StepTwoSignUp() {
 
 
                 {/* Select input motif d'assistance*/}
-                <div>
-                    <SelectInput
-                        label="Motif d'assistance"
-                        value={usersData.id_PatienType.value}
-                        error={usersData.id_PatienType.error}
-                        helperText={usersData.id_PatienType.helperText}
-                        placeholder={"Choisissez votre motif d'assistance "}
-                        onValueChange={onCategoryChange}
-                        options={description}
-                    />
+                <div className='flNameStyle'>
+                    <div>
+                        <SelectInput
+                            label="Motif d'assistance"
+                            value={usersData.id_PatienType.value}
+                            error={usersData.id_PatienType.error}
+                            helperText={usersData.id_PatienType.helperText}
+                            placeholder={"Choisissez votre motif d'assistance "}
+                            onValueChange={onCategoryChange}
+                            options={description}
+                        />
 
-                </div>
+                    </div>
 
-                {/* age , taille, poids inputs */}
-                <div className='Age-taille-poids'>
+                    {/* age , taille, poids inputs */}
                     <div>
                         <TextInput
                             label='Date de naissance'
@@ -358,6 +354,9 @@ function StepTwoSignUp() {
                             }}
                         />
                     </div>
+                </div>
+
+                <div className='flNameStyle'>
                     <div>
                         <TextInput
                             label='Poids'
@@ -373,23 +372,21 @@ function StepTwoSignUp() {
                             }}
                         />
                     </div>
-                </div>
 
-                {/* Groupe sanguin */}
-                <div>
-                    <SelectInput
-                        label='Groupe sanguin'
-                        value={usersData.GroupeSanguin.value}
-                        error={usersData.GroupeSanguin.error}
-                        helperText={usersData.GroupeSanguin.helperText}
-                        placeholder={'choisissez votre groupe sanguin'}
-                        onValueChange={onGroupeSanguinChange}
-                        options={GroupeSanguin}
-                    />
-                </div>
+                    {/* Groupe sanguin */}
+                    <div>
+                        <SelectInput
+                            label='Groupe sanguin'
+                            value={usersData.GroupeSanguin.value}
+                            error={usersData.GroupeSanguin.error}
+                            helperText={usersData.GroupeSanguin.helperText}
+                            placeholder={'choisissez votre groupe sanguin'}
+                            onValueChange={onGroupeSanguinChange}
+                            options={GroupeSanguin}
+                        />
+                    </div>
 
-                {/* Nombre de grossesse, nombre d'enfant, nombre de fausse couche */}
-                <div className='Age-taille-poids' >
+                    {/* Nombre de grossesse, nombre d'enfant, nombre de fausse couche */}
                     <div>
                         <TextInput
                             label='Nbre de grossesse'
@@ -405,6 +402,9 @@ function StepTwoSignUp() {
                             }}
                         />
                     </div>
+                </div>
+
+                <div className='flNameStyle'>
                     <div>
                         <TextInput
                             label="Nbre d'enfant"
@@ -435,28 +435,23 @@ function StepTwoSignUp() {
                             }}
                         />
                     </div>
+                    <div>
+                        <TextInput
+                            label='Adresse'
+                            type='text'
+                            value={usersData.adress.value}
+                            error={usersData.adress.error}
+                            helperText={usersData.adress.helperText}
+                            placeholder={'Lieu de résidence'}
+                            onValueChange={onAdressChange}
+                        />
+                    </div>
                 </div>
-
-
-                <div>
-                    <TextInput
-                        label='Adresse'
-                        type='text'
-                        value={usersData.adress.value}
-                        error={usersData.adress.error}
-                        helperText={usersData.adress.helperText}
-                        placeholder={'Lieu de résidence'}
-                        onValueChange={onAdressChange}
-                    />
-
-                </div>
-                <div className='button' >
-
+                <div className='buttonDivStyle2' >
                     <Button
                         variant="contained"
                         type='submit'
                         className='buttonStyle1'
-                        // color='secondary'
                         onClick={() => setStep(1)}
                     >
                         BACK
@@ -465,13 +460,13 @@ function StepTwoSignUp() {
                         variant="contained"
                         type='submit'
                         className='buttonStyle1'
+                        endIcon={<SendIcon/>}
                         onClick={onSubmit}
-                    // onClick={submitData}
                     >
                         NEXT
                     </Button>
                 </div>
-            </div>
+            </div >
         </div>
     )
 }

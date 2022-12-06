@@ -135,7 +135,7 @@ function ResetPassword() {
             navigate('/login')
         }, duration)
     }
-    
+
 
     //validate All tcheck if password and reset password matched
     function validateAll() {
@@ -221,43 +221,46 @@ function ResetPassword() {
                         )
                 }
             </Grid>
-            <div >
-                <TextInput
-                    label='New password'
-                    type='password'
-                    value={ResetPassword.password.value}
-                    error={ResetPassword.password.error}
-                    helperText={ResetPassword.password.helperText}
-                    placeholder={'Enter new password'}
-                    onValueChange={onPasswordChange}
-                />
+            <div className='forgot'>
+                <div >
+                    <TextInput
+                        label='New password'
+                        type='password'
+                        value={ResetPassword.password.value}
+                        error={ResetPassword.password.error}
+                        helperText={ResetPassword.password.helperText}
+                        placeholder={'Enter new password'}
+                        onValueChange={onPasswordChange}
+                    />
+                </div>
+                <div >
+                    <TextInput
+                        label='Confirm new password'
+                        type='password'
+                        value={ResetPassword.confirmPassword.value}
+                        error={ResetPassword.confirmPassword.error}
+                        helperText={ResetPassword.confirmPassword.helperText}
+                        placeholder={'confirm new password'}
+                        onValueChange={onConfirmPasswordChange}
+                    />
+                </div>
+                <Button
+                    variant="contained"
+                    type='submit'
+                    className='buttonStyle'
+                    disabled={disable}
+                    fullWidth
+                    onClick={onSubmit}
+                >
+                    Submit
+                </Button>
             </div>
-            <div >
-                <TextInput
-                    label='Confirm new password'
-                    type='password'
-                    value={ResetPassword.confirmPassword.value}
-                    error={ResetPassword.confirmPassword.error}
-                    helperText={ResetPassword.confirmPassword.helperText}
-                    placeholder={'confirm new password'}
-                    onValueChange={onConfirmPasswordChange}
-                />
-            </div>
-            <Button
-                variant="contained"
-                type='submit'
-                className='buttonStyle'
-                disabled={disable}
-                fullWidth
-                onClick={onSubmit}
-            >
-                Submit
-            </Button>
-            <div className='gridDive'>
+
+            {/* <div className='gridDive2'>
                 <div className='div1'></div>
                 <div className='div2'><span className='p2'>  .  </span></div>
                 <div className='div1'></div>
-            </div>
+            </div> */}
 
 
         </div>

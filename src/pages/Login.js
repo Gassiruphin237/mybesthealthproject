@@ -7,7 +7,7 @@ import LoginPhone from '../component/LoginPhone';
 function Login() {
 
   //Here we have the container login. on this we have loginEmail and loginPhone
-  
+
   //state initialisation
   const [value, setValue] = React.useState(0);
 

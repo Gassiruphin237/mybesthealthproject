@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Link, Typography, Button } from '@mui/material'
 import TextInput from './TextInput'
-import '../styles/LoginPhone.css'
+import '../styles/Login.css'
 import validator from 'validator'
 import axios from 'axios'
 
@@ -101,7 +101,7 @@ function LoginPhone() {
 
             axios.post('http://172.17.4.31:8000/api/login', data)
                 .then(function (res) {
-                    if(res.date){
+                    if (res.date) {
                         window.location = '/'
                     }
                     console.log(res.data);
@@ -118,11 +118,10 @@ function LoginPhone() {
 
 
     return (
-        <Grid >
-            <div className='container'>
+        <div >
+            <div>
                 <Grid >
                     <div>
-
                         <TextInput
                             label='Phone'
                             type='number'
@@ -131,7 +130,7 @@ function LoginPhone() {
                             helperText={phone.helperText}
                             placeholder='Enter your Phone number'
                             onValueChange={(e) => {
-                                if(/^[0-9]*$/.test(e)){
+                                if (/^[0-9]*$/.test(e)) {
                                     onPhoneChange(e)
                                 }
                             }}
@@ -156,7 +155,7 @@ function LoginPhone() {
                     <Button
                         variant="contained"
                         type='submit'
-                        className='buttonStyle'
+                        className='buttonStyle2'
                         onClick={onSubmit}
                         disabled={disable}
                         fullWidth
@@ -187,7 +186,7 @@ function LoginPhone() {
                     </Typography>
                 </div>
             </div>
-        </Grid>
+        </div>
     )
 }
 

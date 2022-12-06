@@ -18,7 +18,7 @@ function ForgotPaswordEmail() {
 
     // disabled button after submitting
     const [disable, setDisable] = React.useState(false)
-   
+
 
     // E-mail verification 
     const onChangeEmail = React.useCallback((val) => {
@@ -65,8 +65,7 @@ function ForgotPaswordEmail() {
 
         if (!validateAll()) {
             return;
-        } else 
-        {
+        } else {
             e.preventDefault();
             const data = {
                 email: Email.value
@@ -99,7 +98,7 @@ function ForgotPaswordEmail() {
                     setErrorMessage(error.response.data.message)
                 })
             console.log(data)
-            
+
         }
     }, [Email, validateAll])
 
@@ -138,27 +137,31 @@ function ForgotPaswordEmail() {
 
             </Grid>
             <form onSubmit={onSubmit} ref={form}>
-                <div >
-                    <TextInput
-                        name='user_email'
-                        label='Email'
-                        type='Email'
-                        value={Email.value}
-                        error={Email.error}
-                        placeholder={'Enter your email'}
-                        helperText={Email.helperText}
-                        onValueChange={onChangeEmail}
-                    />
+                <div className='forgot'>
+                    <div >
+                        <TextInput
+                            name='user_email'
+                            label='Email'
+                            type='Email'
+                            value={Email.value}
+                            error={Email.error}
+                            placeholder={'Enter your email'}
+                            helperText={Email.helperText}
+                            onValueChange={onChangeEmail}
+                        />
+                    </div>
+                    <div>
+                        <Button
+                            variant="contained"
+                            type='submit'
+                            className='buttonStyle'
+                            disabled={disable}
+                            fullWidth
+                        >
+                            Submit
+                        </Button>
+                    </div>
                 </div>
-                <Button
-                    variant="contained"
-                    type='submit'
-                    className='buttonStyle'
-                    disabled={disable}
-                    fullWidth
-                >
-                    Submit
-                </Button>
             </form>
         </div>
     )

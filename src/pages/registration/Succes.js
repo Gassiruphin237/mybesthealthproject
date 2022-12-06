@@ -11,11 +11,10 @@ function Succes() {
 
   const { setStep, usersData, setUserData, resetContent } = useContext(multiStepContext)
 
-  const [checked, setChecked] = React.useState(true);
 
-  const handleChange = (e) => {
-    setChecked(e.target.checked)
-  }
+  // const handleChange = (e) => {
+  //   setChecked(e.target.checked)
+  // }
 
 
   const submitData = React.useCallback(() => {
@@ -90,7 +89,6 @@ function Succes() {
           variant="contained"
           type='submit'
           className='buttonStyle1'
-          // color='secondary'
           onClick={() => setStep(2)}
         >
           BACK
