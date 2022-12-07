@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Register from './pages/registration/Register'
-import ResetPassword from './pages/ResetPassword'
 
 const DEFAULT_VALUE = {
   value: '',
@@ -25,11 +24,13 @@ const DEFAULT_CONTENT_DATA = {
   nbreEnfant: DEFAULT_VALUE,
   nbreFausseCouche: DEFAULT_VALUE,
   adress: DEFAULT_VALUE,
+  checked: DEFAULT_VALUE
 }
 
 export const multiStepContext = React.createContext();
 const StepContext = () => {
   const [currentStep, setStep] = useState(1)
+  const [checked, setChecked] = React.useState(false);
   const [usersData, setUsersData] = useState(
     DEFAULT_CONTENT_DATA
   )
@@ -38,9 +39,8 @@ const StepContext = () => {
 
   return (
     <div>
-      <multiStepContext.Provider value={{ DEFAULT_CONTENT_DATA, resetContent, usersData, setUsersData, currentStep, setStep}}>
+      <multiStepContext.Provider value={{ DEFAULT_CONTENT_DATA, resetContent, usersData, setUsersData, currentStep, setStep, checked, setChecked}}>
         <Register />
-        <ResetPassword/>
       </multiStepContext.Provider>
     </div>
   )

@@ -9,7 +9,11 @@ import axios from 'axios'
 function ForgotPaswordEmail() {
 
     // state initialisation
-    const [Email, setEmail] = useState([""])
+    const [Email, setEmail] = useState({
+        value: '',
+        error: false,
+        helperText: ''
+    })
     const [alert, setAlert] = useState(false)
 
     // feedback initialisation 
@@ -47,7 +51,6 @@ function ForgotPaswordEmail() {
             ...state,
             value: val,
             error: false,
-
         }))
     }, [setEmail])
 
@@ -55,18 +58,23 @@ function ForgotPaswordEmail() {
 
     // Verification if the input no empty is 
     function validateAll() {
-        return (
-            Email.value.trim() !== ''
-        )
+        if (Email.value.trim() === '') {
+            setEmail(state => ({
+                ...state,
+                error: true,
+                helperText: 'Required'
+            }))
+            return false;
+        }
+        return true
     }
 
     // Submitting button 
     const onSubmit = React.useCallback((e) => {
-
+        e.preventDefault();
         if (!validateAll()) {
             return;
         } else {
-            e.preventDefault();
             const data = {
                 email: Email.value
             }
@@ -79,7 +87,7 @@ function ForgotPaswordEmail() {
                         console.log(res.data.message)
                         setEmail(state => ({
                             ...state,
-                            error: true,
+                            error: false,
 
                         }))
 

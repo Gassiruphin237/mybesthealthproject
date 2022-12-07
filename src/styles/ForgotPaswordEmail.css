@@ -23,8 +23,17 @@
     padding-left: 40px; 
 }
 
-@media only screen and (min-width: 650px) {
+
+@media only screen and (max-width: 768px) {
     .forgot, .buttonStyle {
         max-width: 80rem;
+    }
+    .containers {
+        padding: 0;
+        width: 100%;
+        margin: 90px 0px 10px -20px;
+    }
+    .buttonStyle {
+        width: 93% !important;
     }
   }

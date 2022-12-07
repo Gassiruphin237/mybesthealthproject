@@ -1,7 +1,6 @@
 .text-input {
     display: flex;
     flex-direction: column;
-    /* width: 400px; */
     padding: 5px 10px;
     gap: 5px;
     align-items: start;

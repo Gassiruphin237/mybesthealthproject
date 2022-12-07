@@ -74,16 +74,20 @@ export default function LoginEmail() {
 
     //verifcation input before submitting
     function validateAll() {
-
-        return (
-            email.value.trim() !== '' &&
-            password.value.trim() !== ''
-        )
+        if (email.value.trim() === '') {
+            setEmail(state => ({
+                ...state,
+                error: true,
+                helperText: 'Require'
+            }))
+            return 
+        }
+        return true
     }
 
     //function submitting axios post 
     const onSubmit = React.useCallback(() => {
-        if (!validateAll()) {return}
+        if (!validateAll()) { return }
 
         else {
 
@@ -163,7 +167,7 @@ export default function LoginEmail() {
                     </Typography>
 
                 </div>
-                
+
                 <div className='gridDive'>
                     <div className='div1'></div>
                     <div className='div2'><span className='p2'>Or log in with</span></div>

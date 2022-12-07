@@ -2,14 +2,15 @@
 *{
     padding: 0;
     margin: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 
 /* container */
 .container{
+    width: 100%;
     padding: 25px;
-    height: fit-content;
+    height: 100vh;
     margin: 10px auto;
 }
 
@@ -74,11 +75,11 @@
 @media only screen and (min-width: 650px) {
     .flNameStyle, buttonDivStyle{
         flex-direction: row;
+        
     }
-  }
-  @media only screen and (min-width: 650px) {
     .blockContent{
         max-width: 80rem;
         padding: 10px;
     }
+    
   }
