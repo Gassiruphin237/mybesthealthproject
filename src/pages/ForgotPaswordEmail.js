@@ -103,8 +103,6 @@ function ForgotPaswordEmail() {
     }, [Email, validateAll])
 
 
-
-
     return (
         <div className='containers'>
             <Grid align='center'>

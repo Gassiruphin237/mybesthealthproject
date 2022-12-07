@@ -23,13 +23,9 @@ export default function LoginEmail() {
         helperText: 'Required'
     })
 
-    // disabled button after submitting
-    const [disable, setDisable] = React.useState(false)
-
-
     // E-mail verification 
     const onChangeEmail = React.useCallback((val) => {
-        if (val.trim() === '') {
+        if (!val.trim() === '') {
             setEmail(state => ({
                 ...state,
                 value: val,
@@ -87,12 +83,8 @@ export default function LoginEmail() {
 
     //function submitting axios post 
     const onSubmit = React.useCallback(() => {
-        if (!validateAll()) {
-            return (
-                email.error,
-                password.error
-            )
-        }
+        if (!validateAll()) {return}
+
         else {
 
             const data = {
@@ -121,7 +113,6 @@ export default function LoginEmail() {
                 })
 
             console.log(data)
-            setDisable(true)
 
         }
     }, [email, password])
@@ -162,7 +153,6 @@ export default function LoginEmail() {
                         variant="contained"
                         className='buttonStyle2'
                         onClick={onSubmit}
-                        disabled={disable}
                         fullWidth
                     >
                         Log in
