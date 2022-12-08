@@ -1,7 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Login from './pages/Login';
-import Footer from './component/nav/Footer'
 import ForgotPaswordEmail from './pages/ForgotPaswordEmail'
 import ResetPassword from './pages/ResetPassword'
 import Account from './pages/Account';
@@ -11,6 +10,7 @@ import './App.css'
 import Succes from './pages/registration/Succes';
 import StepContext from './StepContext';
 import AuthApi from './component/services/AuthApi';
+import Acceuil from './pages/Acceuil';
 
 
 
@@ -20,7 +20,7 @@ function App() {
       <div className='appStyle'>
         <div className='routeStyle'>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Acceuil />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<StepContext />} />
             <Route path="/succes" element={<Succes />} />
@@ -30,7 +30,6 @@ function App() {
             <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Routes>
         </div>
-        <Footer />
       </div>
   );
 }

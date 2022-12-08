@@ -8,7 +8,7 @@ function Account() {
             <div>
                 {/* <Home /> */}
                 <Navbar/>
-                <h1>My account</h1>
+                <h1>My account sap</h1>
             </div>
         </div>
     )
