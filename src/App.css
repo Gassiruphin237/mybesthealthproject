@@ -1,38 +1,97 @@
-/* .App {
-  text-align: center;
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+:root{
+  --primary: #04A3BD;
+  --info: #CEFEFF;
+  --body: #F1F1F1;
+  --chocolate: #A33B60;
+  --rouge: #FF045D;
+  --rose: #FF045D;
+  --dark: #09181B;
+  --gris: #9FACAF;
+  --gris_clair: #9FACAF;
+  --light_sombre: #F1F1F1;
+  --light: #FBFBFB;
+
+}
+.body{
+  line-height: 1.7;
+  color: var(--light);
+}
+.navbar-bg{
+  background-color: var(--body);
+  max-height: 15vh;
+}
+.navbar .navbar-nav .nav-link{
+  border: none;
+}
+.navbar .navbar-nav .nav-link:hover{
+  color: var(--rose);
+  border-bottom-right-radius: 1.2rem;
+}
+.navbar-toggler{
+  color: var(--rouge);
+}
+h1,h2,h3,h4,h5,h6,
+.display-4{
+  color: var(--light_sombre);
+  font-weight: bold;
+}
+.display-4{
+  font-family:  "sans-serif";
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+span{
+  color: var(--rose);
+}
+.b-1{
+  color: var(--primary);
+}
+.logo{
+  width:60px;
+}
+.banner{
+  background-image: url('imgs/acné-éruption-inflammatoire-purulente-sur-le-visage.jpg') ;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  z-index: 5;
+}
+.banner::after{
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*background-color: rgba(54, 54, 66, 0.6);*/
+  z-index: -3;
+}
+.intro{
+  font-size: large;
+  color: var(--light);
+  font-weight: 500;
+}
+.btn{
+  background: var(--rouge);
+  font-weight: 700;
+}
+.signIn{
+  background: var(--rouge);
+}
+.banner Link{
+  color: var(--primary);
+  opacity: 1;
+  font-weight: 700 ;
+}
+.banner .signIn{
+  color: var(--light);
+}
+.banner Link:hover{
+  color: var(--rouge);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
