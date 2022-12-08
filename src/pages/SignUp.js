@@ -290,7 +290,7 @@ function SignUp() {
 
                 {/* Div first and laast name  */}
                 <div className='flNameStyle'>
-                    <div /*className='flNameStyle1'*/>
+                    <div className='flNameStyle1'>
                         <TextInput
                             label='Fisrt Name'
                             type='text'

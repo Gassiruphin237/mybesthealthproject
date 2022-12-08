@@ -23,13 +23,9 @@ export default function LoginEmail() {
         helperText: 'Required'
     })
 
-    // disabled button after submitting
-    const [disable, setDisable] = React.useState(false)
-
-
     // E-mail verification 
     const onChangeEmail = React.useCallback((val) => {
-        if (val.trim() === '') {
+        if (!val.trim() === '') {
             setEmail(state => ({
                 ...state,
                 value: val,
@@ -78,21 +74,21 @@ export default function LoginEmail() {
 
     //verifcation input before submitting
     function validateAll() {
-
-        return (
-            email.value.trim() !== '' &&
-            password.value.trim() !== ''
-        )
+        if (email.value.trim() === '') {
+            setEmail(state => ({
+                ...state,
+                error: true,
+                helperText: 'Require'
+            }))
+            return 
+        }
+        return true
     }
 
     //function submitting axios post 
     const onSubmit = React.useCallback(() => {
-        if (!validateAll()) {
-            return (
-                email.error,
-                password.error
-            )
-        }
+        if (!validateAll()) { return }
+
         else {
 
             const data = {
@@ -121,7 +117,6 @@ export default function LoginEmail() {
                 })
 
             console.log(data)
-            setDisable(true)
 
         }
     }, [email, password])
@@ -162,7 +157,6 @@ export default function LoginEmail() {
                         variant="contained"
                         className='buttonStyle2'
                         onClick={onSubmit}
-                        disabled={disable}
                         fullWidth
                     >
                         Log in
@@ -173,7 +167,7 @@ export default function LoginEmail() {
                     </Typography>
 
                 </div>
-                
+
                 <div className='gridDive'>
                     <div className='div1'></div>
                     <div className='div2'><span className='p2'>Or log in with</span></div>

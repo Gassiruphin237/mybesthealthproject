@@ -27,7 +27,7 @@ function ResetPassword() {
     const DEFAULT_VALUES = {
         value: '',
         error: false,
-        helperText: 'Require'
+        helperText: ''
     }
 
     const DEFAULT_CONTENT_DATAS = {
@@ -139,6 +139,17 @@ function ResetPassword() {
 
     //validate All tcheck if password and reset password matched
     function validateAll() {
+        if (ResetPassword.password.value.trim() === '') {
+            setResetPassword(state => ({
+                ...state,
+                password: {
+                    error: true,
+                    helperText: 'Require'
+                }
+            }))
+            return false;
+        }
+
         if (ResetPassword.password.value !== ResetPassword.confirmPassword.value) {
             setResetPassword(state => ({
                 ...state,
@@ -147,14 +158,10 @@ function ResetPassword() {
                     error: true,
                     helperText: "Your password don't match"
                 }
-
             }))
-            return false
+            return
         }
-
-        return (
-            ResetPassword.password.value.trim() !== ''
-        )
+        return true
     }
 
     // go to login page after password updated
@@ -177,8 +184,8 @@ function ResetPassword() {
                 setErrore("success")
                 setAlert(true)
                 setErrorMessage(res.data.message)
-                wait(2500)
                 setDisable(true)
+                wait(2500)
                 console.log(res.data);
             })
             .catch(function (error) {
@@ -255,13 +262,6 @@ function ResetPassword() {
                     Submit
                 </Button>
             </div>
-
-            {/* <div className='gridDive2'>
-                <div className='div1'></div>
-                <div className='div2'><span className='p2'>  .  </span></div>
-                <div className='div1'></div>
-            </div> */}
-
 
         </div>
     )

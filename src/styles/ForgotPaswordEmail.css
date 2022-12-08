@@ -16,14 +16,6 @@
     margin-left: 10px !important;
 }
 
-/* gridDiv */
-/* .gridDive2 {
-    display: flex;
-    align-items: center;
-    width: 50%;
-    margin-left: 110px;
-    margin-top: 30px;
-} */
 
 .forgot {
     max-width: 42rem; 
@@ -31,8 +23,17 @@
     padding-left: 40px; 
 }
 
-@media only screen and (min-width: 650px) {
+
+@media only screen and (max-width: 768px) {
     .forgot, .buttonStyle {
         max-width: 80rem;
+    }
+    .containers {
+        padding: 0;
+        width: 100%;
+        margin: 90px 0px 10px -20px;
+    }
+    .buttonStyle {
+        width: 93% !important;
     }
   }

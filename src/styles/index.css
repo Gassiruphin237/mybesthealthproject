@@ -4,10 +4,10 @@
     /* overflow: hidden; */
 }
 
-body, html {
+/* body, html {
 height: 100%;
 
-}
+} */
 
 .css-heg063-MuiTabs-flexContainer {
     width: 180px;
@@ -16,7 +16,8 @@ height: 100%;
 
 .indexStyle {
     max-width: 42rem; 
-    margin: 0 auto; 
+    margin: 0 auto;
+    padding-bottom: 60vh; 
 }
 
 @media only screen and (min-width: 650px) {
