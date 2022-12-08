@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route,Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import ForgotPaswordEmail from './pages/ForgotPaswordEmail'
 import ResetPassword from './pages/ResetPassword'
@@ -10,17 +10,17 @@ import './App.css'
 import Succes from './pages/registration/Succes';
 import StepContext from './StepContext';
 import AuthApi from './component/services/AuthApi';
-import Acceuil from './pages/Acceuil';
+import Acceuil from './Acceuil';
 
 
 
 function App() {
 
   return (
-      <div className='appStyle'>
-        <div className='routeStyle'>
+      <Router>
+        <div className='App'>
           <Routes>
-            <Route path="/" element={<Acceuil />} />
+            <Route path="/" element={<Acceuil/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<StepContext />} />
             <Route path="/succes" element={<Succes />} />
@@ -30,8 +30,7 @@ function App() {
             <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Routes>
         </div>
-        <Footer />
-      </div>
+      </Router>
   );
 }
 
