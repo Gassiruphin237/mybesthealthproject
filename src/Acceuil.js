@@ -1,12 +1,12 @@
-import React from 'react'
-import Navbar from '../component/nav/Navbar'
-import '../styles/home.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from './imgs/logo.svg';
 
-const Home = () => {
+const Acceuil = () => {
     return (
         <div className='body'>
             {/*Nav Bar*/ }
-            <nav className="navbar navbar-bg shadow fixed-top py-3 navbar-expand-lg ">
+            <nav className="navbar navbar-bg shadow  py-3 navbar-expand-lg ">
                 <div className="container">
                     <Link to='/' className="navbar-brand">
                         <img src={logo} alt="Avatar "  className=" logo rounded-pill"/>My<span>Best</span>Health
@@ -17,7 +17,7 @@ const Home = () => {
                     <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <a className="btn nav-link active" aria-current="page" href="#">Home</a>
+                            <Link className="btn nav-link active" aria-current="page" href="#">Home</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="btn nav-link" to="/Login">Sign In</Link>
@@ -58,4 +58,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Acceuil;

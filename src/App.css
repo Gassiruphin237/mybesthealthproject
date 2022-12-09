@@ -1,5 +1,35 @@
-body,
- html {
+/*
+.navbar{
+  position: absolute;
+  padding: 50px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #F1F1F1;
+  box-sizing: border-box;
+  position: fixed;
+}
+
+ .appStyle {
+   display: flex;
+   flex-direction: column;
    height: 100vh;
+   padding-top: 10px;
  }
 
+
+
+ .App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+ }
+
+ .center-stepper {
+  display: flex;
+  justify-content: center;
+ }
+ 
+ .App {
+  height: 100vh;
+ }

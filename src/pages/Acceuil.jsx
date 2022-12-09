@@ -1,8 +1,8 @@
-import React from 'react'
-import Navbar from '../component/nav/Navbar'
-import '../styles/home.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../imgs/logo.svg';
 
-const Home = () => {
+const Acceuil = () => {
     return (
         <div className='body'>
             {/*Nav Bar*/ }
@@ -58,4 +58,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Acceuil;
