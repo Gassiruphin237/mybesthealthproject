@@ -1,44 +1,72 @@
-*{
+/* *{
     margin: 0;
     padding: 0;
-}
+    overflow: hidden;
+} */
 
-/* header */
-.header {
-    text-align: center;
-    padding-bottom: 30px;
-}
+/* .container {
+    width: 100%;
+    padding: 25px;
+    height: fit-content;
+    margin: 10px auto;
+    */
 
-/* Catégorie*/
-.categorie {
-    padding: auto;
-    border-radius: 25px;
-}
+    /* background-color: red; */
+/* }
 
-.containers {
-    background-color: #ffffff;
+.blockContent {
+    width: 100%;
+     padding: 25px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto;
+     max-width: 42rem;
+
 }
 
 .Age-taille-poids {
-    display: flex;
-    margin: auto;
+   display: flex;
+   flex-direction: column;
+    justify-content: space-between;
     margin-top: 10px;
-    width: 500px;
 }
 
-.Age-taille-poids input {
-    width: 90%;
-    justify-content: space-around;
-} 
 
-.residence {
-    height: 30px;
-}
+
 
 .button {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin: auto;
     margin-top: 10px;
-    width: 500px;
-    justify-content: space-around;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
+
+.buttonStyle1 {
+   
+    margin-left: 10px ;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-size: 14px;
+    height: 30px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    margin-left: 10px !important;
+    width: 400px !important;
+}
+
+
+
+@media only screen and (min-width: 650px) {
+    .Age-taille-poids, .button {
+        flex-direction: row;
+    }
+  }
+   */
