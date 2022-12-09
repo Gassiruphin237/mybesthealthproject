@@ -9,7 +9,7 @@ const Acceuil = () => {
             <nav className="navbar navbar-bg shadow fixed-top py-3 navbar-expand-lg ">
                 <div className="container">
                     <Link to='/' className="navbar-brand">
-                        <img src={logo} alt="Avatar "  className=" logo rounded-pill"/>My<span>Best</span>Health
+                        <img src={logo} alt="Avatar "  className=" logo rounded-pill"/>My<span className='spanStyle'>Best</span>Health
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         Menu<span className="navbar-toggler-icon"></span>
@@ -36,7 +36,7 @@ const Acceuil = () => {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-7">
-                                <h1 className="display-4 mt-4">My <span>Best</span> Health</h1>
+                                <h1 className="display-4 mt-4">My <div className='spans'>Best</div> Health</h1>
                                 <p className='intro mb-5 mt-2'><i>
                                 MyBestHealth est une plateforme de suivi des malades chroniques et de la femme enceinte.
                                 Il permettra d’accompagner chaque patient dans son suivi pour un meilleur rendu sur sa santé.

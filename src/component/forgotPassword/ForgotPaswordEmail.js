@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import TextInput from '../forgotPassword/ForgotPaswordEmail'
+import TextInput from '../inputs/TextInput'
 import { Grid, Button, Alert, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import '../forgotPassword/ForgotPaswordEmail.css'
@@ -24,7 +24,7 @@ function ForgotPaswordEmail() {
     const [disable, setDisable] = React.useState(false)
 
 
-    // E-mail verification 
+    // // E-mail verification 
     const onChangeEmail = React.useCallback((val) => {
         if (val.trim() === '') {
             setEmail(state => ({
@@ -69,7 +69,7 @@ function ForgotPaswordEmail() {
         return true
     }
 
-    // Submitting button 
+    // // Submitting button 
     const onSubmit = React.useCallback((e) => {
         e.preventDefault();
         if (!validateAll()) {
@@ -83,7 +83,7 @@ function ForgotPaswordEmail() {
             // Use Api to talk with database
             axios.post('http://172.17.4.96:8000/api/forgot', data)
                 .then(function (res) {
-                    if (res.data.message) {
+                    if (res.status == 200) {
                         console.log(res.data.message)
                         setEmail(state => ({
                             ...state,
@@ -93,14 +93,14 @@ function ForgotPaswordEmail() {
 
                         setErrore("success")
                         setAlert(true)
-                        setErrorMessage(res.data.message)
+                        setErrorMessage(res.data.status)
                         setDisable(true)
                         Email.value = ""
                     }
-                    console.log(res.data.message);
+                    console.log(res);
                 })
                 .catch(function (error) {
-
+                    console.log(error)
                     setErrore("error")
                     setAlert(true)
                     setErrorMessage(error.response.data.message)
@@ -112,39 +112,36 @@ function ForgotPaswordEmail() {
 
 
     return (
-        <div className='containers'>
-            <Grid align='center'>
-                <img src='./assets/logo.png' alt='logo' className='logoStyle' />
-                <h1>Forgot password ?</h1>
-
-
-                {
-                    !alert ? null
-                        : (
-                            <Alert
-                                severity={errore}
-                                onChange={(e) => setErrorMessage(e.target.value)}
-                                action={
-                                    <IconButton
-                                        aria-label="close"
-                                        color="inherit"
-                                        size="small"
-                                        onClick={() => {
-                                            setAlert(false);
-                                        }}
-                                    >
-                                        <CloseIcon fontSize="inherit" />
-                                    </IconButton>
-                                }
-                            >
-                                {errorMessage}</Alert>
-                        )
-                }
-
-            </Grid>
+        <div className='container'>
             <form onSubmit={onSubmit} ref={form}>
                 <div className='forgot'>
-                    <div >
+                    <div className='input' >
+                        <img src='./assets/logo.png' alt='logo' className='logoStyle' />
+                        <h1>Forgot password ?</h1>
+                        {
+                            !alert ? null
+                                : (
+                                    <Alert
+                                        style={{ width: 380 }}
+                                        severity={errore}
+                                        onChange={(e) => setErrorMessage(e.target.value)}
+                                        action={
+                                            <IconButton
+                                                aria-label="close"
+                                                color="inherit"
+                                                size="small"
+                                                onClick={() => {
+                                                    setAlert(false);
+                                                }}
+                                            >
+                                                <CloseIcon fontSize="inherit" />
+                                            </IconButton>
+                                        }
+                                    >
+                                        {errorMessage}   </Alert>
+                                )
+                        }
+
                         <TextInput
                             name='user_email'
                             label='Email'
@@ -155,8 +152,6 @@ function ForgotPaswordEmail() {
                             helperText={Email.helperText}
                             onValueChange={onChangeEmail}
                         />
-                    </div>
-                    <div>
                         <Button
                             variant="contained"
                             type='submit'
@@ -171,6 +166,7 @@ function ForgotPaswordEmail() {
             </form>
         </div>
     )
+
 }
 
 export default ForgotPaswordEmail

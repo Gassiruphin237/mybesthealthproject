@@ -188,8 +188,8 @@ function ResetPassword() {
                 setDisable(true)
                 wait(2500)
                 console.log(res.data);
-                
-                
+
+
             })
             .catch(function (error) {
                 setErrore("warning")
@@ -203,36 +203,34 @@ function ResetPassword() {
 
     return (
         <div className='containers'>
-            <Grid align='center'>
-                <img src='../assets/logo.png' alt='logo' className='logoStyle' />
-                <h1>Reset password</h1>
-
-                {
-                    !alert ? null
-                        : (
-                            <Alert
-                                severity={errore}
-                                onChange={(e) => setErrorMessage(e.target.value)}
-                                action={
-                                    <IconButton
-                                        aria-label="close"
-                                        color="inherit"
-                                        size="small"
-                                        onClick={() => {
-                                            setAlert(false);
-                                            wait()
-                                        }}
-                                    >
-                                        <CloseIcon fontSize="inherit" />
-                                    </IconButton>
-                                }
-                            >
-                                {errorMessage}</Alert>
-                        )
-                }
-            </Grid>
             <div className='forgot'>
-                <div >
+                <div className='input'  >
+                    <img src='../assets/logo.png' alt='logo' className='logoStyle' />
+                    <h1>Reset password</h1>
+
+                    {
+                        !alert ? null
+                            : (
+                                <Alert
+                                    severity={errore}
+                                    onChange={(e) => setErrorMessage(e.target.value)}
+                                    action={
+                                        <IconButton
+                                            aria-label="close"
+                                            color="inherit"
+                                            size="small"
+                                            onClick={() => {
+                                                setAlert(false);
+                                                wait()
+                                            }}
+                                        >
+                                            <CloseIcon fontSize="inherit" />
+                                        </IconButton>
+                                    }
+                                >
+                                    {errorMessage}</Alert>
+                            )
+                    }
                     <TextInput
                         label='New password'
                         type='password'
@@ -242,8 +240,7 @@ function ResetPassword() {
                         placeholder={'Enter new password'}
                         onValueChange={onPasswordChange}
                     />
-                </div>
-                <div >
+
                     <TextInput
                         label='Confirm new password'
                         type='password'
@@ -253,17 +250,19 @@ function ResetPassword() {
                         placeholder={'confirm new password'}
                         onValueChange={onConfirmPasswordChange}
                     />
+
+                    <Button
+                        variant="contained"
+                        type='submit'
+                        className='buttonStyle'
+                        disabled={disable}
+                        fullWidth
+                        onClick={onSubmit}
+                    >
+                        Submit
+                    </Button>
                 </div>
-                <Button
-                    variant="contained"
-                    type='submit'
-                    className='buttonStyle'
-                    disabled={disable}
-                    fullWidth
-                    onClick={onSubmit}
-                >
-                    Submit
-                </Button>
+
             </div>
 
         </div>
