@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/TextInput.css'
+import './TextInput.css'
 
 function SelectInput({name,label, type, value, placeholder, onValueChange, error=false, helperText, options}) {
   return (

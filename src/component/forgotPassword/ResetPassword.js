@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import TextInput from '../component/TextInput'
+import TextInput from '../inputs/TextInput'
 import { Grid, Button, Alert, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
-import '../styles/ForgotPaswordEmail.css'
+import '../forgotPassword/ForgotPaswordEmail.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import validator from 'validator'
 import axios from 'axios'
@@ -181,15 +181,18 @@ function ResetPassword() {
         // Use Api to talk with database
         await axios.post('http://172.17.4.96:8000/api/reset', data)
             .then(function (res) {
+                console.log(res)
                 setErrore("success")
                 setAlert(true)
                 setErrorMessage(res.data.message)
                 setDisable(true)
                 wait(2500)
                 console.log(res.data);
+                
+                
             })
             .catch(function (error) {
-                setErrore("error")
+                setErrore("warning")
                 setAlert(true)
                 setErrorMessage(error.response.data.message)
                 console.log(error);

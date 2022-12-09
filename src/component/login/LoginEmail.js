@@ -1,11 +1,12 @@
 import React from 'react'
-import { Grid, Link, Button, Typography } from '@mui/material'
-import TextInput from './TextInput'
+import { Link, Button, Typography } from '@mui/material'
+import TextInput from '../inputs/TextInput'
 import validator from "validator"
-import { accountService } from './services/account.service'
+import { accountService } from '../services/account.service'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import '../styles/Login.css'
+import '../login/Login.css'
+
 
 export default function LoginEmail() {
 

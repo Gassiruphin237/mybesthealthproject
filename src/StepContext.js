@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Register from './pages/registration/Register'
+import Register from './component/register/registerContainer/Register'
 
 const DEFAULT_VALUE = {
   value: '',

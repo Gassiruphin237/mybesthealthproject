@@ -1,14 +1,14 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Login from './pages/Login';
-import Footer from './component/nav/Footer'
-import ForgotPaswordEmail from './pages/ForgotPaswordEmail'
-import ResetPassword from './pages/ResetPassword'
+import Login from './component/login/loginContainer/Login'
+import Footer from './component/footer/Footer'
+import ForgotPaswordEmail from './component/forgotPassword/ForgotPaswordEmail'
+import ResetPassword from './component/forgotPassword/ResetPassword'
 import Account from './pages/Account';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
 import './App.css'
-import Succes from './pages/registration/Succes';
+import Succes from './component/register/registerStep/Succes';
 import StepContext from './StepContext';
 import AuthApi from './component/services/AuthApi';
 

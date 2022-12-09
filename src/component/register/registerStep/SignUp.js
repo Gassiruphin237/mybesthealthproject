@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import { Grid, Typography, Link, Button, Radio, } from '@mui/material'
-import '../styles/SignUp.css'
-import TextInput from '../component/TextInput'
+import { Grid, Button, Radio, } from '@mui/material'
+import './SignUp.css'
+import TextInput from '../../inputs/TextInput'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
 import validator from 'validator'
-import { multiStepContext } from '../StepContext';
+import { multiStepContext } from '../../../StepContext';
 import SendIcon from '@mui/icons-material/Send';
 
 
@@ -279,7 +279,7 @@ function SignUp() {
     }, [setStep, validateAll])
 
     return (
-        <div className='container'>
+        <div className='containers' align='center'>
             <div className='blockContent'>
                 {/* Entete, logo et message d'entete */}
                 <Grid align='center'>
@@ -370,13 +370,13 @@ function SignUp() {
                 </div>
 
                 {/* Gender */}
-                <div>
+                <div className='genderStyle'>
                     <FormLabel>Gender</FormLabel>
                     <RadioGroup
                         value={usersData.gender.value}
                         onChange={onGenderChange}
                     >
-                        <div /*className='genderStyle'*/>
+                        <div className='genderStyle2' >
                             <FormControlLabel value={'F'} control={<Radio />} label="Female" />
                             <FormControlLabel value={'M'} control={<Radio />} label="Male" />
                         </div>

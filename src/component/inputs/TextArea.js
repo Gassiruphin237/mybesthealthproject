@@ -1,6 +1,6 @@
 import { TextareaAutosize } from '@mui/material'
 import React from 'react'
-import '../styles/TextInput.css'
+import './TextInput.css'
 
 function TextArea({ label, value, placeholder, onValueChange, error = false, helperText }) {
   return (

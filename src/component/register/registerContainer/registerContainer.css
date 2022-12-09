@@ -1,0 +1,21 @@
+.appStyle {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding-top: 10px;
+  }
+ 
+  .App-header {
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
+  }
+ 
+  .center-stepper {
+   display: flex;
+   justify-content: center;
+  }
+  
+  .registerContainer {
+   height: 100vh;
+  }

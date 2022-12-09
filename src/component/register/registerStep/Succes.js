@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Button, FormControlLabel, Checkbox } from '@mui/material'
-import { multiStepContext } from '../../StepContext'
+import { multiStepContext } from '../../../StepContext'
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
 
@@ -53,14 +53,14 @@ function Succes() {
         nbreFausseCouche: usersData.nbreFausseCouche.value,
       }
 
-      // axios.post('http://172.17.4.96:8000/api/register/', data)
-      //   .then(function (res) {
-      //     console.log(res)
+      axios.post('http://172.17.4.96:8000/api/register/', data)
+        .then(function (res) {
+          console.log(res)
 
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   })
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
 
 
 
@@ -77,7 +77,7 @@ function Succes() {
   console.log('Keys tables  : ', keys)
 
   return (
-    <div className='container'>
+    <div className='containers'>
       <h1>Succes page</h1>
 
       <div>

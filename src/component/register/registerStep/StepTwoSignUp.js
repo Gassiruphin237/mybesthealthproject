@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Grid } from '@mui/material'
-import TextInput from '../component/TextInput'
+import TextInput from '../../inputs/TextInput'
 import validator from 'validator'
-import '../styles/SignUp.css'
-import SelectInput from '../component/SelectInput'
-import axios from 'axios'
+import './SignUp.css'
+import SelectInput from '../../inputs/SelectInput'
 import { Button } from '@mui/material'
-import { multiStepContext } from '../StepContext'
+import { multiStepContext } from '../../../StepContext'
 import SendIcon from '@mui/icons-material/Send';
+import axios from 'axios'
 
 
 // initialisation des sanguins
@@ -304,9 +304,9 @@ function StepTwoSignUp() {
     // RETURN MAIN
 
     return (
-        <div className='container'>
-            <div className='blockContent'>
-                <Grid align='center'>
+        <div className='containers' align='center'>
+            <div className='blockContent' >
+                <Grid >
                     <img src='./assets/logo.png' alt='logo' className='logoStyle' />
                     <h1> Sign up </h1>
                     <span>Welcome, create your account now and get free online assistance with best doctors of mybesthealth</span>

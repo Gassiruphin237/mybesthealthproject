@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
-import TextInput from '../component/TextInput'
+import TextInput from '../forgotPassword/ForgotPaswordEmail'
 import { Grid, Button, Alert, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
-import '../styles/ForgotPaswordEmail.css'
+import '../forgotPassword/ForgotPaswordEmail.css'
 import validator from 'validator'
 import axios from 'axios'
 

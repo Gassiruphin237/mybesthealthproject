@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import SignUp from '../SignUp'
-import StepTwoSignUp from '../StepTwoSignUp'
-import Succes from './Succes'
+import SignUp from '../registerStep/SignUp'
+import StepTwoSignUp from '../registerStep/StepTwoSignUp'
+import Succes from '../registerStep/Succes'
 import { Stepper, StepLabel, Step } from '@mui/material'
-import { multiStepContext } from '../../StepContext'
+import { multiStepContext } from '../../../StepContext'
+import './registerContainer.css'
 
 
 
@@ -23,7 +24,7 @@ function Register() {
     }
 
     return (
-        <div className='App'>
+        <div className='registerContainer'>
             <header className='App-header'>
                 <div className="center-stepper">
                     <Stepper style={{ width: '50%'}} activeStep={currentStep - 1} orientation="horizontal" >

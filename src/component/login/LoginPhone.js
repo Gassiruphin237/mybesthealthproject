@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Link, Typography, Button } from '@mui/material'
-import TextInput from './TextInput'
-import '../styles/Login.css'
+import TextInput from '../inputs/TextInput'
+import '../login/Login.css'
 import validator from 'validator'
 import axios from 'axios'
 

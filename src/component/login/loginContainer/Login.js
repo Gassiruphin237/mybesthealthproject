@@ -1,8 +1,8 @@
 import React from 'react'
 import { Tabs, Tab, Typography, Box, Grid } from '@mui/material'
-import '../styles/index.css'
-import LoginEmail from '../component/LoginEmail';
-import LoginPhone from '../component/LoginPhone';
+import './index.css'
+import LoginEmail from '../LoginEmail';
+import LoginPhone from '../LoginPhone';
 
 function Login() {
 

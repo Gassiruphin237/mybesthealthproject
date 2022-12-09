@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from '../component/nav/Navbar'
-import '../styles/home.css'
 
 function Home() {
   return (

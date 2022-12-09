@@ -2,6 +2,7 @@ import React from 'react'
 import { AppBar, Toolbar, Typography, Button, Avatar, Stack } from '@mui/material';
 import logo from '../../assets/logo.png'
 import { accountService } from '../services/account.service';
+import './navbar.css'
 
 function Navbar() {
 
